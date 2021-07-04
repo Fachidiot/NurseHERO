@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1002502362",
+    "project_id": "nursehro",
+    "storage_bucket": "nursehro.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1002502362:android:4a4c7c5f992652a62bcde3",
+        "android_client_info": {
+          "package_name": "com.fachidiot.nursehro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1002502362-cb1qsfro145a6jnrb1eb6q2eh5hql1hp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYlJgSvduNN1AiWCids8NgeNRShHLQqfo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1002502362-cb1qsfro145a6jnrb1eb6q2eh5hql1hp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
