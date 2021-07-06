@@ -30,7 +30,7 @@
             android:src="@drawable/icon_friends_dark" />
     </RelativeLayout>
     <RelativeLayout
-        android:id="@+id/xml_btmnv_btn_search"
+        android:id="@+id/xml_btmnv_btn_chat"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
@@ -42,7 +42,7 @@
             android:src="@drawable/icon_chat_dark" />
     </RelativeLayout>
     <RelativeLayout
-        android:id="@+id/xml_btmnv_btn_chat"
+        android:id="@+id/xml_btmnv_btn_search"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">

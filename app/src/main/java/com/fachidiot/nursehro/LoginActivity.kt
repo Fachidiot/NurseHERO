@@ -1,29 +1,37 @@
 package com.fachidiot.nursehro
 
-import android.content.DialogInterface
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.facebook.AccessToken
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.login.LoginManager
+import com.facebook.login.LoginResult
+import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_register.*
-import javax.security.auth.login.LoginException
+import java.util.*
+
 
 class LoginActivity : AppCompatActivity() {
 
-    var mFirebaseAuth : FirebaseAuth? = null
+    lateinit var mFirebaseAuth : FirebaseAuth
+    lateinit var mCallbackManager: CallbackManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
         mFirebaseAuth = FirebaseAuth.getInstance()
+        mCallbackManager = CallbackManager.Factory.create()
 
         // 1. 값을 가져온다 - 검사 ( Test@gmail.com / admin )
         // 2. 클릭을 감지한다
@@ -38,77 +46,46 @@ class LoginActivity : AppCompatActivity() {
             loginEmail()
         })
 
-        // 1. 값을 가져온다 - 검사 ( Test@gmail.com / admin )
-        // 2. 클릭을 감지한다
-        // 3. 1번의 값을 다음 화면으로 넘긴다
-        //RelativeLayout_Login.setClickable(false)
-        //TextInputEditText_Email.addTextChangedListener(object : TextWatcher {
-        //    override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-        //    override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-        //        Log.d("Fach", "$s,$count")
-        //        if (s != null) ine = s.toString()
-        //        RelativeLayout_Login.setClickable(validation())
-        //    }
-//
-        //    override fun afterTextChanged(s: Editable) {
-        //        if (RelativeLayout_Login.isClickable()) {
-        //            RelativeLayout_Login.setOnClickListener(View.OnClickListener {
-        //                val Email: String = TextInputEditText_Email.getText().toString()
-        //                val Password: String = TextInputEditText_Password.getText().toString()
-        //                val intent = Intent(this@LoginActivity, MainActivity::class.java)
-        //                intent.putExtra("email", Email)
-        //                intent.putExtra("password", Password)
-        //                startActivity(intent)
-        //            })
-        //        }
-        //    }
-        //})
-//
-        //TextInputEditText_LoginPassword.addTextChangedListener(object : TextWatcher {
-        //    override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-        //    override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-        //        Log.d("Fach", "$s,$count")
-        //        if (s != null) inp = s.toString()
-        //        RelativeLayout_Login.setClickable(validation())
-        //    }
-//
-        //    override fun afterTextChanged(s: Editable) {
-        //        if (RelativeLayout_Login.isClickable()) {
-        //            RelativeLayout_Login.setOnClickListener(View.OnClickListener {
-        //                val Email: String = TextInputEditText_Email.getText().toString()
-        //                val Password: String = TextInputEditText_Password.getText().toString()
-        //                val intent = Intent(this@LoginActivity, MainActivity::class.java)
-        //                intent.putExtra("email", Email)
-        //                intent.putExtra("password", Password)
-        //                startActivity(intent)
-        //            })
-        //        }
-        //    }
-        //})
+        RelativeLayout_LoginwithFacebook.setOnClickListener(View.OnClickListener {
+            loginFacebook()
+        })
+
+        if(MySharedPreferences.getAutoLogin)
+        if(MySharedPreferences.getUserId(this).isNullOrBlank() || MySharedPreferences.getUserPW(this).isNullOrBlank()) {
+            Toast.makeText(this, "Auto Authentication failed", Toast.LENGTH_SHORT).show()
+        }
+        else {
+            Toast.makeText(this, "Auto Authentication success", Toast.LENGTH_SHORT).show()
+            loginSuccess(true)
+        }
 
     }
 
+    override fun onStart() {
+        // 로그인 되어있는 유저를 확인함
+        super.onStart()
+
+    }
+
+
+
+
+
+
     private fun loginEmail() {
-        if(TextInputEditText_LoginEmail.text.toString().isEmpty())
-        {
-            val builder = AlertDialog.Builder(this)
-            builder.setTitle("Check the Email")
-            builder.setPositiveButton(
-                "ok"
-            ) { dialogInterface: DialogInterface?, i: Int -> }
-            builder.setCancelable(false)
-            builder.show()
+        if(TextInputEditText_LoginEmail.text.toString().isEmpty()) {
+            Toast.makeText(this, "Check the Email", Toast.LENGTH_SHORT).show()
+            TextInputEditText_LoginEmail.setError("you must set your email")
+            return
+        } else if (!TextInputEditText_LoginEmail.text.toString().contains("@")) {
+            Toast.makeText(this, "Wrong Type Email", Toast.LENGTH_SHORT).show()
+            TextInputEditText_LoginEmail.setError("you must set right email")
             return
         }
         else if(TextInputEditText_LoginPassword.text.toString().isEmpty())
         {
-            val builder = AlertDialog.Builder(this)
-            builder.setTitle("Check the Password")
-            builder.setPositiveButton(
-                "ok"
-            ) { dialogInterface: DialogInterface?, i: Int -> }
-            builder.setCancelable(false)
-            builder.show()
+            Toast.makeText(this, "Check the Password", Toast.LENGTH_SHORT).show()
+            TextInputEditText_LoginPassword.setError("you must set your password")
             return
         }
         mFirebaseAuth!!.signInWithEmailAndPassword(TextInputEditText_LoginEmail.text.toString(), TextInputEditText_LoginPassword.text.toString())
@@ -118,21 +95,101 @@ class LoginActivity : AppCompatActivity() {
             if (it.isSuccessful) {
                 Toast.makeText(this, "signInWithEmail Success", Toast.LENGTH_SHORT).show()
 
-                val intent = Intent(this, MainActivity::class.java)
-                intent.putExtra("email", TextInputEditText_LoginEmail.text.toString())
-                intent.putExtra("password", TextInputEditText_LoginPassword.text.toString())
-                startActivity(intent)
-
                 val user = mFirebaseAuth?.currentUser
-
+                loginSuccess(CheckBox_AutoLogin.isChecked)
             } else {
                 Toast.makeText(this, "signInWithEmail Failed", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
+    private fun loginFacebook() {
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email"))
+        LoginManager.getInstance().registerCallback(mCallbackManager, object:FacebookCallback<LoginResult> {
 
-    //fun validation(): Boolean {
-    //    return eok == ine && pok == inp // java에서는 (ㅈ같은) 문자열 비교시 ==로 하면 안된다!!
+            override fun onSuccess(result: LoginResult?) {
+                // Facebook 로그인 성공
+                handleFacebookAccessToken(result?.accessToken)
+                Toast.makeText(this@LoginActivity, "Facebook Authentication success", Toast.LENGTH_SHORT).show()
+                loginSuccess(CheckBox_AutoLogin.isChecked)
+            }
+            override fun onCancel() {
+                // Facebook 로그인 취소
+                Toast.makeText(this@LoginActivity, "Facebook Authentication canceled", Toast.LENGTH_SHORT).show()
+            }
+            override fun onError(error: FacebookException) {
+                // Facebook 로그인 실패
+                Toast.makeText(this@LoginActivity, "Facebook Authentication failed", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    fun logOut() {
+        mFirebaseAuth.signOut()
+        LoginManager.getInstance().logOut()
+        Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun loginSuccess(autologin: Boolean) {
+        if(autologin) {
+            MySharedPreferences.setUserId(this, TextInputEditText_LoginEmail.text.toString())
+            MySharedPreferences.setUserPW(this, TextInputEditText_LoginPassword.text.toString())
+
+            val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("email", MySharedPreferences.getUserId(this))
+            startActivity(intent)
+        } else {
+            MySharedPreferences.setUserId(this, "")
+            MySharedPreferences.setUserPW(this, "")
+
+            val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("email", MySharedPreferences.getUserId(this))
+            startActivity(intent)
+        }
+    }
+
+
+
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        mCallbackManager?.onActivityResult(requestCode, resultCode, data)
+        // onActivityResult에서는 callbackManager에 로그인 결과를 넘겨줍니다
+        // 여기에 callbackMAnager?.onActivityResult가 있어야 onSuccess를 호출할 수 있습니다
+    }
+
+    private fun handleFacebookAccessToken(token: AccessToken?) {
+        Log.d("MainActivity", "handleFacebookAccessToken:$token")
+        if(token != null) {
+            val credential = FacebookAuthProvider.getCredential(token.token)
+            mFirebaseAuth.signInWithCredential(credential).addOnCompleteListener(this) { task->
+                if (task.isSuccessful) {
+                    Log.d("MainActivity", "SignInWithCredential:Success")
+                    val user = mFirebaseAuth.currentUser
+                }else {
+                    Log.w("MainActivity", "SignInWithCredential:Failure", task.exception)
+                    Toast.makeText(this, "Authentication failed", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+
+    //fun printHashKey() {
+    //    try {
+    //        val info: PackageInfo = packageManager
+    //            .getPackageInfo(packageName, PackageManager.GET_SIGNATURES)
+    //        for (signature in info.signatures) {
+    //            val md: MessageDigest = MessageDigest.getInstance("SHA")
+    //            md.update(signature.toByteArray())
+    //            val hashKey: String = String(Base64.encode(md.digest(), 0))//Android.util의 Base64를 import 해주시면 됩니다.
+    //            Log.i("facebookLogin", "printHashKey() Hash Key: $hashKey")
+    //        }
+    //    } catch (e: NoSuchAlgorithmException) {
+    //        Log.e("facebookLogin", "printHashKey()", e)
+    //    } catch (e: Exception) {
+    //        Log.e("facebookLogin", "printHashKey()", e)
+    //    }
     //}
 }
