@@ -6,137 +6,134 @@
     android:layout_height="match_parent"
     tools:context="com.fachidiot.nursehro.Fragment.FragmentMainProfile">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
-
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginTop="20dp"
-            android:src="@drawable/icon_profile_dark" />
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:orientation="vertical"
-            android:paddingHorizontal="30dp"
-            android:weightSum="5"
-            >
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <TextView
+            <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Name"
-                android:textSize="25sp"
-                android:fontFamily="@font/vtrocore"
-                android:layout_weight="1"
-                />
-            <TextView
+                android:layout_height="100dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/icon_profile_dark" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="PhoneNumber"
-                android:textSize="25sp"
-                android:fontFamily="@font/vtrocore"
-                android:layout_weight="1"
-                />
-            <TextView
+                android:layout_height="400dp"
+                android:orientation="vertical"
+                android:paddingHorizontal="30dp"
+                android:weightSum="5">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/vtrocore"
+                    android:gravity="center"
+                    android:text="Name"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/vtrocore"
+                    android:gravity="center"
+                    android:text="PhoneNumber"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/vtrocore"
+                    android:gravity="center"
+                    android:text="License"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/vtrocore"
+                    android:gravity="center"
+                    android:text="Location"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/vtrocore"
+                    android:gravity="center"
+                    android:text="State"
+                    android:textSize="25sp" />
+
+            </LinearLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/btn_blue"
+                android:clickable="true"
                 android:gravity="center"
-                android:text="License"
-                android:textSize="25sp"
-                android:fontFamily="@font/vtrocore"
-                android:layout_weight="1"
-                />
-            <TextView
+
+                >
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="50dp"
+                    android:background="@null"
+                    android:gravity="center"
+                    android:src="@drawable/icon_profile" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:fontFamily="@font/vtrocore"
+                    android:gravity="center"
+                    android:stateListAnimator="@null"
+                    android:text="Change Profile"
+                    android:textColor="#ffffff" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/RelativeLayout_LogOut"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Location"
-                android:textSize="25sp"
-                android:fontFamily="@font/vtrocore"
-                android:layout_weight="1"
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="State"
-                android:textSize="25sp"
-                android:fontFamily="@font/vtrocore"
-                android:layout_weight="1"
-                />
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/btn_blue"
+                android:clickable="true"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="50dp"
+                    android:background="@null"
+                    android:gravity="center"
+                    android:src="@drawable/icon_profile" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:fontFamily="@font/vtrocore"
+                    android:gravity="center"
+                    android:stateListAnimator="@null"
+                    android:text="LogOut"
+                    android:textColor="#ffffff" />
+            </RelativeLayout>
 
         </LinearLayout>
-
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:gravity="center"
-            android:background="@drawable/btn_blue"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="40dp"
-            android:clickable="true"
-
-            >
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:background="@null"
-                android:src="@drawable/icon_profile"
-                android:gravity="center"
-                android:layout_marginLeft="50dp"
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:textColor="#ffffff"
-                android:stateListAnimator="@null"
-                android:gravity="center"
-                android:text="Change Profile"
-                android:fontFamily="@font/vtrocore"
-                />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:gravity="center"
-            android:background="@drawable/btn_blue"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="40dp"
-            android:clickable="true">
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:background="@null"
-                android:src="@drawable/icon_profile"
-                android:gravity="center"
-                android:layout_marginLeft="50dp"
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:textColor="#ffffff"
-                android:stateListAnimator="@null"
-                android:gravity="center"
-                android:text="Apply"
-                android:fontFamily="@font/vtrocore"
-                />
-        </RelativeLayout>
-
-
-
-    </LinearLayout>
+    </ScrollView>
 
 
 </FrameLayout>
