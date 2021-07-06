@@ -28,68 +28,20 @@ class RegisterActivity : AppCompatActivity() {
         mDatabaseRef = FirebaseDatabase.getInstance().getReference()
 
         RelativeLayout_Register.setOnClickListener {
-            if (!CheckBox_Policy.isChecked)
+            if (TextInputLayout_FirstName.text.toString().isEmpty() || TextInputLayout_LastName.text.toString().isEmpty())
+                Toast.makeText(this, "Check Name", Toast.LENGTH_SHORT).show()
+            else if (TextInputEditText_Email.text.toString().isEmpty())
+                Toast.makeText(this, "Check Email", Toast.LENGTH_SHORT).show()
+            else if (TextInputEditText_Password.text.toString().isEmpty() || TextInputEditText_Comfirm_Password.text.toString().isEmpty())
+                Toast.makeText(this, "Check Password.", Toast.LENGTH_SHORT).show()
+            else if (TextInputEditText_Password.text.toString() != TextInputEditText_Comfirm_Password.text.toString())
+                Toast.makeText(this, "Password incorrect with Comfirm Password.", Toast.LENGTH_SHORT).show()
+            else if (!CheckBox_Policy.isChecked)
                 Toast.makeText(this, "Please Check the Checkbox", Toast.LENGTH_SHORT).show()
-            else if (TextInputEditText_Password.text.toString() == TextInputEditText_Comfirm_Password.text.toString())
-                CreateEmail()
             else
-                Toast.makeText(this, "Check Password or Comfirm Password.", Toast.LENGTH_SHORT)
-                    .show()
+                CreateEmail()
         }
-
-        //RelativeLayout_Register.setOnClickListener {
-        //
-        //
-        //    // 회원가입 처리 시작
-        //    val strEmail: String = TextInputEditText_Email.toString()
-        //    val strPwd: String = TextInputEditText_Password.toString()
-//
-        //    // Firebase Auth 진행
-        //    mFirebaseAuth.createUserWithEmailAndPassword(strEmail, strPwd).addOnCompleteListener(this, OnCompleteListener<AuthResult>){
-//
-        //    }
-        //}
-//
-        //FirebaseAuth.getInstance()
-        //val mDatabaseRef : DatabaseReference
-        //if(CheckBox_Policy.isChecked)
-        //{
-        //    if(TextInputEditText_Password == TextInputEditText_Comfirm_Password)
-        //    {
-        //        if(CheckInfo(TextInputEditText_Email.toString())) {
-        //            RelativeLayout_Register.setOnClickListener {
-        //                val intent = Intent(this, RegisterSuccessActivity::class.java)
-        //                startActivity(intent)
-        //            }
-        //        }
-        //    }
-//
-        //}
-
-
     }
-
-    //fun CheckInfo(stremail: String): Boolean {
-    //    var arr = Array<String>(64,{""})
-    //    arr = stremail.split("").toTypedArray()
-    //    val count = find<String>(arr, "@")
-    //    if(count < 0)
-    //        return false
-    //    var sliceArr = Array<String>(32,{""})
-    //    sliceArr = arr.sliceArray(count..arr.size-count)
-    //    when(sliceArr.toString()){
-    //        "gmail.com"->return true
-    //        "naver.com"->return true
-    //    }
-    //    return false
-    //}
-//
-    //fun <T> find(a: Array<String>, Target: T): Int {
-    //    for (i in a.indices) {
-    //        if (a[i] == Target) return i
-    //    }
-    //    return -1
-    //}
 
     private fun CreateEmail(){
         val asdf1 = TextInputEditText_Email.text.toString()

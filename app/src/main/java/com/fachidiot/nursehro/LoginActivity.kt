@@ -38,77 +38,23 @@ class LoginActivity : AppCompatActivity() {
             loginEmail()
         })
 
-        // 1. 값을 가져온다 - 검사 ( Test@gmail.com / admin )
-        // 2. 클릭을 감지한다
-        // 3. 1번의 값을 다음 화면으로 넘긴다
-        //RelativeLayout_Login.setClickable(false)
-        //TextInputEditText_Email.addTextChangedListener(object : TextWatcher {
-        //    override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-        //    override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-        //        Log.d("Fach", "$s,$count")
-        //        if (s != null) ine = s.toString()
-        //        RelativeLayout_Login.setClickable(validation())
-        //    }
-//
-        //    override fun afterTextChanged(s: Editable) {
-        //        if (RelativeLayout_Login.isClickable()) {
-        //            RelativeLayout_Login.setOnClickListener(View.OnClickListener {
-        //                val Email: String = TextInputEditText_Email.getText().toString()
-        //                val Password: String = TextInputEditText_Password.getText().toString()
-        //                val intent = Intent(this@LoginActivity, MainActivity::class.java)
-        //                intent.putExtra("email", Email)
-        //                intent.putExtra("password", Password)
-        //                startActivity(intent)
-        //            })
-        //        }
-        //    }
-        //})
-//
-        //TextInputEditText_LoginPassword.addTextChangedListener(object : TextWatcher {
-        //    override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-        //    override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-        //        Log.d("Fach", "$s,$count")
-        //        if (s != null) inp = s.toString()
-        //        RelativeLayout_Login.setClickable(validation())
-        //    }
-//
-        //    override fun afterTextChanged(s: Editable) {
-        //        if (RelativeLayout_Login.isClickable()) {
-        //            RelativeLayout_Login.setOnClickListener(View.OnClickListener {
-        //                val Email: String = TextInputEditText_Email.getText().toString()
-        //                val Password: String = TextInputEditText_Password.getText().toString()
-        //                val intent = Intent(this@LoginActivity, MainActivity::class.java)
-        //                intent.putExtra("email", Email)
-        //                intent.putExtra("password", Password)
-        //                startActivity(intent)
-        //            })
-        //        }
-        //    }
-        //})
 
     }
 
     private fun loginEmail() {
-        if(TextInputEditText_LoginEmail.text.toString().isEmpty())
-        {
-            val builder = AlertDialog.Builder(this)
-            builder.setTitle("Check the Email")
-            builder.setPositiveButton(
-                "ok"
-            ) { dialogInterface: DialogInterface?, i: Int -> }
-            builder.setCancelable(false)
-            builder.show()
+        if(TextInputEditText_LoginEmail.text.toString().isEmpty()) {
+            Toast.makeText(this, "Check the Email", Toast.LENGTH_SHORT).show()
+            TextInputEditText_LoginEmail.setError("you must set your email")
+            return
+        } else if (!TextInputEditText_LoginEmail.text.toString().contains("@")) {
+            Toast.makeText(this, "Wrong Type Email", Toast.LENGTH_SHORT).show()
+            TextInputEditText_LoginEmail.setError("you must set right email")
             return
         }
         else if(TextInputEditText_LoginPassword.text.toString().isEmpty())
         {
-            val builder = AlertDialog.Builder(this)
-            builder.setTitle("Check the Password")
-            builder.setPositiveButton(
-                "ok"
-            ) { dialogInterface: DialogInterface?, i: Int -> }
-            builder.setCancelable(false)
-            builder.show()
+            Toast.makeText(this, "Check the Password", Toast.LENGTH_SHORT).show()
+            TextInputEditText_LoginPassword.setError("you must set your password")
             return
         }
         mFirebaseAuth!!.signInWithEmailAndPassword(TextInputEditText_LoginEmail.text.toString(), TextInputEditText_LoginPassword.text.toString())
@@ -124,6 +70,7 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(intent)
 
                 val user = mFirebaseAuth?.currentUser
+
 
             } else {
                 Toast.makeText(this, "signInWithEmail Failed", Toast.LENGTH_SHORT).show()
