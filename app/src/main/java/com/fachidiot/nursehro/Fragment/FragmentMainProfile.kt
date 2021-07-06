@@ -1,11 +1,16 @@
 package com.fachidiot.nursehro.Fragment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import com.facebook.login.LoginManager
+import com.fachidiot.nursehro.LoginActivity
 import com.fachidiot.nursehro.R
+import kotlinx.android.synthetic.main.fragment_main_profile.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,6 +29,8 @@ class FragmentMainProfile : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -36,6 +43,24 @@ class FragmentMainProfile : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_main_profile, container, false)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        RelativeLayout_LogOut.setOnClickListener {
+            logOut()
+        }
+
+    }
+
+    private fun logOut() {
+        (activity as LoginActivity).logOut()
+
+        activity?.let {
+            val intent = Intent(context, LoginActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     companion object {

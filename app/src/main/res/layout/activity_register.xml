@@ -138,7 +138,6 @@
                 android:layout_height="70dp"
                 android:background="@color/white"
                 android:hint="@string/TextInputLayout_ComfirmPassword"
-                android:textSize="16sp"
                 android:fontFamily="@font/vtrocore"
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>

@@ -50,14 +50,16 @@ class LoginActivity : AppCompatActivity() {
             loginFacebook()
         })
 
-        if(MySharedPreferences.getAutoLogin)
-        if(MySharedPreferences.getUserId(this).isNullOrBlank() || MySharedPreferences.getUserPW(this).isNullOrBlank()) {
-            Toast.makeText(this, "Auto Authentication failed", Toast.LENGTH_SHORT).show()
+        if(MySharedPreferences.getAuto(this)) {
+                if(MySharedPreferences.getUserId(this).isNullOrBlank() || MySharedPreferences.getUserPW(this).isNullOrBlank()) {
+                Toast.makeText(this, "Auto Authentication failed", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                Toast.makeText(this, "Auto Authentication success", Toast.LENGTH_SHORT).show()
+                loginSuccess(true)
+            }
         }
-        else {
-            Toast.makeText(this, "Auto Authentication success", Toast.LENGTH_SHORT).show()
-            loginSuccess(true)
-        }
+
 
     }
 
