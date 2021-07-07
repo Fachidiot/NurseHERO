@@ -1,11 +1,9 @@
 package com.fachidiot.nursehro.Adapter
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.fachidiot.nursehro.Fragment.*
+import com.fachidiot.nursehro.MainFragment.*
 
 class AdaptermainFragment (fm : FragmentManager, private val fragmentCount : Int) :
 FragmentStatePagerAdapter(fm) {
