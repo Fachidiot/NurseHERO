@@ -26,5 +26,6 @@
     <string name="Button_LoginFace">Login with Face</string>
     <string name="Button_FindPassword">Find Password</string>
     <string name="Button_Register">Register</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>

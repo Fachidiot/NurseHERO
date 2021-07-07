@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.facebook.login.LoginManager
 import com.fachidiot.nursehro.LoginActivity
+import com.fachidiot.nursehro.MySharedPreferences
 import com.fachidiot.nursehro.R
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_main_profile.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -26,10 +28,12 @@ class FragmentMainProfile : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    lateinit var mFirebaseAuth : FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        mFirebaseAuth = FirebaseAuth.getInstance()
 
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
@@ -55,12 +59,17 @@ class FragmentMainProfile : Fragment() {
     }
 
     private fun logOut() {
-        (activity as LoginActivity).logOut()
+        mFirebaseAuth.signOut()
+        val user = mFirebaseAuth.currentUser
+        LoginManager.getInstance().logOut()
+        context?.let { MySharedPreferences.setAuto(it, false) }
 
         activity?.let {
             val intent = Intent(context, LoginActivity::class.java)
             startActivity(intent)
         }
+
+        Toast.makeText(context, "Logout", Toast.LENGTH_SHORT).show()
     }
 
     companion object {

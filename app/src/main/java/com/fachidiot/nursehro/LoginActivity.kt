@@ -50,14 +50,9 @@ class LoginActivity : AppCompatActivity() {
             loginFacebook()
         })
 
-        if(MySharedPreferences.getAuto(this)) {
-                if(MySharedPreferences.getUserId(this).isNullOrBlank() || MySharedPreferences.getUserPW(this).isNullOrBlank()) {
-                Toast.makeText(this, "Auto Authentication failed", Toast.LENGTH_SHORT).show()
-            }
-            else {
-                Toast.makeText(this, "Auto Authentication success", Toast.LENGTH_SHORT).show()
-                loginSuccess(true)
-            }
+        if(MySharedPreferences.getAuto(this) && mFirebaseAuth.currentUser != null) {
+            Toast.makeText(this, "Auto Authentication success", Toast.LENGTH_SHORT).show()
+            loginSuccess(false)
         }
 
 
@@ -129,6 +124,7 @@ class LoginActivity : AppCompatActivity() {
     fun logOut() {
         mFirebaseAuth.signOut()
         LoginManager.getInstance().logOut()
+        MySharedPreferences.setAuto(this, false)
         Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show()
     }
 
@@ -136,14 +132,12 @@ class LoginActivity : AppCompatActivity() {
         if(autologin) {
             MySharedPreferences.setUserId(this, TextInputEditText_LoginEmail.text.toString())
             MySharedPreferences.setUserPW(this, TextInputEditText_LoginPassword.text.toString())
+            MySharedPreferences.setAuto(this, true)
 
             val intent = Intent(this, MainActivity::class.java)
             intent.putExtra("email", MySharedPreferences.getUserId(this))
             startActivity(intent)
         } else {
-            MySharedPreferences.setUserId(this, "")
-            MySharedPreferences.setUserPW(this, "")
-
             val intent = Intent(this, MainActivity::class.java)
             intent.putExtra("email", MySharedPreferences.getUserId(this))
             startActivity(intent)
