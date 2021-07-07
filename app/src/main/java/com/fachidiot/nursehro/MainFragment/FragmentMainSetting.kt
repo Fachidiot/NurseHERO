@@ -1,4 +1,4 @@
-package com.fachidiot.nursehro.Fragment
+package com.fachidiot.nursehro.MainFragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

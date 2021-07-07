@@ -1,8 +1,6 @@
 package com.fachidiot.nursehro
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -16,7 +14,6 @@ import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.activity_login.*
 import java.util.*
 
@@ -25,6 +22,8 @@ class LoginActivity : AppCompatActivity() {
 
     lateinit var mFirebaseAuth : FirebaseAuth
     lateinit var mCallbackManager: CallbackManager
+    private var backKeyPressedTime: Long = 0
+    private var toast: Toast? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +37,7 @@ class LoginActivity : AppCompatActivity() {
         // 3. 1번의 값을 다음 화면으로 넘긴다
 
         Button_Register.setOnClickListener{
-            val intent = Intent(this, RegisterActivity::class.java)
+            val intent = Intent(this, RegisterMainActivity::class.java)
             startActivity(intent)
         }
 
@@ -64,6 +63,22 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
+    override fun onBackPressed() {
+        if (System.currentTimeMillis() > backKeyPressedTime + 2000) {
+            backKeyPressedTime = System.currentTimeMillis()
+            toast = Toast.makeText(this, "\'뒤로\' 버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT)
+            toast?.show()
+            return;
+        }
+
+        if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
+            finish()
+            toast?.cancel()
+            moveTaskToBack(true)
+            finishAndRemoveTask()
+            android.os.Process.killProcess(android.os.Process.myPid())
+        }
+    }
 
 
 

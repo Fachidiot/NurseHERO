@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.fachidiot.nursehro.Fragment.FragmentMainChat">
+    tools:context="com.fachidiot.nursehro.MainFragment.FragmentMainChat">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

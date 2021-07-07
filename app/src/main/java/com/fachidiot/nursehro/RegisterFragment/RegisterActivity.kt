@@ -1,9 +1,12 @@
-package com.fachidiot.nursehro
+package com.fachidiot.nursehro.RegisterFragment
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.fachidiot.nursehro.LoginActivity
+import com.fachidiot.nursehro.R
+import com.fachidiot.nursehro.RegisterFragment.RegisterSuccessActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
