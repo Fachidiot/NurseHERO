@@ -3,8 +3,11 @@ package com.fachidiot.nursehro.RegisterFragment
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.fachidiot.nursehro.LoginActivity
 import com.fachidiot.nursehro.R
+import kotlinx.android.synthetic.main.activity_register.*
 import kotlinx.android.synthetic.main.activity_register_choose.*
+import kotlinx.android.synthetic.main.activity_register_choose.button_back
 
 class RegisterChooseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,6 +17,11 @@ class RegisterChooseActivity : AppCompatActivity() {
         RelativeLayout_Next.setOnClickListener {
                 val intent = Intent(this, RegisterActivity::class.java)
                 startActivity(intent)
+        }
+
+        button_back.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
         }
 
         CheckBox_Nurse.setOnClickListener {
