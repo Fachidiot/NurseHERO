@@ -20,8 +20,7 @@ class RegisterChooseActivity : AppCompatActivity() {
         }
 
         button_back.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
+            finish()
         }
 
         CheckBox_Nurse.setOnClickListener {
