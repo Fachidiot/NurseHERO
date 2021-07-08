@@ -1,0 +1,134 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.fachidiot.nursehro.MainFragment.FragmentMainChat">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@null"
+        android:paddingHorizontal="16dp"
+        android:weightSum="10">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/TextView_Register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/vtrocore"
+                android:gravity="center"
+                android:text="Choose Position"
+                android:textColor="@color/blue"
+                android:textSize="20sp"
+                android:layout_marginTop="10dp"/>
+
+            <Button
+                android:id="@+id/button_back"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/icon_back"
+                />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_weight="5"
+            >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+                <CheckBox
+                    android:id="@+id/CheckBox_Nurse"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:button="@null"
+                    android:background="@drawable/cb_custom_checkbox"
+                    />
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Nurse"
+                    android:textSize="18dp"
+                    android:fontFamily="@font/vtrocore"
+                    />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+                <CheckBox
+                    android:id="@+id/CheckBox_Normal"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:button="@null"
+                    android:background="@drawable/cb_custom_checkbox2"
+                    />
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="normal"
+                    android:textSize="18dp"
+                    android:fontFamily="@font/vtrocore"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+        <RelativeLayout
+            android:id="@+id/RelativeLayout_Next"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="100dp"
+            android:background="@drawable/btn_blue"
+            android:clickable="true"
+            android:gravity="center"
+            >
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="50dp"
+                android:background="@null"
+                android:gravity="center"
+                android:src="@drawable/icon_userplus"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:stateListAnimator="@null"
+                android:text="Next"
+                android:textColor="#ffffff"
+                android:fontFamily="@font/vtrocore" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

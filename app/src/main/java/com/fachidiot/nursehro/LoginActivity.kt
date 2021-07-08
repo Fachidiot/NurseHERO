@@ -12,10 +12,14 @@ import com.facebook.FacebookCallback
 import com.facebook.FacebookException
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
+import com.fachidiot.nursehro.RegisterFragment.RegisterActivity
+import com.fachidiot.nursehro.RegisterFragment.RegisterChooseActivity
+import com.fachidiot.nursehro.RegisterFragment.RegisterSuccessActivity
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 import java.util.*
+import java.util.regex.Pattern
 
 
 class LoginActivity : AppCompatActivity() {
@@ -37,7 +41,7 @@ class LoginActivity : AppCompatActivity() {
         // 3. 1번의 값을 다음 화면으로 넘긴다
 
         Button_Register.setOnClickListener{
-            val intent = Intent(this, RegisterMainActivity::class.java)
+            val intent = Intent(this, RegisterChooseActivity::class.java)
             startActivity(intent)
         }
 
@@ -54,13 +58,11 @@ class LoginActivity : AppCompatActivity() {
             loginSuccess(false)
         }
 
-
     }
 
     override fun onStart() {
         // 로그인 되어있는 유저를 확인함
         super.onStart()
-
     }
 
     override fun onBackPressed() {
@@ -85,7 +87,8 @@ class LoginActivity : AppCompatActivity() {
 
 
     private fun loginEmail() {
-        if(TextInputEditText_LoginEmail.text.toString().isEmpty()) {
+        val pattern : Pattern = android.util.Patterns.EMAIL_ADDRESS
+        if(pattern.matcher(TextInputEditText_LoginEmail.text.toString()).matches()) {
             Toast.makeText(this, "Check the Email", Toast.LENGTH_SHORT).show()
             TextInputEditText_LoginEmail.setError("you must set your email")
             return
@@ -100,14 +103,13 @@ class LoginActivity : AppCompatActivity() {
             TextInputEditText_LoginPassword.setError("you must set your password")
             return
         }
-        mFirebaseAuth!!.signInWithEmailAndPassword(TextInputEditText_LoginEmail.text.toString(), TextInputEditText_LoginPassword.text.toString())
+        mFirebaseAuth.signInWithEmailAndPassword(TextInputEditText_LoginEmail.text.toString(), TextInputEditText_LoginPassword.text.toString())
             .addOnCompleteListener(this) {
                 Log.d(this.toString(), TextInputEditText_LoginEmail.text.toString())
                 Log.d(this.toString(), TextInputEditText_LoginPassword.text.toString())
             if (it.isSuccessful) {
                 Toast.makeText(this, "signInWithEmail Success", Toast.LENGTH_SHORT).show()
 
-                val user = mFirebaseAuth?.currentUser
                 loginSuccess(CheckBox_AutoLogin.isChecked)
             } else {
                 Toast.makeText(this, "signInWithEmail Failed", Toast.LENGTH_SHORT).show()
@@ -165,7 +167,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        mCallbackManager?.onActivityResult(requestCode, resultCode, data)
+        mCallbackManager.onActivityResult(requestCode, resultCode, data)
         // onActivityResult에서는 callbackManager에 로그인 결과를 넘겨줍니다
         // 여기에 callbackMAnager?.onActivityResult가 있어야 onSuccess를 호출할 수 있습니다
     }
@@ -177,7 +179,6 @@ class LoginActivity : AppCompatActivity() {
             mFirebaseAuth.signInWithCredential(credential).addOnCompleteListener(this) { task->
                 if (task.isSuccessful) {
                     Log.d("MainActivity", "SignInWithCredential:Success")
-                    val user = mFirebaseAuth.currentUser
                 }else {
                     Log.w("MainActivity", "SignInWithCredential:Failure", task.exception)
                     Toast.makeText(this, "Authentication failed", Toast.LENGTH_SHORT).show()
@@ -185,22 +186,4 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
-
-
-    //fun printHashKey() {
-    //    try {
-    //        val info: PackageInfo = packageManager
-    //            .getPackageInfo(packageName, PackageManager.GET_SIGNATURES)
-    //        for (signature in info.signatures) {
-    //            val md: MessageDigest = MessageDigest.getInstance("SHA")
-    //            md.update(signature.toByteArray())
-    //            val hashKey: String = String(Base64.encode(md.digest(), 0))//Android.util의 Base64를 import 해주시면 됩니다.
-    //            Log.i("facebookLogin", "printHashKey() Hash Key: $hashKey")
-    //        }
-    //    } catch (e: NoSuchAlgorithmException) {
-    //        Log.e("facebookLogin", "printHashKey()", e)
-    //    } catch (e: Exception) {
-    //        Log.e("facebookLogin", "printHashKey()", e)
-    //    }
-    //}
 }
