@@ -12,6 +12,8 @@
     <string name="TextInputLayout_LastName">Last Name</string>
     <string name="TextInputLayout_ComfirmPassword">ComfirmPassword</string>
     <string name="CheckBox_Policy">By registering, you agree to NuresHRO\'s terms of and privacy policy</string>
+    <string name="Choose_Position">Choose Position</string>
+    <string name="Next">Next</string>
 
     <!-- RegisterSuccessActivity -->
     <string name="TextView_Succsess">Successfully Registered</string>
@@ -26,6 +28,7 @@
     <string name="Button_LoginFace">Login with Face</string>
     <string name="Button_FindPassword">Find Password</string>
     <string name="Button_Register">Register</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_maps" translatable="false">Map</string>
+    <string name="Auto_Login">Auto Login</string>
 
 </resources>
