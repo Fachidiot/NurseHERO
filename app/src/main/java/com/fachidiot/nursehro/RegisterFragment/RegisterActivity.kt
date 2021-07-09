@@ -1,66 +1,180 @@
 package com.fachidiot.nursehro.RegisterFragment
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.fachidiot.nursehro.LoginActivity
+import androidx.loader.content.CursorLoader
+import com.fachidiot.nursehro.Class.UserInfo
 import com.fachidiot.nursehro.R
-import com.fachidiot.nursehro.RegisterFragment.RegisterSuccessActivity
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.activity_register.*
+import java.io.File
 
 
 class RegisterActivity : AppCompatActivity() {
 
-    private var mFirebaseAuth: FirebaseAuth? = null
-    private var mDatabaseRef: DatabaseReference? = null
+    private lateinit var mFirebaseAuth: FirebaseAuth
+    private lateinit var mDatabaseRef: DatabaseReference
+    private lateinit var mFirebaseDatabase: FirebaseDatabase
+    private lateinit var mFirebaseStorage: FirebaseStorage
+
+    private var imageUri: Uri? = null
+    private var pathUri: String? = null
+    private var tempFile: File? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
+        mFirebaseAuth = FirebaseAuth.getInstance()
+        mDatabaseRef = FirebaseDatabase.getInstance().reference
+        mFirebaseDatabase = FirebaseDatabase.getInstance()
+        mFirebaseStorage = FirebaseStorage.getInstance()
+
         button_back.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
+            finish()
         }
 
-        mFirebaseAuth = FirebaseAuth.getInstance()
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference()
+        imageView_AddPicture.setOnClickListener {
+            gotoAlbum()
+        }
 
         RelativeLayout_Register.setOnClickListener {
-            if (TextInputLayout_FirstName.text.toString().isEmpty() || TextInputLayout_LastName.text.toString().isEmpty())
-                Toast.makeText(this, "Check Name", Toast.LENGTH_SHORT).show()
-            else if (TextInputEditText_Email.text.toString().isEmpty())
-                Toast.makeText(this, "Check Email", Toast.LENGTH_SHORT).show()
-            else if (TextInputEditText_Password.text.toString().isEmpty() || TextInputEditText_Comfirm_Password.text.toString().isEmpty())
-                Toast.makeText(this, "Check Password.", Toast.LENGTH_SHORT).show()
-            else if (TextInputEditText_Password.text.toString() != TextInputEditText_Comfirm_Password.text.toString())
-                Toast.makeText(this, "Password incorrect with Comfirm Password.", Toast.LENGTH_SHORT).show()
-            else if (!CheckBox_Policy.isChecked)
-                Toast.makeText(this, "Please Check the Checkbox", Toast.LENGTH_SHORT).show()
-            else
-                CreateEmail()
+            checkInfo()
         }
     }
+    // 앨범 메소드
+    private fun gotoAlbum() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = MediaStore.Images.Media.CONTENT_TYPE
+        startActivityForResult(intent, 1)
+    }
 
-    private fun CreateEmail(){
-        val asdf1 = TextInputEditText_Email.text.toString()
-        val asdf2 = TextInputEditText_Password.text.toString()
-        mFirebaseAuth!!.createUserWithEmailAndPassword(TextInputEditText_Email.text.toString(), TextInputEditText_Password.text.toString()).addOnCompleteListener(this) {
-            if (it.isSuccessful) {
-                // 회원가입 성공시
-                val user = mFirebaseAuth?.currentUser
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
 
-                Toast.makeText(this, "Authentication Success.", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, RegisterSuccessActivity::class.java)
-                startActivity(intent)
-            } else {
-                // 회원가입 실패시
-                Toast.makeText(this, "Authentication Failed.", Toast.LENGTH_SHORT).show()
+        val tag = "MyMessage"
+        if (resultCode != RESULT_OK) { // 코드가 틀릴경우
+            Toast.makeText(this, "취소 되었습니다", Toast.LENGTH_SHORT).show()
+            if (tempFile != null) {
+                if (tempFile!!.exists()) {
+                    if (tempFile!!.delete()) {
+                        Log.e(tag, tempFile!!.absolutePath.toString() + " 삭제 성공")
+                        tempFile = null
+                    }
+                }
+            }
+            return
+        }
+        when (requestCode) {
+            1 -> {
+                // 코드 일치
+                // Uri
+                if (data != null) {
+                    imageUri = data.data
+                }
+                if (data != null) {
+                    pathUri = getPath(data.data)
+                }
+                Log.d(this.toString(), "PICK_FROM_ALBUM photoUri : $imageUri")
+                imageView_AddPicture.setImageURI(imageUri) // 이미지 띄움
             }
         }
     }
+
+    // uri 절대경로 가져오기
+    private fun getPath(uri: Uri?): String? {
+        val proj = arrayOf(MediaStore.Images.Media.DATA)
+        val cursorLoader = CursorLoader(
+            this,
+            uri!!, proj, null, null, null
+        )
+        val cursor = cursorLoader.loadInBackground()
+        val index = cursor!!.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+        cursor.moveToFirst()
+        return cursor.getString(index)
+    }
+
+    private fun createEmail() {
+        try {
+            this.mFirebaseAuth.createUserWithEmailAndPassword(
+                TextInputEditText_Email.text.toString(),
+                TextInputEditText_Password.text.toString()
+            ).addOnCompleteListener(this) {
+                if (it.isSuccessful) {
+                    // 회원가입 성공시
+                    // uid에 task, 선택된 사진을 file에 할당
+                    val uid: String = it.result?.user?.uid.toString()
+                    val file: Uri = Uri.fromFile(File(pathUri)); // path
+
+                    // 스토리지에 방생성 후 선택한 이미지 넣음
+                    val storageReference: StorageReference = mFirebaseStorage.reference
+                        .child("userprofileImages")
+                        .child("uid/" + file.lastPathSegment)
+                    storageReference.putFile(imageUri!!).addOnCompleteListener { task ->
+                        val imageUrl: Task<Uri> = task.result?.storage?.downloadUrl as Task<Uri>
+                        while (!imageUrl.isComplete) {
+                        }
+                        val userModel = UserInfo(
+                            TextInputLayout_FirstName.text.toString(),
+                            imageUrl.result.toString(),
+                            uid
+                        )
+
+                        // database에 저장
+                        mFirebaseDatabase.reference.child("users").child(uid).setValue(userModel)
+
+                        Toast.makeText(this, "Authentication Success.", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(
+                            this,
+                            RegisterSuccessActivity::class.java
+                        )
+                        intent.putExtra("email", TextInputEditText_Email.text.toString())
+                        intent.putExtra("password", TextInputEditText_Password.text.toString())
+                        startActivity(intent)
+                    }
+                } else {
+                    // 회원가입 실패시
+                    Toast.makeText(this, "Authentication Failed.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        catch (e : Exception) {
+            e.printStackTrace()
+        }
+
+    }
+
+    private fun checkInfo() {
+        if (TextInputLayout_FirstName.text.toString().isEmpty())
+            TextInputLayout_FirstName.error = "Enter your first name"
+        else if (TextInputLayout_LastName.text.toString().isEmpty())
+            TextInputLayout_LastName.error = "Enter your last name"
+        else if (TextInputEditText_Email.text.toString().isEmpty())
+            TextInputEditText_Email.error = "Enter your email"
+        else if (!TextInputEditText_Email.text.toString().contains("@") || !TextInputEditText_Email.text.toString().contains(".com"))
+            TextInputEditText_Email.error = "Check your email"
+        else if (TextInputEditText_Password.text.toString().isEmpty())
+            TextInputEditText_Password.error = "Enter your password"
+        else if (TextInputEditText_Comfirm_Password.text.toString().isEmpty())
+            TextInputEditText_Comfirm_Password.error = "Enter one more password"
+        else if (TextInputEditText_Password.text.toString() != TextInputEditText_Comfirm_Password.text.toString()) {
+            TextInputEditText_Password.error = "Your password is not correct"
+            TextInputEditText_Comfirm_Password.error = "Your password is not correct"
+        } else if (!CheckBox_Policy.isChecked)
+            CheckBox_Policy.error = "Please check the checkbox"
+        else
+            createEmail()
+    }
+
 }

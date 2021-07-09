@@ -67,7 +67,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/vtrocore"
-        android:text="auto login"
+        android:text="@string/Auto_Login"
         android:textColor="@color/gray"
         android:textSize="18sp"
         />

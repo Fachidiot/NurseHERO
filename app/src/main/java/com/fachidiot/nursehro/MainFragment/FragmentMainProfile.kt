@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.facebook.login.LoginManager
 import com.fachidiot.nursehro.LoginActivity
-import com.fachidiot.nursehro.MySharedPreferences
+import com.fachidiot.nursehro.Class.MySharedPreferences
 import com.fachidiot.nursehro.R
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_main_profile.*
