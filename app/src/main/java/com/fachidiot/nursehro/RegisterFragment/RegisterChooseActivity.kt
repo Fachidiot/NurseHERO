@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.activity_register_choose.*
 import kotlinx.android.synthetic.main.activity_register_choose.button_back
 
 class RegisterChooseActivity : AppCompatActivity() {
+    var position : String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_choose)
@@ -25,14 +26,20 @@ class RegisterChooseActivity : AppCompatActivity() {
 
         CheckBox_Nurse.setOnClickListener {
             CheckBox_Normal.isChecked = false
+            position = "Nurse"
         }
 
         CheckBox_Normal.setOnClickListener {
             CheckBox_Nurse.isChecked = false
+            position = "Normal"
         }
     }
 
     private fun checkChoice() {
-
+        if (CheckBox_Normal.isChecked || CheckBox_Nurse.isChecked) {
+            val intent = Intent(this, RegisterActivity::class.java)
+            intent.putExtra("position", position)
+            startActivity(intent)
+        }
     }
 }

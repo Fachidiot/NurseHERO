@@ -1,4 +1,4 @@
-package com.fachidiot.nursehro
+package com.fachidiot.nursehro.Class
 
 import android.content.Context
 import android.content.SharedPreferences

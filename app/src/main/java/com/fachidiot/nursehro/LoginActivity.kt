@@ -12,9 +12,8 @@ import com.facebook.FacebookCallback
 import com.facebook.FacebookException
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
-import com.fachidiot.nursehro.RegisterFragment.RegisterActivity
+import com.fachidiot.nursehro.Class.MySharedPreferences
 import com.fachidiot.nursehro.RegisterFragment.RegisterChooseActivity
-import com.fachidiot.nursehro.RegisterFragment.RegisterSuccessActivity
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
