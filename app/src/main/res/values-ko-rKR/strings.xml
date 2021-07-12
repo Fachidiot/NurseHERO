@@ -3,7 +3,6 @@
     <string name="app_name">간호인력사무소</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="facebook_app_id">2947483168858179</string>
-    <string name="fb_login_protocol_scheme">fb2947483168858179</string>
 
     <!-- RegisterActivity -->
     <string name="TextView_Register">회원가입</string>
