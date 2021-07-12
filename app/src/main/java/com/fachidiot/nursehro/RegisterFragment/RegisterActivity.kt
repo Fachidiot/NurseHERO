@@ -14,6 +14,9 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.activity_register.*
@@ -24,12 +27,13 @@ class RegisterActivity : AppCompatActivity() {
 
     private lateinit var mFirebaseAuth: FirebaseAuth
     private lateinit var mDatabaseRef: DatabaseReference
-    private lateinit var mFirebaseDatabase: FirebaseDatabase
     private lateinit var mFirebaseStorage: FirebaseStorage
+    private lateinit var mFirebaseStoreDatabase: FirebaseFirestore
 
     private var imageUri: Uri? = null
     private var pathUri: String? = null
     private var tempFile: File? = null
+    private var imageSet: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +41,7 @@ class RegisterActivity : AppCompatActivity() {
 
         mFirebaseAuth = FirebaseAuth.getInstance()
         mDatabaseRef = FirebaseDatabase.getInstance().reference
-        mFirebaseDatabase = FirebaseDatabase.getInstance()
+        mFirebaseStoreDatabase = Firebase.firestore
         mFirebaseStorage = FirebaseStorage.getInstance()
 
         button_back.setOnClickListener {
@@ -52,6 +56,8 @@ class RegisterActivity : AppCompatActivity() {
             checkInfo()
         }
     }
+
+
     // 앨범 메소드
     private fun gotoAlbum() {
         val intent = Intent(Intent.ACTION_PICK)
@@ -62,7 +68,7 @@ class RegisterActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        val tag = "MyMessage"
+        val tag = "Album Message"
         if (resultCode != RESULT_OK) { // 코드가 틀릴경우
             Toast.makeText(this, "취소 되었습니다", Toast.LENGTH_SHORT).show()
             if (tempFile != null) {
@@ -87,6 +93,7 @@ class RegisterActivity : AppCompatActivity() {
                 }
                 Log.d(this.toString(), "PICK_FROM_ALBUM photoUri : $imageUri")
                 imageView_AddPicture.setImageURI(imageUri) // 이미지 띄움
+                imageSet = true
             }
         }
     }
@@ -114,34 +121,64 @@ class RegisterActivity : AppCompatActivity() {
                     // 회원가입 성공시
                     // uid에 task, 선택된 사진을 file에 할당
                     val uid: String = it.result?.user?.uid.toString()
-                    val file: Uri = Uri.fromFile(File(pathUri)); // path
 
-                    // 스토리지에 방생성 후 선택한 이미지 넣음
-                    val storageReference: StorageReference = mFirebaseStorage.reference
-                        .child("userprofileImages")
-                        .child("uid/" + file.lastPathSegment)
-                    storageReference.putFile(imageUri!!).addOnCompleteListener { task ->
-                        val imageUrl: Task<Uri> = task.result?.storage?.downloadUrl as Task<Uri>
-                        while (!imageUrl.isComplete) {
+                    if (imageSet)
+                    {
+                        // path
+                        val file: Uri = Uri.fromFile(File(pathUri))
+
+                        // 스토리지에 방생성 후 선택한 이미지 넣음
+                        val storageReference: StorageReference = mFirebaseStorage.reference
+                            .child("userprofileImages")
+                            .child("uid/" + file.lastPathSegment)
+
+                        storageReference.putFile(imageUri!!).addOnCompleteListener { task ->
+                            val imageUrl: Task<Uri> = task.result?.storage?.downloadUrl as Task<Uri>
+                            while (!imageUrl.isComplete) {
+                            }
+
+                            val userModel = UserInfo(
+                                intent.getBooleanExtra("nurse", false),
+                                TextInputLayout_FirstName.text.toString(),
+                                imageUrl.result.toString(),
+                                uid
+                            )
+
+                            // database에 저장
+                            mFirebaseStoreDatabase?.collection("users")?.document(uid)?.set(userModel)
+                                .addOnSuccessListener {
+                                    Log.d("FireStore", "Success")
+                                }
+                                .addOnFailureListener {
+                                    Log.w("FireStore", "Failed")
+                                }
                         }
+                    } else {
                         val userModel = UserInfo(
+                            intent.getBooleanExtra("nurse", false),
                             TextInputLayout_FirstName.text.toString(),
-                            imageUrl.result.toString(),
+                            "null",
                             uid
                         )
 
                         // database에 저장
-                        mFirebaseDatabase.reference.child("users").child(uid).setValue(userModel)
-
-                        Toast.makeText(this, "Authentication Success.", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(
-                            this,
-                            RegisterSuccessActivity::class.java
-                        )
-                        intent.putExtra("email", TextInputEditText_Email.text.toString())
-                        intent.putExtra("password", TextInputEditText_Password.text.toString())
-                        startActivity(intent)
+                        mFirebaseStoreDatabase?.collection("users")?.document(uid)?.set(userModel)
+                            .addOnSuccessListener {
+                                Log.d("FireStore", "Success")
+                            }
+                            .addOnFailureListener {
+                                Log.w("FireStore", "Failed")
+                            }
                     }
+
+                    Toast.makeText(this, "Authentication Success.", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(
+                        this,
+                        RegisterSuccessActivity::class.java
+                    )
+                    intent.putExtra("email", TextInputEditText_Email.text.toString())
+                    intent.putExtra("password", TextInputEditText_Password.text.toString())
+                    startActivity(intent)
                 } else {
                     // 회원가입 실패시
                     Toast.makeText(this, "Authentication Failed.", Toast.LENGTH_SHORT).show()

@@ -17,6 +17,7 @@ import com.fachidiot.nursehro.RegisterFragment.RegisterChooseActivity
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_register.*
 import java.util.*
 import java.util.regex.Pattern
 
@@ -86,12 +87,7 @@ class LoginActivity : AppCompatActivity() {
 
 
     private fun loginEmail() {
-        val pattern : Pattern = android.util.Patterns.EMAIL_ADDRESS
-        if(pattern.matcher(TextInputEditText_LoginEmail.text.toString()).matches()) {
-            Toast.makeText(this, "Check the Email", Toast.LENGTH_SHORT).show()
-            TextInputEditText_LoginEmail.setError("you must set your email")
-            return
-        } else if (!TextInputEditText_LoginEmail.text.toString().contains("@")) {
+        if (!TextInputEditText_LoginEmail.text.toString().contains("@")) {
             Toast.makeText(this, "Wrong Type Email", Toast.LENGTH_SHORT).show()
             TextInputEditText_LoginEmail.setError("you must set right email")
             return
@@ -155,7 +151,8 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         } else {
             val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("email", MySharedPreferences.getUserId(this))
+            //intent.putExtra("email", MySharedPreferences.getUserId(this))
+            intent.putExtra("email", TextInputEditText_LoginEmail.text.toString())
             startActivity(intent)
         }
     }
