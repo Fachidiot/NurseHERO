@@ -145,7 +145,7 @@ class RegisterActivity : AppCompatActivity() {
                             )
 
                             // database에 저장
-                            mFirebaseStoreDatabase?.collection("users")?.document(uid)?.set(userModel)
+                            mFirebaseStoreDatabase?.collection("users")?.add(userModel)
                                 .addOnSuccessListener {
                                     Log.d("FireStore", "Success")
                                 }
@@ -162,7 +162,7 @@ class RegisterActivity : AppCompatActivity() {
                         )
 
                         // database에 저장
-                        mFirebaseStoreDatabase?.collection("users")?.document(uid)?.set(userModel)
+                        mFirebaseStoreDatabase?.collection("users")?.add(userModel)
                             .addOnSuccessListener {
                                 Log.d("FireStore", "Success")
                             }
