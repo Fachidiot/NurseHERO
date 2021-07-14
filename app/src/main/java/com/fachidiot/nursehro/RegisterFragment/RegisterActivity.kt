@@ -145,13 +145,10 @@ class RegisterActivity : AppCompatActivity() {
                             )
 
                             // database에 저장
-                            mFirebaseStoreDatabase?.collection("users")?.add(userModel)
-                                .addOnSuccessListener {
-                                    Log.d("FireStore", "Success")
-                                }
-                                .addOnFailureListener {
-                                    Log.w("FireStore", "Failed")
-                                }
+                            mFirebaseStoreDatabase.collection("users").document(uid)
+                                .set(userModel)
+                                .addOnSuccessListener { Log.d("FireStore", "Success") }
+                                .addOnFailureListener { e -> Log.w("FireStore", "Failed", e) }
                         }
                     } else {
                         val userModel = UserInfo(
@@ -162,13 +159,10 @@ class RegisterActivity : AppCompatActivity() {
                         )
 
                         // database에 저장
-                        mFirebaseStoreDatabase?.collection("users")?.add(userModel)
-                            .addOnSuccessListener {
-                                Log.d("FireStore", "Success")
-                            }
-                            .addOnFailureListener {
-                                Log.w("FireStore", "Failed")
-                            }
+                        mFirebaseStoreDatabase.collection("users").document(uid)
+                            .set(userModel)
+                            .addOnSuccessListener { Log.d("FireStore", "Success") }
+                            .addOnFailureListener { e -> Log.w("FireStore", "Failed", e) }
                     }
 
                     Toast.makeText(this, "Authentication Success.", Toast.LENGTH_SHORT).show()

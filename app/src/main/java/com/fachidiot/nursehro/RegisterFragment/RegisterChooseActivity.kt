@@ -41,5 +41,8 @@ class RegisterChooseActivity : AppCompatActivity() {
             intent.putExtra("nurse", nurse)
             startActivity(intent)
         }
+        else {
+            Toast.makeText(this, "You have to choose position", Toast.LENGTH_SHORT).show()
+        }
     }
 }
