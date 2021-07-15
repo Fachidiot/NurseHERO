@@ -94,7 +94,7 @@
                 android:gravity="center">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/TextInputLayout_FirstName"
+                    android:id="@+id/TextInputEditText_FirstName"
                     android:layout_width="170dp"
                     android:layout_height="70dp"
                     android:background="@color/white"
@@ -110,7 +110,7 @@
                 android:gravity="center">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/TextInputLayout_LastName"
+                    android:id="@+id/TextInputEditText_LastName"
                     android:layout_width="170dp"
                     android:layout_height="70dp"
                     android:background="@color/white"
@@ -121,6 +121,20 @@
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/TextInputEditText_Nickname"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="@color/white"
+                android:hint="@string/TextInputLayout_Nickname"
+                android:fontFamily="@font/vtrocore"
+                android:inputType="textEmailAddress" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"

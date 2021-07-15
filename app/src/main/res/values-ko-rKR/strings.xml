@@ -7,6 +7,7 @@
     <!-- RegisterActivity -->
     <string name="TextView_Register">회원가입</string>
     <string name="add_profile_picture">사진 추가</string>
+    <string name="TextInputLayout_Nickname">닉네임</string>
     <string name="TextInputLayout_FirstName">성</string>
     <string name="TextInputLayout_LastName">이름</string>
     <string name="TextInputLayout_ComfirmPassword">비밀번호 확인</string>

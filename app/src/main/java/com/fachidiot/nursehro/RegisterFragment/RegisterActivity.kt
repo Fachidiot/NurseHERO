@@ -139,7 +139,7 @@ class RegisterActivity : AppCompatActivity() {
 
                             val userModel = UserInfo(
                                 intent.getBooleanExtra("nurse", false),
-                                TextInputLayout_FirstName.text.toString(),
+                                TextInputEditText_Nickname.text.toString(),
                                 imageUrl.result.toString(),
                                 uid
                             )
@@ -153,7 +153,9 @@ class RegisterActivity : AppCompatActivity() {
                     } else {
                         val userModel = UserInfo(
                             intent.getBooleanExtra("nurse", false),
-                            TextInputLayout_FirstName.text.toString(),
+                            TextInputEditText_Nickname.text.toString(),
+                            TextInputEditText_FirstName.text.toString(),
+                            TextInputEditText_LastName.text.toString(),
                             "null",
                             uid
                         )
@@ -187,10 +189,12 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun checkInfo() {
-        if (TextInputLayout_FirstName.text.toString().isEmpty())
-            TextInputLayout_FirstName.error = "Enter your first name"
-        else if (TextInputLayout_LastName.text.toString().isEmpty())
-            TextInputLayout_LastName.error = "Enter your last name"
+        if (TextInputEditText_FirstName.text.toString().isEmpty())
+            TextInputEditText_FirstName.error = "Enter your first name"
+        else if (TextInputEditText_LastName.text.toString().isEmpty())
+            TextInputEditText_LastName.error = "Enter your last name"
+        else if (TextInputEditText_Nickname.text.toString().isEmpty())
+            TextInputEditText_Nickname.error = "Enter your nickname"
         else if (TextInputEditText_Email.text.toString().isEmpty())
             TextInputEditText_Email.error = "Enter your email"
         else if (!TextInputEditText_Email.text.toString().contains("@") || !TextInputEditText_Email.text.toString().contains(".com"))
