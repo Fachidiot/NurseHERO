@@ -35,7 +35,7 @@ class FragmentMainSearch : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main_search, container, false)
+        return inflater.inflate(R.layout.fragment_main_find, container, false)
     }
 
     companion object {

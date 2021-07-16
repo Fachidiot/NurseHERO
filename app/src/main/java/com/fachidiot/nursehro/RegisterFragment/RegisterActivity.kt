@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.activity_register.*
 import java.io.File
 
 
+@Suppress("DEPRECATION")
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var mFirebaseAuth: FirebaseAuth
@@ -31,7 +32,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var mFirebaseStoreDatabase: FirebaseFirestore
 
     private var imageUri: Uri? = null
-    private var pathUri: String? = null
+    private lateinit var pathUri: String
     private var tempFile: File? = null
     private var imageSet: Boolean = false
 
@@ -99,7 +100,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     // uri 절대경로 가져오기
-    private fun getPath(uri: Uri?): String? {
+    private fun getPath(uri: Uri?): String {
         val proj = arrayOf(MediaStore.Images.Media.DATA)
         val cursorLoader = CursorLoader(
             this,
@@ -134,21 +135,24 @@ class RegisterActivity : AppCompatActivity() {
 
                         storageReference.putFile(imageUri!!).addOnCompleteListener { task ->
                             val imageUrl: Task<Uri> = task.result?.storage?.downloadUrl as Task<Uri>
-                            while (!imageUrl.isComplete) {
+                            if (!imageUrl.isComplete) {
+                                val userModel = UserInfo(
+                                    intent.getBooleanExtra("nurse", false),
+                                    TextInputEditText_Nickname.text.toString(),
+                                    TextInputEditText_FirstName.text.toString(),
+                                    TextInputEditText_LastName.text.toString(),
+                                    imageUrl.result.toString(),
+                                    uid
+                                )
+
+                                // database에 저장
+                                mFirebaseStoreDatabase.collection("users").document(uid)
+                                    .set(userModel)
+                                    .addOnSuccessListener { Log.d("FireStore", "Success") }
+                                    .addOnFailureListener { e -> Log.w("FireStore", "Failed", e) }
+
                             }
 
-                            val userModel = UserInfo(
-                                intent.getBooleanExtra("nurse", false),
-                                TextInputEditText_Nickname.text.toString(),
-                                imageUrl.result.toString(),
-                                uid
-                            )
-
-                            // database에 저장
-                            mFirebaseStoreDatabase.collection("users").document(uid)
-                                .set(userModel)
-                                .addOnSuccessListener { Log.d("FireStore", "Success") }
-                                .addOnFailureListener { e -> Log.w("FireStore", "Failed", e) }
                         }
                     } else {
                         val userModel = UserInfo(

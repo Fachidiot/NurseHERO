@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:baselineAligned="false"
     android:background="#ffffff"
     android:elevation="5dp">
 
@@ -15,7 +16,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:src="@drawable/icon_profile_dark" />
+            android:src="@drawable/icon_profile_dark"
+            android:contentDescription="@string/Home" />
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/xml_btmnv_btn_friends"
@@ -27,7 +29,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:src="@drawable/icon_friends_dark" />
+            android:src="@drawable/icon_friends_dark"
+            android:contentDescription="@string/Find" />
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/xml_btmnv_btn_chat"
@@ -39,31 +42,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:src="@drawable/icon_chat_dark" />
-    </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/xml_btmnv_btn_search"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:src="@drawable/icon_search_dark" />
-    </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/xml_btmnv_btn_setting"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:src="@drawable/icon_settings_dark" />
+            android:src="@drawable/icon_chat_dark"
+            android:contentDescription="@string/Account" />
     </RelativeLayout>
 
 </LinearLayout>

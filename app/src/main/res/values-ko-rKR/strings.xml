@@ -29,4 +29,9 @@
     <string name="Button_FindPassword">비밀번호 찾기</string>
     <string name="Button_Register">회원가입</string>
     <string name="Auto_Login">자동 로그인</string>
+
+    <!-- Main -->
+    <string name="Home">홈</string>
+    <string name="Find">찾기</string>
+    <string name="Account">계정</string>
 </resources>
