@@ -4,6 +4,8 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -23,7 +25,6 @@ import kotlinx.android.synthetic.main.activity_register.*
 import java.io.File
 
 
-@Suppress("DEPRECATION")
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var mFirebaseAuth: FirebaseAuth
@@ -32,7 +33,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var mFirebaseStoreDatabase: FirebaseFirestore
 
     private var imageUri: Uri? = null
-    private lateinit var pathUri: String
+    private var pathUri: String? = null
     private var tempFile: File? = null
     private var imageSet: Boolean = false
 
@@ -56,6 +57,31 @@ class RegisterActivity : AppCompatActivity() {
         RelativeLayout_Register.setOnClickListener {
             checkInfo()
         }
+
+        TextInputEditText_Password.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) { }
+            override fun afterTextChanged(s: Editable) {
+                if (TextInputEditText_Password.text.toString().length < 8) {
+                    TextInputEditText_Password.error = "Password needs more 8 character"
+                } else {
+                    TextInputEditText_Password.error = null // null 은 에러 메시지를 지워주는 기능
+                }
+            }
+        })
+
+        TextInputEditText_Comfirm_Password.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) { }
+            override fun afterTextChanged(s: Editable) {
+                if (TextInputEditText_Comfirm_Password.text.toString().length < 8) {
+                    TextInputEditText_Comfirm_Password.error = "Password needs more 8 character"
+                } else {
+                    TextInputEditText_Comfirm_Password.error = null // null 은 에러 메시지를 지워주는 기능
+                }
+            }
+        })
+
     }
 
 
@@ -100,7 +126,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     // uri 절대경로 가져오기
-    private fun getPath(uri: Uri?): String {
+    private fun getPath(uri: Uri?): String? {
         val proj = arrayOf(MediaStore.Images.Media.DATA)
         val cursorLoader = CursorLoader(
             this,
@@ -135,23 +161,24 @@ class RegisterActivity : AppCompatActivity() {
 
                         storageReference.putFile(imageUri!!).addOnCompleteListener { task ->
                             val imageUrl: Task<Uri> = task.result?.storage?.downloadUrl as Task<Uri>
-                            if (!imageUrl.isComplete) {
-                                val userModel = UserInfo(
-                                    intent.getBooleanExtra("nurse", false),
-                                    TextInputEditText_Nickname.text.toString(),
-                                    TextInputEditText_FirstName.text.toString(),
-                                    TextInputEditText_LastName.text.toString(),
-                                    imageUrl.result.toString(),
-                                    uid
-                                )
-
-                                // database에 저장
-                                mFirebaseStoreDatabase.collection("users").document(uid)
-                                    .set(userModel)
-                                    .addOnSuccessListener { Log.d("FireStore", "Success") }
-                                    .addOnFailureListener { e -> Log.w("FireStore", "Failed", e) }
-
+                            while (!imageUrl.isComplete) {
                             }
+
+                            val userModel = UserInfo(
+                                intent.getBooleanExtra("nurse", false),
+                                TextInputEditText_Nickname.text.toString(),
+                                TextInputEditText_FirstName.text.toString(),
+                                TextInputEditText_LastName.text.toString(),
+                                imageUrl.result.toString(),
+                                uid
+                            )
+
+                            // database에 저장
+                            mFirebaseStoreDatabase.collection("users").document(uid)
+                                .set(userModel)
+                                .addOnSuccessListener { Log.d("FireStore", "Success") }
+                                .addOnFailureListener { e -> Log.w("FireStore", "Failed", e) }
+
 
                         }
                     } else {
