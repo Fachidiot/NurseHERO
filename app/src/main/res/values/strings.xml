@@ -14,6 +14,8 @@
     <string name="TextInputLayout_ComfirmPassword">ComfirmPassword</string>
     <string name="CheckBox_Policy">By registering, you agree to NuresHRO\'s terms of and privacy policy</string>
     <string name="Choose_Position">Choose Position</string>
+    <string name="Nurse">Nurse</string>
+    <string name="Normal">Normal</string>
     <string name="Next">Next</string>
 
     <!-- RegisterSuccessActivity -->
@@ -36,5 +38,4 @@
     <string name="Home">Home</string>
     <string name="Find">Find</string>
     <string name="Account">Account</string>
-
 </resources>
