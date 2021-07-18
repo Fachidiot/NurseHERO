@@ -44,8 +44,15 @@ class FragmentMainProfile : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        RelativeLayout_LogOut.setOnClickListener {
+        LogoutButton.setOnClickListener {
             logOut()
+        }
+
+        LoginButton.setOnClickListener {
+            activity?.let {
+                val intent = Intent(context, LoginActivity::class.java)
+                startActivity(intent)
+            }
         }
 
     }
@@ -56,10 +63,12 @@ class FragmentMainProfile : Fragment() {
         LoginManager.getInstance().logOut()
         context?.let { MySharedPreferences.setAuto(it, false) }
 
-        activity?.let {
-            val intent = Intent(context, LoginActivity::class.java)
-            startActivity(intent)
-        }
+        //activity?.let {
+        //    val intent = Intent(context, LoginActivity::class.java)
+        //    startActivity(intent)
+        //}
+
+        LoginButton.visibility = 1
 
         Toast.makeText(context, "Logout", Toast.LENGTH_SHORT).show()
     }

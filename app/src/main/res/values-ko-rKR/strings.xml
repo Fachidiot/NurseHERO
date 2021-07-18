@@ -36,4 +36,5 @@
     <string name="Home">홈</string>
     <string name="Find">찾기</string>
     <string name="Account">계정</string>
+    <string name="Button_Logout">LOGOUT</string>
 </resources>
