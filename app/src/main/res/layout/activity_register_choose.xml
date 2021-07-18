@@ -7,9 +7,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingHorizontal="16dp"
         android:orientation="vertical"
         android:background="@null"
-        android:paddingHorizontal="16dp"
         android:weightSum="10">
 
         <RelativeLayout
@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/vtrocore"
                 android:gravity="center"
-                android:text="Choose Position"
+                android:text="@string/Choose_Position"
                 android:textColor="@color/blue"
                 android:textSize="20sp"
                 android:layout_marginTop="10dp"/>
@@ -44,11 +44,15 @@
             android:gravity="center"
             android:layout_weight="5"
             >
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="10dp"
                 >
+
                 <CheckBox
                     android:id="@+id/CheckBox_Nurse"
                     android:layout_width="150dp"
@@ -61,21 +65,19 @@
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Nurse"
+                    android:text="@string/Nurse"
                     android:textSize="18dp"
                     android:fontFamily="@font/vtrocore"
                     />
 
             </LinearLayout>
 
-            <TextView
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"/>
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="10dp"
                 >
                 <CheckBox
                     android:id="@+id/CheckBox_Normal"
@@ -89,7 +91,7 @@
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="normal"
+                    android:text="@string/Normal"
                     android:textSize="18dp"
                     android:fontFamily="@font/vtrocore"
                     />
@@ -102,13 +104,13 @@
 
         <RelativeLayout
             android:id="@+id/RelativeLayout_Next"
-            android:layout_width="match_parent"
+            android:layout_width="320dp"
             android:layout_height="50dp"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="100dp"
             android:background="@drawable/btn_blue"
             android:clickable="true"
-            android:gravity="center"
+            android:layout_gravity="center"
             >
 
             <ImageView
@@ -124,7 +126,7 @@
                 android:layout_height="50dp"
                 android:gravity="center"
                 android:stateListAnimator="@null"
-                android:text="Next"
+                android:text="@string/Next"
                 android:textColor="#ffffff"
                 android:fontFamily="@font/vtrocore" />
         </RelativeLayout>

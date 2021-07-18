@@ -13,6 +13,8 @@
     <string name="TextInputLayout_ComfirmPassword">비밀번호 확인</string>
     <string name="CheckBox_Policy">회원가입을 하려면, 간호인력사무소 앱에서 필요한 개인 정보 보호 정책에 동의해야 합니다</string>
     <string name="Choose_Position">당신은 무엇입니까?</string>
+    <string name="Nurse">간호사</string>
+    <string name="Normal">일반인</string>
     <string name="Next">다음</string>
 
     <!-- RegisterSuccessActivity -->

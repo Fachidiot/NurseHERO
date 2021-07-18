@@ -4,10 +4,101 @@
     android:layout_height="match_parent"
     tools:context="com.fachidiot.nursehro.MainFragment.FragmentMainFriends">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Is Now Preparing see you soon" />
+        android:layout_height="match_parent">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/TutorialAds"
+                android:layout_width="wrap_content"
+                android:layout_height="300dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                android:src="@drawable/icon_userplus">
+
+            </ImageView>
+
+            <GridLayout
+                android:layout_marginTop="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="150dp"
+                android:layout_marginBottom="30dp">
+                >
+
+                <TextView
+                    android:text="아이콘1">
+
+                </TextView>
+
+                <TextView
+                    android:text="아이콘2">
+
+                </TextView>
+
+                <TextView
+                    android:text="아이콘3">
+
+                </TextView>
+
+            </GridLayout>
+
+            <GridLayout
+                android:layout_marginTop="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="300dp"
+                android:layout_marginBottom="30dp">
+                >
+
+                <TextView
+                    android:text="아이콘1">
+
+                </TextView>
+
+                <TextView
+                    android:text="아이콘2">
+
+                </TextView>
+
+                <TextView
+                    android:text="아이콘3">
+
+                </TextView>
+
+            </GridLayout>
+
+            <ScrollView
+                android:layout_marginTop="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_marginBottom="30dp">
+                >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/icon_userplus"/>
+
+                </LinearLayout>
+
+            </ScrollView>
+
+            <TextView
+                android:layout_marginTop="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="도움말 구역"/>
+
+
+        </LinearLayout>
+    </ScrollView>
 </FrameLayout>

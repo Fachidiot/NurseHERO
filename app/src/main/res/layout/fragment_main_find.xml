@@ -1,13 +1,69 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_find"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.fachidiot.nursehro.MainFragment.FragmentMainSearch">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Is Now Preparing see you soon" />
+        android:orientation="vertical"
+        android:weightSum="10"
+        >
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="히어로 찾기"
+            android:textColor="@color/blue"
+            android:layout_weight="1"
+            />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:text="검색바"
+            android:layout_weight="1"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            >
+
+            <Button
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"/>
+
+            <Button
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"/>
+
+            <Button
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"/>
+
+        </LinearLayout>
+
+        <fragment
+            class="com.google.android.gms.maps.MapFragment"
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            tools:context=".MapsActivity"
+            android:name="com.google.android.gms.maps.SupportMapFragment" />
+
+
+
+    </LinearLayout>
 </FrameLayout>

@@ -56,7 +56,6 @@ class MainActivity : AppCompatActivity() {
 
         val viewBtmNaviMain : View = this.layoutInflater.inflate(R.layout.btm_navigation_main, null, false)
 
-        
         TabLayout_main_xml.getTabAt(0)!!.customView = viewBtmNaviMain.findViewById(R.id.xml_btmnv_btn_profile) as RelativeLayout
         TabLayout_main_xml.getTabAt(1)!!.customView = viewBtmNaviMain.findViewById(R.id.xml_btmnv_btn_friends) as RelativeLayout
         TabLayout_main_xml.getTabAt(2)!!.customView = viewBtmNaviMain.findViewById(R.id.xml_btmnv_btn_chat) as RelativeLayout
