@@ -6,170 +6,195 @@
     android:layout_height="match_parent"
     tools:context="com.fachidiot.nursehro.MainFragment.FragmentMainProfile">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginVertical="20dp">
 
             <ImageView
-                android:layout_width="match_parent"
+                android:id="@+id/imageView2"
+                android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_marginTop="20dp"
-                android:src="@drawable/icon_profile_dark" />
+                android:layout_alignParentStart="true"
+                android:src="@drawable/icon_profile_dark"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.051"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <FrameLayout
+                android:id="@+id/frameLayout"
+                android:layout_width="100dp"
+                android:layout_height="48dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.11"
+                app:layout_constraintStart_toEndOf="@+id/imageView2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.73">
+
+                <Button
+                    android:id="@+id/LogoutButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/btn_blue"
+                    android:fontFamily="@font/vtrocore"
+                    android:maxWidth="150dp"
+                    android:minWidth="100dp"
+                    android:text="@string/Button_Logout"
+                    android:textSize="20sp"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.107"
+                    app:layout_constraintStart_toEndOf="@+id/imageView2"
+                    tools:layout_editor_absoluteY="40dp" />
+
+                <Button
+                    android:id="@+id/LoginButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/btn_blue"
+                    android:fontFamily="@font/vtrocore"
+                    android:maxWidth="150dp"
+                    android:minWidth="100dp"
+                    android:text="@string/Button_Login"
+                    android:textSize="20sp"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.107"
+                    app:layout_constraintStart_toEndOf="@+id/imageView2"
+                    tools:layout_editor_absoluteY="40dp" />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/TextView_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:fontFamily="@font/vtrocore"
+                android:text="username"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toTopOf="@+id/frameLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.096"
+                app:layout_constraintStart_toEndOf="@+id/imageView2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.56" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ScrollView
+            android:background="@color/gray"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <LinearLayout
+                android:layout_marginTop="30dp"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:orientation="vertical"
-                android:paddingHorizontal="30dp"
-                android:weightSum="5">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:orientation="horizontal"
-                    android:weightSum="2"
-                    android:gravity="center"
+                    android:layout_height="700dp"
+                    android:orientation="vertical"
                     >
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="wrap_content"
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center">
+                        android:fontFamily="@font/vtrocore"
+                        android:gravity="center"
+                        android:text="PhoneNumber"
+                        android:textSize="25sp"
+                        android:layout_marginBottom="10dp"/>
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/TextInputLayout_FirstName"
-                            android:layout_width="170dp"
-                            android:layout_height="70dp"
-                            android:background="@color/white"
-                            android:hint="@string/TextInputLayout_FirstName"
-                            android:fontFamily="@font/vtrocore"
-                            android:inputType="textEmailAddress" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:layout_width="wrap_content"
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center">
+                        android:fontFamily="@font/vtrocore"
+                        android:gravity="center"
+                        android:text="License"
+                        android:textSize="25sp"
+                        android:layout_marginBottom="10dp"/>
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/TextInputLayout_LastName"
-                            android:layout_width="170dp"
-                            android:layout_height="70dp"
-                            android:background="@color/white"
-                            android:hint="@string/TextInputLayout_LastName"
-                            android:fontFamily="@font/vtrocore"
-                            android:inputType="textEmailAddress"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/vtrocore"
+                        android:gravity="center"
+                        android:text="Location"
+                        android:textSize="25sp"
+                        android:layout_marginBottom="10dp"/>
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/vtrocore"
+                        android:gravity="center"
+                        android:text="State"
+                        android:textSize="25sp"
+                        android:layout_marginBottom="10dp"/>
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/vtrocore"
+                        android:gravity="center"
+                        android:text="State"
+                        android:textSize="25sp"
+                        android:layout_marginBottom="10dp" />
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/vtrocore"
+                        android:gravity="center"
+                        android:text="State"
+                        android:textSize="25sp"
+                        android:layout_marginBottom="10dp" />
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/vtrocore"
+                        android:gravity="center"
+                        android:text="State"
+                        android:textSize="25sp"
+                        android:layout_marginBottom="10dp" />
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/vtrocore"
+                        android:gravity="center"
+                        android:text="State"
+                        android:textSize="25sp"
+                        android:layout_marginBottom="30dp"/>
 
                 </LinearLayout>
 
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/vtrocore"
-                    android:gravity="center"
-                    android:text="PhoneNumber"
-                    android:textSize="25sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/vtrocore"
-                    android:gravity="center"
-                    android:text="License"
-                    android:textSize="25sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/vtrocore"
-                    android:gravity="center"
-                    android:text="Location"
-                    android:textSize="25sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/vtrocore"
-                    android:gravity="center"
-                    android:text="State"
-                    android:textSize="25sp" />
-
             </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="40dp"
-                android:background="@drawable/btn_blue"
-                android:clickable="true"
-                android:gravity="center"
-
-                >
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="50dp"
-                    android:background="@null"
-                    android:gravity="center"
-                    android:src="@drawable/icon_profile" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:fontFamily="@font/vtrocore"
-                    android:gravity="center"
-                    android:stateListAnimator="@null"
-                    android:text="Change Profile"
-                    android:textColor="#ffffff" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/RelativeLayout_LogOut"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="40dp"
-                android:background="@drawable/btn_blue"
-                android:clickable="true"
-                android:gravity="center">
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="50dp"
-                    android:background="@null"
-                    android:gravity="center"
-                    android:src="@drawable/icon_profile" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:fontFamily="@font/vtrocore"
-                    android:gravity="center"
-                    android:stateListAnimator="@null"
-                    android:text="LogOut"
-                    android:textColor="#ffffff" />
-            </RelativeLayout>
-
-        </LinearLayout>
-    </ScrollView>
-
-
+        </ScrollView>
+    </LinearLayout>
 </FrameLayout>
