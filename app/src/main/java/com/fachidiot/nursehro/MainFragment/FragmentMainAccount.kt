@@ -68,7 +68,9 @@ class FragmentMainProfile : Fragment() {
         //    startActivity(intent)
         //}
 
-        LoginButton.visibility = 1
+        LogoutButton.visibility = View.INVISIBLE
+
+        LoginButton.visibility = View.VISIBLE
 
         Toast.makeText(context, "Logout", Toast.LENGTH_SHORT).show()
     }
