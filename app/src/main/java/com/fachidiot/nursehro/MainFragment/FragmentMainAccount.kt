@@ -10,8 +10,14 @@ import android.widget.Toast
 import com.facebook.login.LoginManager
 import com.fachidiot.nursehro.LoginActivity
 import com.fachidiot.nursehro.Class.MySharedPreferences
+import com.fachidiot.nursehro.Class.UserInfo
 import com.fachidiot.nursehro.R
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.fragment_main_account.*
 
 private const val ARG_PARAM1 = "param1"
@@ -20,17 +26,24 @@ private const val ARG_PARAM2 = "param2"
 class FragmentMainProfile : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
-    lateinit var mFirebaseAuth : FirebaseAuth
+    private lateinit var mFirebaseAuth : FirebaseAuth
+    private lateinit var mFirebaseStorage: FirebaseStorage
+    private lateinit var mFirebaseStoreDatabase: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         mFirebaseAuth = FirebaseAuth.getInstance()
+        mFirebaseStoreDatabase = Firebase.firestore
+        mFirebaseStorage = FirebaseStorage.getInstance()
 
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+        if(mFirebaseAuth.currentUser != null)
+            setInfo()
     }
 
     override fun onCreateView(
@@ -73,6 +86,19 @@ class FragmentMainProfile : Fragment() {
         LoginButton.visibility = View.VISIBLE
 
         Toast.makeText(context, "Logout", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun setInfo() {
+        val userRef = mFirebaseAuth.currentUser?.let {
+            mFirebaseStoreDatabase.collection("users").document(
+                it.uid)
+        }
+        userRef?.get()?.addOnSuccessListener { documentSnapshot ->
+            val user = documentSnapshot.toObject<UserInfo>()
+
+            TextView_username.text = user?.userNickname
+        }
+
     }
 
     companion object {
