@@ -91,18 +91,6 @@ class FragmentMainProfile : Fragment() {
         Toast.makeText(context, "Logout", Toast.LENGTH_SHORT).show()
     }
 
-    private fun getPath(uri: Uri?): String? {
-        val proj = arrayOf(MediaStore.Images.Media.DATA)
-        val cursorLoader = CursorLoader(
-            this,
-            uri!!, proj, null, null, null
-        )
-        val cursor = cursorLoader.loadInBackground()
-        val index = cursor!!.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-        cursor.moveToFirst()
-        return cursor.getString(index)
-    }
-
     private fun setInfo() {
         val userRef = mFirebaseAuth.currentUser?.let {
             mFirebaseStoreDatabase.collection("users").document(
