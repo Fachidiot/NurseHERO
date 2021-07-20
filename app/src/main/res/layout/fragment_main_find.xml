@@ -1,4 +1,5 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_find"
     android:layout_width="match_parent"
@@ -17,51 +18,139 @@
             android:layout_height="50dp"
             android:text="히어로 찾기"
             android:textColor="@color/blue"
-            android:layout_weight="1"
-            />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="70dp"
-            android:text="검색바"
+            android:textSize="20sp"
+            android:fontFamily="@font/vtrocore"
+            android:gravity="center"
             android:layout_weight="1"
             />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            >
+
+            <EditText
+                android:paddingLeft="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:hint="위치를 입력하세요"
+                android:fontFamily="@font/vtrocore"
+                android:layout_weight="1"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_blue"
+                android:text="검색"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:fontFamily="@font/vtrocore"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_weight="1"
+            android:weightSum="3"
             android:layout_gravity="center"
             >
 
             <Button
                 android:layout_marginLeft="10dp"
+                android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/btn_blue"
+                android:text="필터"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:fontFamily="@font/vtrocore"
                 android:layout_marginRight="10dp"/>
 
             <Button
                 android:layout_marginLeft="10dp"
+                android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/btn_blue"
+                android:text="즐겨찾기"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:fontFamily="@font/vtrocore"
                 android:layout_marginRight="10dp"/>
 
             <Button
                 android:layout_marginLeft="10dp"
+                android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/btn_blue"
+                android:text="리스트"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:fontFamily="@font/vtrocore"
                 android:layout_marginRight="10dp"/>
 
         </LinearLayout>
 
-        <fragment
-            class="com.google.android.gms.maps.MapFragment"
-            android:id="@+id/map"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="7"
-            tools:context=".MapsActivity"
-            android:name="com.google.android.gms.maps.SupportMapFragment" />
+            >
+
+            <fragment
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                class="com.google.android.gms.maps.MapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="7"
+                tools:context=".MapsActivity" />
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/txtinput_btn_white"
+                android:layout_marginBottom="256dp"
+                app:layout_constraintBottom_toBottomOf="@+id/map"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.955"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.85" />
+
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/txtinput_btn_white"
+                app:layout_constraintBottom_toTopOf="@+id/button2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.955"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button3"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/txtinput_btn_white"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/map"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.955"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.7"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
