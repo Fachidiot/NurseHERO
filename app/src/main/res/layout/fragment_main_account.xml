@@ -18,7 +18,7 @@
             android:layout_marginVertical="20dp">
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/ImageView_ProfileImg"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_alignParentStart="true"
@@ -113,32 +113,35 @@
 
 
                     <TextView
+                        android:id="@+id/TextView_Firstname"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/vtrocore"
                         android:gravity="center"
-                        android:text="PhoneNumber"
+                        android:text="FirstName"
                         android:textSize="25sp"
                         android:layout_marginBottom="10dp"/>
 
                     <TextView
+                        android:id="@+id/TextView_Lastname"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/vtrocore"
                         android:gravity="center"
-                        android:text="License"
+                        android:text="Lastname"
                         android:textSize="25sp"
                         android:layout_marginBottom="10dp"/>
 
                     <TextView
+                        android:id="@+id/TextView_Nurse"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/vtrocore"
                         android:gravity="center"
-                        android:text="Location"
+                        android:text="Nurse"
                         android:textSize="25sp"
                         android:layout_marginBottom="10dp"/>
 

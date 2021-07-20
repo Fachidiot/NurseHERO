@@ -1,12 +1,15 @@
 package com.fachidiot.nursehro.MainFragment
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.loader.content.CursorLoader
 import com.facebook.login.LoginManager
 import com.fachidiot.nursehro.LoginActivity
 import com.fachidiot.nursehro.Class.MySharedPreferences
@@ -88,6 +91,18 @@ class FragmentMainProfile : Fragment() {
         Toast.makeText(context, "Logout", Toast.LENGTH_SHORT).show()
     }
 
+    private fun getPath(uri: Uri?): String? {
+        val proj = arrayOf(MediaStore.Images.Media.DATA)
+        val cursorLoader = CursorLoader(
+            this,
+            uri!!, proj, null, null, null
+        )
+        val cursor = cursorLoader.loadInBackground()
+        val index = cursor!!.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+        cursor.moveToFirst()
+        return cursor.getString(index)
+    }
+
     private fun setInfo() {
         val userRef = mFirebaseAuth.currentUser?.let {
             mFirebaseStoreDatabase.collection("users").document(
@@ -97,6 +112,12 @@ class FragmentMainProfile : Fragment() {
             val user = documentSnapshot.toObject<UserInfo>()
 
             TextView_username.text = user?.userNickname
+            TextView_Firstname.text = user?.userFirstname
+            TextView_Lastname.text = user?.userLastname
+            if (user?.nurse == true)
+                TextView_Nurse.text = "Nurse"
+            else
+                TextView_Nurse.text = "Normal"
         }
 
     }
