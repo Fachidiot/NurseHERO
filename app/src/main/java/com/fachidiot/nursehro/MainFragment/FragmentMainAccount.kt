@@ -88,6 +88,11 @@ class FragmentMainProfile : Fragment() {
 
         LoginButton.visibility = View.VISIBLE
 
+        TextView_username.text = "Nickname"
+        TextView_Firstname.text = "Firstname"
+        TextView_Lastname.text = "Lastname"
+        TextView_Nurse.text = "Nurse"
+
         Toast.makeText(context, "Logout", Toast.LENGTH_SHORT).show()
     }
 
