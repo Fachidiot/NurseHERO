@@ -16,10 +16,10 @@
             <ImageView
                 android:id="@+id/TutorialAds"
                 android:layout_width="wrap_content"
-                android:layout_height="300dp"
+                android:layout_height="410dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="30dp"
-                android:src="@drawable/icon_userplus">
+                android:src="@drawable/ads_popup">
 
             </ImageView>
 
@@ -50,7 +50,7 @@
             <GridLayout
                 android:layout_marginTop="30dp"
                 android:layout_width="wrap_content"
-                android:layout_height="300dp"
+                android:layout_height="150dp"
                 android:layout_marginBottom="30dp">
                 >
 
@@ -72,11 +72,13 @@
             </GridLayout>
 
             <ScrollView
-                android:layout_marginTop="30dp"
                 android:layout_width="wrap_content"
-                android:layout_height="80dp"
-                android:layout_marginBottom="30dp">
+                android:layout_height="120dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                android:scrollbarStyle="insideOverlay"
                 >
+
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -85,8 +87,18 @@
 
                     <ImageView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/icon_userplus"/>
+                        android:layout_height="140dp"
+                        android:src="@drawable/ads_banner" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="140dp"
+                        android:src="@drawable/ads_banner" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="140dp"
+                        android:src="@drawable/ads_banner" />
 
                 </LinearLayout>
 
