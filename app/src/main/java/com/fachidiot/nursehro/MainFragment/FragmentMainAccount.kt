@@ -70,7 +70,7 @@ class FragmentMainProfile : Fragment() {
                 startActivity(intent)
             }
         }
-
+ 
     }
 
     private fun logOut() {

@@ -112,11 +112,13 @@
                 android:layout_weight="7"
                 tools:context=".MapsActivity" />
 
-            <Button
+            <ImageView
                 android:id="@+id/button3"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:src="@drawable/icon_locate_current"
                 android:background="@drawable/txtinput_btn_white"
+                android:clickable="true"
                 android:layout_marginBottom="256dp"
                 app:layout_constraintBottom_toBottomOf="@+id/map"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -125,11 +127,13 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.85" />
 
-            <Button
+            <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="8dp"
+                android:src="@drawable/icon_plus_dark"
                 android:background="@drawable/txtinput_btn_white"
+                android:clickable="true"
                 app:layout_constraintBottom_toTopOf="@+id/button2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.955"
@@ -137,11 +141,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/button3"
                 app:layout_constraintVertical_bias="1.0" />
 
-            <Button
+            <ImageView
                 android:id="@+id/button2"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:src="@drawable/icon_minus_dark"
                 android:background="@drawable/txtinput_btn_white"
+                android:clickable="true"
                 android:layout_marginBottom="16dp"
                 app:layout_constraintBottom_toBottomOf="@+id/map"
                 app:layout_constraintEnd_toEndOf="parent"
