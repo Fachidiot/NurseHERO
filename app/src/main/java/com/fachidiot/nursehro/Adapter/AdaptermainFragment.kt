@@ -11,7 +11,7 @@ FragmentStatePagerAdapter(fm) {
     override fun getItem(position: Int): Fragment {
         return when(position){
             0 -> FragmentMainChat()
-            1 -> FragmentMainSearch()
+            1 -> FragmentMainFind()
             2 -> FragmentMainProfile()
             else -> FragmentMainProfile()
         }

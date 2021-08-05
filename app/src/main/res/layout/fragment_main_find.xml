@@ -4,13 +4,12 @@
     android:id="@+id/layout_find"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.fachidiot.nursehro.MainFragment.FragmentMainSearch">
+    tools:context="com.fachidiot.nursehro.MainFragment.FragmentMainFind">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:weightSum="10"
         >
 
         <TextView
@@ -21,13 +20,13 @@
             android:textSize="20sp"
             android:fontFamily="@font/vtrocore"
             android:gravity="center"
-            android:layout_weight="1"
             />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:paddingHorizontal="14dp"
             android:weightSum="1"
             >
 
@@ -98,64 +97,15 @@
 
         </LinearLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            class="com.google.android.gms.maps.MapFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            >
-
-            <fragment
-                android:id="@+id/map"
-                android:name="com.google.android.gms.maps.SupportMapFragment"
-                class="com.google.android.gms.maps.MapFragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="7"
-                tools:context=".MapsActivity" />
-
-            <ImageView
-                android:id="@+id/CurrentLocate"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/txtinput_btn_white"
-                android:clickable="true"
-                android:src="@drawable/icon_locate_current"
-                app:layout_constraintBottom_toTopOf="@+id/PlusMap"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.955"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.97" />
-
-            <ImageView
-                android:id="@+id/PlusMap"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/txtinput_btn_white"
-                android:clickable="true"
-                android:src="@drawable/icon_plus_dark"
-                app:layout_constraintBottom_toTopOf="@+id/MinusMap"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.955"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0" />
-
-            <ImageView
-                android:id="@+id/MinusMap"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/icon_minus_dark"
-                android:background="@drawable/txtinput_btn_white"
-                android:clickable="true"
-                android:layout_marginBottom="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/map"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.955"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.7"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_weight="7"
+            tools:context=".MapsActivity" />
 
 
 
