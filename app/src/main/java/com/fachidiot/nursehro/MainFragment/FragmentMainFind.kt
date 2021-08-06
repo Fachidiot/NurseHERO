@@ -1,18 +1,18 @@
 package com.fachidiot.nursehro.MainFragment
 
 import android.Manifest
+import android.content.pm.PackageManager
+import android.location.Address
+import android.location.Geocoder
 import android.os.Bundle
 import android.view.*
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import com.fachidiot.nursehro.R
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
-import kotlinx.android.synthetic.main.activity_maps.*
+import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.fragment_main_find.*
-import kotlinx.android.synthetic.main.fragment_main_find.map
 
 
 private const val ARG_PARAM1 = "param1"
@@ -28,6 +28,9 @@ class FragmentMainFind : Fragment(), OnMapReadyCallback {
         Manifest.permission.ACCESS_COARSE_LOCATION
     )
 
+    private lateinit var mMap : GoogleMap
+    private var mapView : MapView? = null
+
     private var param1: String? = null
     private var param2: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,29 +41,130 @@ class FragmentMainFind : Fragment(), OnMapReadyCallback {
         }
 
         onPermissionCheck()
+    }
 
-        val mapFragment = map
-        mapFragment.getMapAsync(this)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
 
+
+        searchButton.setOnClickListener {
+            if (searchEditText.text.isEmpty())
+                return@setOnClickListener
+            // 검색창에서 텍스트를 가져온다
+            val searchText: String = searchEditText.text.toString()
+            val geocoder = Geocoder(context)
+            var addresses: List<Address?>? = null
+            try {
+                addresses = geocoder.getFromLocationName(searchText, 3)
+                if (addresses != null) {
+                    search(addresses)
+                }
+            } catch (e: Exception) {
+            }
+        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
         ): View? {
-            // Inflate the layout for this fragment
-            return inflater.inflate(R.layout.fragment_main_find, container, false)
+        // Inflate the layout for this fragment
+        var rootView = inflater.inflate(R.layout.fragment_main_find, container, false)
+        mapView = rootView.findViewById(R.id.map) as MapView
+        mapView!!.onCreate(savedInstanceState)
+        mapView!!.getMapAsync(this)
+        return rootView
+    }
+
+
+    override fun onMapReady(googleMap: GoogleMap) {
+        mMap = googleMap
+
+        val Seoul = LatLng(37.557667, 126.926546)
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(Seoul))
+        googleMap.moveCamera(CameraUpdateFactory.zoomTo(15f))
+
+
+        if (context?.let {
+                ActivityCompat.checkSelfPermission(
+                    it,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                )
+            } != PackageManager.PERMISSION_GRANTED && context?.let {
+                ActivityCompat.checkSelfPermission(
+                    it,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                )
+            } != PackageManager.PERMISSION_GRANTED
+        ) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return
+        }
+        googleMap.isMyLocationEnabled = true
+        googleMap.uiSettings.isZoomControlsEnabled = true
+    }
+
+    // 구글맵 주소 검색 메서드
+    private fun search(addresses: List<Address>) {
+        val address: Address = addresses[0]
+        val latLng = LatLng(address.latitude, address.longitude)
+        val addressText = java.lang.String.format(
+            "%s, %s",
+            if (address.maxAddressLineIndex > 0) address
+                .getAddressLine(0) else " ", address.featureName
+        )
+        //locationText.visibility = View.VISIBLE
+        //locationText.text = """
+        //        Latitude${address.latitude.toString()}Longitude${address.longitude.toString()}
+        //        $addressText
+        //        """.trimIndent()
+        val markerOptions = MarkerOptions()
+        markerOptions.position(latLng)
+        markerOptions.title(addressText)
+        mMap.clear()
+        mMap.addMarker(markerOptions)
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng))
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(15f))
+    }
+
+    override fun onStart() {
+        super.onStart()
+        mapView?.onStart()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mapView?.onStop()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mapView?.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mapView?.onPause()
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        mapView?.onLowMemory()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mapView?.onLowMemory()
     }
 
     private fun onPermissionCheck() {
         requestPermissions(permission_list, 0)
-    }
-
-    override fun onMapReady(googleMap: GoogleMap) {
-
-        val Seoul = LatLng(37.557667, 126.926546)
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(Seoul))
-
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

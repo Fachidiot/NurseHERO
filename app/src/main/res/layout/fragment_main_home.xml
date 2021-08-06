@@ -23,58 +23,270 @@
 
             </ImageView>
 
+            <TextView
+                android:layout_marginTop="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="간호사 평점 순위"
+                android:textSize="25sp"
+                android:fontFamily="@font/vtrocore"
+                />
             <GridLayout
                 android:layout_marginTop="30dp"
                 android:layout_width="wrap_content"
-                android:layout_height="150dp"
+                android:layout_height="320dp"
+                android:columnCount="3"
+                android:rowCount="2"
+                android:layout_gravity="center"
                 android:layout_marginBottom="30dp">
 
-                <TextView
-                    android:text="아이콘1">
-
-                </TextView>
-
-                <TextView
-                    android:text="아이콘2">
-
-                </TextView>
-
-                <TextView
-                    android:text="아이콘3">
-
-                </TextView>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:orientation="vertical"
+                    >
+                    <ImageButton
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/icon_friends"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="username"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:orientation="vertical"
+                    >
+                    <ImageButton
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/icon_friends"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="username"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:orientation="vertical"
+                    >
+                    <ImageButton
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/icon_friends"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="username"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:orientation="vertical"
+                    >
+                    <ImageButton
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/icon_friends"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="username"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:orientation="vertical"
+                    >
+                    <ImageButton
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/icon_friends"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="username"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:orientation="vertical"
+                    >
+                    <ImageButton
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/icon_friends"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="username"
+                        />
+                </LinearLayout>
 
             </GridLayout>
 
+            <TextView
+                android:layout_marginTop="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="추천 간호사"
+                android:textSize="25sp"
+                android:fontFamily="@font/vtrocore"
+                />
             <GridLayout
                 android:layout_marginTop="30dp"
                 android:layout_width="wrap_content"
-                android:layout_height="150dp"
+                android:layout_height="340dp"
+                android:columnCount="3"
+                android:rowCount="2"
+                android:layout_gravity="center"
                 android:layout_marginBottom="30dp">
 
-                <TextView
-                    android:text="아이콘1">
-
-                </TextView>
-
-                <TextView
-                    android:text="아이콘2">
-
-                </TextView>
-
-                <TextView
-                    android:text="아이콘3">
-
-                </TextView>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:orientation="vertical"
+                    >
+                    <ImageButton
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/icon_friends"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="username"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:orientation="vertical"
+                    >
+                    <ImageButton
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/icon_friends"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="username"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:orientation="vertical"
+                    >
+                    <ImageButton
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/icon_friends"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="username"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:orientation="vertical"
+                    >
+                    <ImageButton
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/icon_friends"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="username"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:orientation="vertical"
+                    >
+                    <ImageButton
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/icon_friends"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="username"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:orientation="vertical"
+                    >
+                    <ImageButton
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/icon_friends"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="username"
+                        />
+                </LinearLayout>
 
             </GridLayout>
 
             <ScrollView
                 android:layout_width="wrap_content"
                 android:layout_height="120dp"
+                android:nestedScrollingEnabled="true"
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="30dp"
-                android:scrollbarStyle="insideOverlay"
                 >
 
 
