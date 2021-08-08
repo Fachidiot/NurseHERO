@@ -26,7 +26,7 @@ import kotlinx.android.synthetic.main.fragment_main_account.*
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-class FragmentMainProfile : Fragment() {
+class FragmentMainAccount : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var mFirebaseAuth : FirebaseAuth
@@ -118,7 +118,7 @@ class FragmentMainProfile : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            FragmentMainProfile().apply {
+            FragmentMainAccount().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

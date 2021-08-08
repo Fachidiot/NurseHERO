@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.fachidiot.nursehro.Class.ImageDTO
-import com.fachidiot.nursehro.MainFragment.FragmentMainProfile
+import com.fachidiot.nursehro.MainFragment.FragmentMainAccount
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -64,7 +64,7 @@ class UploadActivity : AppCompatActivity() {
                     //database.getReference().child("Profile").setValue(imageDTO);
                     //  .set  :  데이터를 넣는다  .push()  :  데이터가 쌓인다.
                     mFirebaseDatabase.reference.child("Profile").push().setValue(imageDTO)
-                    val intent = Intent(applicationContext, FragmentMainProfile::class.java)
+                    val intent = Intent(applicationContext, FragmentMainAccount::class.java)
                     startActivity(intent)
                 } else {
                     // Handle failures

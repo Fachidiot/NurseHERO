@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.fachidiot.nursehro.MainFragment.FragmentMainFriends">
+    tools:context="com.fachidiot.nursehro.MainFragment.FragmentMainHome">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -46,13 +46,58 @@
                     android:layout_height="150dp"
                     android:orientation="vertical"
                     >
+
                     <ImageButton
+                        android:id="@+id/RateUserIcon1"
                         android:layout_width="130dp"
                         android:layout_height="130dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/icon_friends"
-                        />
+                        tools:ignore="SpeakableTextPresentCheck" />
                     <TextView
+                        android:id="@+id/RateUserName1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="username"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:orientation="vertical"
+                    >
+
+                    <ImageButton
+                        android:id="@+id/RateUserIcon2"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/icon_friends"
+                        tools:ignore="SpeakableTextPresentCheck" />
+                    <TextView
+                        android:id="@+id/RateUserName2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="username"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:orientation="vertical"
+                    >
+
+                    <ImageButton
+                        android:id="@+id/RateUserIcon3"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/icon_friends"
+                        tools:ignore="SpeakableTextPresentCheck" />
+                    <TextView
+                        android:id="@+id/RateUserName3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -65,12 +110,14 @@
                     android:orientation="vertical"
                     >
                     <ImageButton
+                        android:id="@+id/RateUserIcon4"
                         android:layout_width="130dp"
                         android:layout_height="130dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/icon_friends"
                         />
                     <TextView
+                        android:id="@+id/RateUserName4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -83,12 +130,14 @@
                     android:orientation="vertical"
                     >
                     <ImageButton
+                        android:id="@+id/RateUserIcon5"
                         android:layout_width="130dp"
                         android:layout_height="130dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/icon_friends"
                         />
                     <TextView
+                        android:id="@+id/RateUserName5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -101,48 +150,14 @@
                     android:orientation="vertical"
                     >
                     <ImageButton
+                        android:id="@+id/RateUserIcon6"
                         android:layout_width="130dp"
                         android:layout_height="130dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/icon_friends"
                         />
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="username"
-                        />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="150dp"
-                    android:orientation="vertical"
-                    >
-                    <ImageButton
-                        android:layout_width="130dp"
-                        android:layout_height="130dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/icon_friends"
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="username"
-                        />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="150dp"
-                    android:orientation="vertical"
-                    >
-                    <ImageButton
-                        android:layout_width="130dp"
-                        android:layout_height="130dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/icon_friends"
-                        />
-                    <TextView
+                        android:id="@+id/RateUserName6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -176,12 +191,14 @@
                     android:orientation="vertical"
                     >
                     <ImageButton
+                        android:id="@+id/RecommendUserIcon1"
                         android:layout_width="130dp"
                         android:layout_height="130dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/icon_friends"
                         />
                     <TextView
+                        android:id="@+id/RecommendUserName1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -194,12 +211,14 @@
                     android:orientation="vertical"
                     >
                     <ImageButton
+                        android:id="@+id/RecommendUserIcon2"
                         android:layout_width="130dp"
                         android:layout_height="130dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/icon_friends"
                         />
                     <TextView
+                        android:id="@+id/RecommendUserName2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -212,12 +231,14 @@
                     android:orientation="vertical"
                     >
                     <ImageButton
+                        android:id="@+id/RecommendUserIcon3"
                         android:layout_width="130dp"
                         android:layout_height="130dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/icon_friends"
                         />
                     <TextView
+                        android:id="@+id/RecommendUserName3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -230,12 +251,14 @@
                     android:orientation="vertical"
                     >
                     <ImageButton
+                        android:id="@+id/RecommendUserIcon4"
                         android:layout_width="130dp"
                         android:layout_height="130dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/icon_friends"
                         />
                     <TextView
+                        android:id="@+id/RecommendUserName4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -248,12 +271,14 @@
                     android:orientation="vertical"
                     >
                     <ImageButton
+                        android:id="@+id/RecommendUserIcon5"
                         android:layout_width="130dp"
                         android:layout_height="130dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/icon_friends"
                         />
                     <TextView
+                        android:id="@+id/RecommendUserName5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -266,12 +291,14 @@
                     android:orientation="vertical"
                     >
                     <ImageButton
+                        android:id="@+id/RecommendUserIcon6"
                         android:layout_width="130dp"
                         android:layout_height="130dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/icon_friends"
                         />
                     <TextView
+                        android:id="@+id/RecommendUserName6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -281,14 +308,13 @@
 
             </GridLayout>
 
-            <ScrollView
+            <HorizontalScrollView
                 android:layout_width="wrap_content"
                 android:layout_height="120dp"
-                android:nestedScrollingEnabled="true"
+                android:scrollbars="none"
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="30dp"
                 >
-
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -296,23 +322,23 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="wrap_content"
+                        android:layout_width="400dp"
                         android:layout_height="140dp"
                         android:src="@drawable/ads_banner" />
 
                     <ImageView
-                        android:layout_width="wrap_content"
+                        android:layout_width="400dp"
                         android:layout_height="140dp"
                         android:src="@drawable/ads_banner" />
 
                     <ImageView
-                        android:layout_width="wrap_content"
+                        android:layout_width="400dp"
                         android:layout_height="140dp"
                         android:src="@drawable/ads_banner" />
 
                 </LinearLayout>
 
-            </ScrollView>
+            </HorizontalScrollView>
 
             <TextView
                 android:layout_marginTop="30dp"

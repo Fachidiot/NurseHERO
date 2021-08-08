@@ -10,10 +10,10 @@ FragmentStatePagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {
         return when(position){
-            0 -> FragmentMainChat()
+            0 -> FragmentMainHome()
             1 -> FragmentMainFind()
-            2 -> FragmentMainProfile()
-            else -> FragmentMainProfile()
+            2 -> FragmentMainAccount()
+            else -> FragmentMainHome()
         }
     }
 
