@@ -39,4 +39,6 @@
     <string name="Find">Find</string>
     <string name="Account">Account</string>
     <string name="Button_Logout">LOGOUT</string>
+    <string name="license">License</string>
+    <string name="name">Name</string>
 </resources>

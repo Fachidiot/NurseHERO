@@ -2,6 +2,7 @@ package com.fachidiot.nursehro.MainFragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,15 @@ import kotlinx.android.synthetic.main.fragment_main_account.*
 import kotlinx.android.synthetic.main.fragment_main_home.*
 import com.fachidiot.nursehro.MainActivity
 import com.fachidiot.nursehro.UserProfileActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+
+
+private lateinit var mFirebaseAuth : FirebaseAuth
+private lateinit var mFirebaseStoreDatabase: FirebaseFirestore
 
 
 private const val ARG_PARAM1 = "param1"
@@ -23,6 +33,11 @@ class FragmentMainHome : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        mFirebaseStoreDatabase = Firebase.firestore
+        mFirebaseAuth = FirebaseAuth.getInstance()
+
+
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -31,6 +46,10 @@ class FragmentMainHome : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        val docRef = mFirebaseStoreDatabase.collection("users")
+
+        val userNames = docRef.whereEqualTo("username", true)
 
         RateUserIcon1.setOnClickListener {
             activity?.let {

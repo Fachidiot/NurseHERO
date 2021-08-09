@@ -159,17 +159,17 @@ class RegisterActivity : AppCompatActivity() {
                             .child("userprofileImages")
                             .child("uid/" + file.lastPathSegment)
 
-                        storageReference.putFile(imageUri!!).addOnCompleteListener { task ->
-                            val imageUrl: Task<Uri> = task.result?.storage?.downloadUrl as Task<Uri>
-                            while (!imageUrl.isComplete) {
-                            }
+                        storageReference.putFile(imageUri!!).addOnCompleteListener {
+                            //task -> val imageUrl: Task<Uri> = task.result?.storage?.downloadUrl as Task<Uri>
+                            //while (!imageUrl.isComplete) {
+                            //}
 
                             val userModel = UserInfo(
                                 intent.getBooleanExtra("nurse", false),
                                 TextInputEditText_Nickname.text.toString(),
                                 TextInputEditText_FirstName.text.toString(),
                                 TextInputEditText_LastName.text.toString(),
-                                imageUrl.result.toString(),
+                                file.lastPathSegment,
                                 uid
                             )
 

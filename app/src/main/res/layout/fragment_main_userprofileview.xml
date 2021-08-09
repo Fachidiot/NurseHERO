@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#ffefefef"
-    tools:context="com.fachidiot.nursehro.MainFragment.FragmentMainChat">
+    android:background="#ffefefef">
 
     <ImageView
         android:id="@+id/imageView4"

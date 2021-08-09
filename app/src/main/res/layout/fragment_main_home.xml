@@ -1,8 +1,9 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.fachidiot.nursehro.MainFragment.FragmentMainHome">
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             tools:context="com.fachidiot.nursehro.MainFragment.FragmentMainHome">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -47,13 +48,22 @@
                     android:orientation="vertical"
                     >
 
-                    <ImageButton
-                        android:id="@+id/RateUserIcon1"
+                    <androidx.cardview.widget.CardView
+                        android:clickable="true"
                         android:layout_width="130dp"
                         android:layout_height="130dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/icon_friends"
-                        tools:ignore="SpeakableTextPresentCheck" />
+                        app:cardCornerRadius="100dp"
+                        >
+
+                        <ImageView
+                            android:id="@+id/RateUserIcon1"
+                            android:layout_width="130dp"
+                            android:layout_height="130dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/icon_nurse"
+                            android:clickable="true"
+                            tools:ignore="SpeakableTextPresentCheck" />
+                    </androidx.cardview.widget.CardView>
                     <TextView
                         android:id="@+id/RateUserName1"
                         android:layout_width="wrap_content"
@@ -68,13 +78,22 @@
                     android:orientation="vertical"
                     >
 
-                    <ImageButton
-                        android:id="@+id/RateUserIcon2"
+
+                    <androidx.cardview.widget.CardView
+                        android:clickable="true"
                         android:layout_width="130dp"
                         android:layout_height="130dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/icon_friends"
-                        tools:ignore="SpeakableTextPresentCheck" />
+                        app:cardCornerRadius="100dp">
+
+                        <ImageView
+                            android:id="@+id/RateUserIcon2"
+                            android:layout_width="130dp"
+                            android:layout_height="130dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/icon_nurse"
+                            android:clickable="true"
+                            tools:ignore="SpeakableTextPresentCheck" />
+                    </androidx.cardview.widget.CardView>
                     <TextView
                         android:id="@+id/RateUserName2"
                         android:layout_width="wrap_content"
@@ -89,13 +108,23 @@
                     android:orientation="vertical"
                     >
 
-                    <ImageButton
-                        android:id="@+id/RateUserIcon3"
+
+                    <androidx.cardview.widget.CardView
+                        android:clickable="true"
                         android:layout_width="130dp"
                         android:layout_height="130dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/icon_friends"
-                        tools:ignore="SpeakableTextPresentCheck" />
+                        app:cardCornerRadius="100dp">
+
+                        <ImageView
+                            android:id="@+id/RateUserIcon3"
+                            android:layout_width="130dp"
+                            android:layout_height="130dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/icon_nurse"
+                            android:clickable="true"
+                            tools:ignore="SpeakableTextPresentCheck" />
+                    </androidx.cardview.widget.CardView>
+
                     <TextView
                         android:id="@+id/RateUserName3"
                         android:layout_width="wrap_content"
@@ -109,13 +138,23 @@
                     android:layout_height="150dp"
                     android:orientation="vertical"
                     >
-                    <ImageButton
-                        android:id="@+id/RateUserIcon4"
+
+
+                    <androidx.cardview.widget.CardView
+                        android:clickable="true"
                         android:layout_width="130dp"
                         android:layout_height="130dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/icon_friends"
-                        />
+                        app:cardCornerRadius="100dp">
+
+                        <ImageView
+                            android:id="@+id/RateUserIcon4"
+                            android:layout_width="130dp"
+                            android:layout_height="130dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/icon_nurse"
+                            android:clickable="true"
+                            />
+                    </androidx.cardview.widget.CardView>
                     <TextView
                         android:id="@+id/RateUserName4"
                         android:layout_width="wrap_content"
@@ -129,13 +168,22 @@
                     android:layout_height="150dp"
                     android:orientation="vertical"
                     >
-                    <ImageButton
-                        android:id="@+id/RateUserIcon5"
+
+                    <androidx.cardview.widget.CardView
+                        android:clickable="true"
                         android:layout_width="130dp"
                         android:layout_height="130dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/icon_friends"
-                        />
+                        app:cardCornerRadius="100dp">
+
+                        <ImageView
+                            android:id="@+id/RateUserIcon5"
+                            android:layout_width="130dp"
+                            android:layout_height="130dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/icon_nurse"
+                            android:clickable="true"
+                            />
+                    </androidx.cardview.widget.CardView>
                     <TextView
                         android:id="@+id/RateUserName5"
                         android:layout_width="wrap_content"
@@ -149,13 +197,23 @@
                     android:layout_height="150dp"
                     android:orientation="vertical"
                     >
-                    <ImageButton
-                        android:id="@+id/RateUserIcon6"
+
+
+                    <androidx.cardview.widget.CardView
+                        android:clickable="true"
                         android:layout_width="130dp"
                         android:layout_height="130dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/icon_friends"
-                        />
+                        app:cardCornerRadius="100dp">
+
+                        <ImageView
+                            android:id="@+id/RateUserIcon6"
+                            android:layout_width="130dp"
+                            android:layout_height="130dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/icon_nurse"
+                            android:clickable="true"
+                            />
+                    </androidx.cardview.widget.CardView>
                     <TextView
                         android:id="@+id/RateUserName6"
                         android:layout_width="wrap_content"

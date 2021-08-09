@@ -37,4 +37,6 @@
     <string name="Find">찾기</string>
     <string name="Account">계정</string>
     <string name="Button_Logout">로그아웃</string>
+    <string name="license">License</string>
+    <string name="name">Name</string>
 </resources>
