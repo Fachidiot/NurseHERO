@@ -4,7 +4,9 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
@@ -20,13 +22,10 @@ private const val ARG_PARAM2 = "param2"
 
 class FragmentMainFind : Fragment(), OnMapReadyCallback {
     private val permission_list = arrayOf(
-        Manifest.permission.READ_EXTERNAL_STORAGE,
-        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-        Manifest.permission.READ_CONTACTS,
-        Manifest.permission.WRITE_CONTACTS,
         Manifest.permission.ACCESS_FINE_LOCATION,
         Manifest.permission.ACCESS_COARSE_LOCATION
     )
+
 
     private lateinit var mMap : GoogleMap
     private var mapView : MapView? = null
@@ -39,8 +38,6 @@ class FragmentMainFind : Fragment(), OnMapReadyCallback {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-
-        onPermissionCheck()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -163,8 +160,42 @@ class FragmentMainFind : Fragment(), OnMapReadyCallback {
         mapView?.onLowMemory()
     }
 
+    //private fun getDeviceLocation() {
+    //    /*
+    //     * Get the best and most recent location of the device, which may be null in rare
+    //     * cases when a location is not available.
+    //     */
+    //    try {
+    //        if (locationPermissionGranted) {
+    //            val locationResult = fusedLocationProviderClient.lastLocation
+    //            locationResult.addOnCompleteListener(this) { task ->
+    //                if (task.isSuccessful) {
+    //                    // Set the map's camera position to the current location of the device.
+    //                    lastKnownLocation = task.result
+    //                    if (lastKnownLocation != null) {
+    //                        map?.moveCamera(CameraUpdateFactory.newLatLngZoom(
+    //                            LatLng(lastKnownLocation!!.latitude,
+    //                                lastKnownLocation!!.longitude), DEFAULT_ZOOM.toFloat()))
+    //                    }
+    //                } else {
+    //                    Log.d(this.toString(), "Current location is null. Using defaults.")
+    //                    Log.e(this.toString(), "Exception: %s", task.exception)
+    //                    mMap?.moveCamera(CameraUpdateFactory
+    //                        .newLatLngZoom(defaultLocation, DEFAULT_ZOOM.toFloat()))
+    //                    mMap?.uiSettings?.isMyLocationButtonEnabled = false
+    //                }
+    //            }
+    //        }
+    //    } catch (e: SecurityException) {
+    //        Log.e("Exception: %s", e.message, e)
+    //    }
+    //}
+
+    // Permission이 없을시에 확인 해야 한다.
     private fun onPermissionCheck() {
-        requestPermissions(permission_list, 0)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(permission_list, 0)
+        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -174,10 +205,7 @@ class FragmentMainFind : Fragment(), OnMapReadyCallback {
 
 
 
-
     companion object {
-        const val TAG = "MainActivity"
-        const val PERMISSION_REQUEST_CODE = 1001
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             FragmentMainFind().apply {

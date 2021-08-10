@@ -1,8 +1,11 @@
 package com.fachidiot.nursehro.MainFragment
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -21,8 +24,6 @@ import com.fachidiot.nursehro.Class.UserInfo
 import com.fachidiot.nursehro.R
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
@@ -36,6 +37,11 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 class FragmentMainAccount : Fragment() {
+    private val permission_list = arrayOf(
+        Manifest.permission.READ_EXTERNAL_STORAGE,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE
+    )
+
     private var param1: String? = null
     private var param2: String? = null
 
@@ -77,7 +83,7 @@ class FragmentMainAccount : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         UserProfile_image.setOnClickListener {
-            gotoAlbum()
+            onPermissionCheck()
         }
 
         LogoutButton.setOnClickListener {
@@ -197,7 +203,7 @@ class FragmentMainAccount : Fragment() {
         LoginButton.visibility = View.VISIBLE
 
 
-        val drawable : Drawable = getResources().getDrawable(R.drawable.icon_nurse)
+        val drawable : Drawable = resources.getDrawable(R.drawable.icon_nurse)
 
         UserProfile_image.setImageDrawable(drawable)
         TextView_username.text = "Nickname"
@@ -241,6 +247,27 @@ class FragmentMainAccount : Fragment() {
             else
                 TextView_Nurse.text = "Normal"
         }
+    }
+
+    private fun onPermissionCheck() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(permission_list, 0)
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        //when (requestCode) {
+        //    0 -> {
+        //        if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+        //            gotoAlbum()
+        //        } else {
+
+        //        }
+        //    }
+        //}
+
+        gotoAlbum()
     }
 
     companion object {

@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
             backKeyPressedTime = System.currentTimeMillis()
             toast = Toast.makeText(this, "\'뒤로\' 버튼을 한번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT)
             toast?.show()
-            return;
+            return
         }
         // 마지막으로 뒤로가기 버튼을 눌렀던 시간에 2초를 더해 현재시간과 비교 후
         // 마지막으로 뒤로가기 버튼을 눌렀던 시간이 2초가 지나지 않았으면 종료

@@ -20,7 +20,7 @@ class UserProfileActivity : AppCompatActivity() {
     private fun setInfo() {
         // TODO : get user Info and set data
 
-        val drawable : Drawable = getResources().getDrawable(R.drawable.icon_nurse)
+        val drawable : Drawable = resources.getDrawable(R.drawable.icon_nurse)
         UserProfile_image.setImageDrawable(drawable)
         UserName.text = intent.getStringExtra("userName")
         Ranked.text = intent.getStringExtra("ranked")

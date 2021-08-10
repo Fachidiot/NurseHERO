@@ -1,7 +1,10 @@
 package com.fachidiot.nursehro.RegisterFragment
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
@@ -26,6 +29,10 @@ import java.io.File
 
 
 class RegisterActivity : AppCompatActivity() {
+    private val permission_list = arrayOf(
+    Manifest.permission.READ_EXTERNAL_STORAGE,
+    Manifest.permission.WRITE_EXTERNAL_STORAGE
+)
 
     private lateinit var mFirebaseAuth: FirebaseAuth
     private lateinit var mDatabaseRef: DatabaseReference
@@ -51,7 +58,7 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         imageView_AddPicture.setOnClickListener {
-            gotoAlbum()
+            onPermissionCheck()
         }
 
         RelativeLayout_Register.setOnClickListener {
@@ -241,6 +248,29 @@ class RegisterActivity : AppCompatActivity() {
             CheckBox_Policy.error = "Please check the checkbox"
         else
             createEmail()
+    }
+
+    private fun onPermissionCheck() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(permission_list, 0)
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        //when (requestCode) {
+        //    0 -> {
+        //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        //            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+        //                gotoAlbum()
+        //            } else {
+        //                Toast.makeText(this, "내부 저장소 권한 허용없이 갤러리에 접근할 수 없습니다.", Toast.LENGTH_SHORT).show()
+        //            }
+        //        }
+        //    }
+        //}
+
+        gotoAlbum()
     }
 
 }

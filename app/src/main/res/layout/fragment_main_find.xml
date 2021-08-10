@@ -101,9 +101,9 @@
 
 
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <com.google.android.gms.maps.MapView
                 android:id="@+id/map"
@@ -112,14 +112,33 @@
                 android:layout_height="match_parent"
                 tools:context=".MapsActivity"/>
 
-            <TextView
-                android:id="@+id/locationText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Location"
-                android:textSize="21sp"
-                android:fontFamily="@font/vtrocore"/>
-        </RelativeLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/FilterLayout"
+                android:visibility="invisible"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="#ffeeeeee">
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/FavoriteLayout"
+                android:visibility="invisible"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="#ffeeeeee">
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/ListLayout"
+                android:visibility="visible"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:background="#ffeeeeee">
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </FrameLayout>
 
     </LinearLayout>
 </FrameLayout>

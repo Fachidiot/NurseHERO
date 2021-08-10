@@ -5,6 +5,4 @@ class ImageDTO(
     var title : String,
     var description : String,
     var uid : String,
-    var userId : String) {
-    
-}
+    var userId : String)
