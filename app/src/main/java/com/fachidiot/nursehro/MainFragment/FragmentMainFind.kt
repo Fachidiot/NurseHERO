@@ -9,8 +9,13 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.core.app.ActivityCompat
+import androidx.databinding.DataBindingUtil.setContentView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.fachidiot.nursehro.Class.UserList
+import com.fachidiot.nursehro.MapList_Adapter
 import com.fachidiot.nursehro.R
+import com.fachidiot.nursehro.databinding.ActivityMainBinding
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
@@ -25,7 +30,6 @@ class FragmentMainFind : Fragment(), OnMapReadyCallback {
         Manifest.permission.ACCESS_FINE_LOCATION,
         Manifest.permission.ACCESS_COARSE_LOCATION
     )
-
 
     private lateinit var mMap : GoogleMap
     private var mapView : MapView? = null
@@ -43,6 +47,30 @@ class FragmentMainFind : Fragment(), OnMapReadyCallback {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        val profileList = arrayListOf(
+            UserList(R.drawable.icon_nurse, "서울/강남구/봉천동", 38, false, "김연자", "adsf02302jif2.png"),
+            UserList(R.drawable.icon_nurse, "서울/성동구/응봉동", 41, false, "김복덩", "adsf02302jif2.png"),
+            UserList(R.drawable.icon_nurse, "서울/강남구/응암동", 52, false, "김닥터", "adsf02302jif2.png"),
+            UserList(R.drawable.icon_nurse, "경기/시골구/시골동", 32, true, "김간호사", "adsf02302jif2.png"),
+            UserList(R.drawable.icon_nurse, "부산/해운구/해운동", 26, false, "김연자", "adsf02302jif2.png"),
+            UserList(R.drawable.icon_nurse, "대전/대전구/대전동", 39, false, "김연자", "adsf02302jif2.png"),
+            UserList(R.drawable.icon_nurse, "서울/해남구/해남동", 23, true, "김남자", "adsf02302jif2.png"),
+            UserList(R.drawable.icon_nurse, "군산/군산구/군산동", 43, false, "김연자", "adsf02302jif2.png"),
+            UserList(R.drawable.icon_nurse, "미국/캘리포니아/양키동", 46, false, "김연자", "adsf02302jif2.png"),
+            UserList(R.drawable.icon_nurse, "중국/우한/코로나", 45, false, "김연자", "adsf02302jif2.png"),
+            UserList(R.drawable.icon_nurse, "일본/도쿄/나가사키", 41, false, "김연자", "adsf02302jif2.png"),
+        )
+        MapRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false) //레이아웃매니저를 이용해 어뎁터의 방향을 결정
+        MapRecyclerView.setHasFixedSize(true)//어뎁터에 성능을 위한것
+        MapRecyclerView.adapter = MapList_Adapter(profileList) //어뎁터에 리스트 자료를 넣는다.
+
+        ListButton.setOnClickListener {
+            Map_ListLayout.visibility = View.VISIBLE
+        }
+
+        button_back.setOnClickListener {
+            Map_ListLayout.visibility = View.INVISIBLE
+        }
 
         searchButton.setOnClickListener {
             if (searchEditText.text.isEmpty())

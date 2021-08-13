@@ -15,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.loader.content.CursorLoader
 import com.fachidiot.nursehro.Class.UserInfo
 import com.fachidiot.nursehro.R
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -177,6 +176,9 @@ class RegisterActivity : AppCompatActivity() {
                                 TextInputEditText_FirstName.text.toString(),
                                 TextInputEditText_LastName.text.toString(),
                                 file.lastPathSegment,
+                                //"Location",
+                                //intent.getBooleanExtra("sex", true),
+                                //12,
                                 uid
                             )
 
@@ -195,6 +197,9 @@ class RegisterActivity : AppCompatActivity() {
                             TextInputEditText_FirstName.text.toString(),
                             TextInputEditText_LastName.text.toString(),
                             "null",
+                            //"Location",
+                            //true,
+                            //12,
                             uid
                         )
 
@@ -258,19 +263,21 @@ class RegisterActivity : AppCompatActivity() {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        //when (requestCode) {
-        //    0 -> {
-        //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        //            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-        //                gotoAlbum()
-        //            } else {
-        //                Toast.makeText(this, "내부 저장소 권한 허용없이 갤러리에 접근할 수 없습니다.", Toast.LENGTH_SHORT).show()
-        //            }
-        //        }
-        //    }
-        //}
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            when (requestCode) {
+                0 -> {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                            gotoAlbum()
+                        } else {
+                            Toast.makeText(this, "내부 저장소 권한 허용없이 갤러리에 접근할 수 없습니다.", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            }
+        }
 
-        gotoAlbum()
+        else
+            gotoAlbum()
     }
-
 }

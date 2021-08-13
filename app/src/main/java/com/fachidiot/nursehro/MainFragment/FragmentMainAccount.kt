@@ -177,7 +177,7 @@ class FragmentMainAccount : Fragment() {
             }
             userRef?.get()?.addOnSuccessListener { documentSnapshot ->
                 val user = documentSnapshot.toObject<UserInfo>()
-                val userprofileImageRef = mFirebaseStoreDatabase.collection("users").document("${user?.useruid}")
+                val userprofileImageRef = mFirebaseStoreDatabase.collection("users").document("${user?.uid}")
 
                 userprofileImageRef
                     .update("profileImage", file.lastPathSegment)
@@ -227,9 +227,11 @@ class FragmentMainAccount : Fragment() {
             storageRef.child("userprofileImages/uid/${user?.profileImage}").downloadUrl
                 .addOnCompleteListener(OnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        Glide.with(activity)
-                            .load(task.result)
-                            .into(UserProfile_image)
+                        activity?.let {
+                            Glide.with(it)
+                                .load(task.result)
+                                .into(UserProfile_image)
+                        }
                     } else {
                         Log.e(this.toString(), "loading userprofileImage error")
                     }

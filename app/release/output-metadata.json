@@ -5,7 +5,7 @@
     "kind": "Directory"
   },
   "applicationId": "com.fachidiot.nursehro",
-  "variantName": "release",
+  "variantName": "processReleaseResources",
   "elements": [
     {
       "type": "SINGLE",

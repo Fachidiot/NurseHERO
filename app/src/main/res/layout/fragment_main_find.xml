@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_find"
@@ -6,31 +6,31 @@
     android:layout_height="match_parent"
     tools:context="com.fachidiot.nursehro.MainFragment.FragmentMainFind">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
-
-        <TextView
+    <TextView
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:text="히어로 찾기"
             android:textColor="@color/blue"
             android:textSize="20sp"
             android:fontFamily="@font/vtrocore"
             android:gravity="center"
-            />
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.0" android:id="@+id/textView"/>
 
-        <LinearLayout
+
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingHorizontal="14dp"
             android:weightSum="1"
-            >
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" app:layout_constraintVertical_bias="0.0"
+            android:id="@+id/linearLayout2">
 
-            <EditText
+        <EditText
                 android:id="@+id/searchEditText"
                 android:singleLine="true"
                 android:paddingLeft="20dp"
@@ -39,9 +39,9 @@
                 android:hint="위치를 입력하세요"
                 android:fontFamily="@font/vtrocore"
                 android:layout_weight="1"
-                />
+        />
 
-            <Button
+        <Button
                 android:id="@+id/searchButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -50,95 +50,136 @@
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:fontFamily="@font/vtrocore"
-                />
+        />
 
-        </LinearLayout>
+    </LinearLayout>
 
-        <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="3"
-            android:layout_gravity="center"
-            >
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+            app:layout_constraintVertical_bias="0.0"
+            android:id="@+id/linearLayout3">
 
-            <Button
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+        <Button
+                android:layout_width="70dp"
+                android:layout_height="35dp"
                 android:background="@drawable/btn_blue"
                 android:text="필터"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:fontFamily="@font/vtrocore"
-                android:layout_marginRight="10dp"/>
+                android:id="@+id/button2" app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toTopOf="parent"/>
 
-            <Button
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
+        <Button
+                android:id="@+id/ListButton"
+                android:layout_weight="2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:background="@drawable/btn_blue"
-                android:text="즐겨찾기"
+                android:text="@string/list"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:fontFamily="@font/vtrocore"
-                android:layout_marginRight="10dp"/>
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@+id/button2"
+                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintHorizontal_bias="0.9"/>
 
-            <Button
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/btn_blue"
-                android:text="리스트"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:fontFamily="@font/vtrocore"
-                android:layout_marginRight="10dp"/>
-
-        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
-        <FrameLayout
+    <com.google.android.gms.maps.MapView
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            tools:context=".MapsActivity"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
-            <com.google.android.gms.maps.MapView
-                android:id="@+id/map"
-                android:name="com.google.android.gms.maps.SupportMapFragment"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/Map_ListLayout"
+            android:visibility="visible"
+            android:background="#ffeeeeee"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context=".MapsActivity"/>
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                android:id="@+id/ListTitleBar">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/FilterLayout"
-                android:visibility="invisible"
+            <ImageButton
+                    android:id="@+id/button_back"
+                    android:scaleType="center"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/icon_back"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.02"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="이 지역 히어로 목록"
+                    android:fontFamily="@font/vtrocore"
+                    android:textColor="@color/blue"
+                    android:textSize="18sp"
+                    android:id="@+id/textView2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/button_back"
+                    app:layout_constraintEnd_toStartOf="@+id/imageButton2"/>
+
+            <ImageButton
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintHorizontal_bias="0.95"
+                    android:id="@+id/imageButton2"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:background="#ffeeeeee">
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/FavoriteLayout"
-                android:visibility="invisible"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:background="#ffeeeeee">
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                android:layout_height="0dp"
+                android:id="@+id/scrollView2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ListTitleBar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/ListLayout"
-                android:visibility="visible"
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:background="#ffeeeeee">
-
+                    android:id="@+id/MapRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
             </androidx.recyclerview.widget.RecyclerView>
-        </FrameLayout>
+        </ScrollView>
 
-    </LinearLayout>
-</FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

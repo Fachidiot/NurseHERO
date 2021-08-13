@@ -41,4 +41,5 @@
     <string name="Button_Logout">LOGOUT</string>
     <string name="license">License</string>
     <string name="name">Name</string>
+    <string name="list">List</string>
 </resources>

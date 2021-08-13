@@ -39,4 +39,5 @@
     <string name="Button_Logout">로그아웃</string>
     <string name="license">라이센스</string>
     <string name="name">이름</string>
+    <string name="list">리스트</string>
 </resources>
