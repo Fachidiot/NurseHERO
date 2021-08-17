@@ -1,6 +1,7 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                   xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.fachidiot.nursehro.RegisterFragment.RegisterChooseActivity">
@@ -47,18 +48,18 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/NormalCheckArea"
             app:layout_constraintTop_toBottomOf="@+id/TopBar"
-            app:layout_constraintVertical_bias="0.100000024">
+            app:layout_constraintVertical_bias="0.050000012">
 
         <CheckBox
                 android:id="@+id/CheckBox_Nurse"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
                 android:button="@null"
                 android:background="@drawable/cb_custom_checkbox"
                 />
 
         <TextView
-                android:layout_width="150dp"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/Nurse"
@@ -78,19 +79,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/NurseCheckArea"
-            app:layout_constraintVertical_bias="0.100000024"
+            app:layout_constraintVertical_bias="0.050000012"
             app:layout_constraintTop_toBottomOf="@+id/TopBar">
 
         <CheckBox
                 android:id="@+id/CheckBox_Normal"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
                 android:button="@null"
                 android:background="@drawable/cb_custom_checkbox2"
                 />
 
         <TextView
-                android:layout_width="150dp"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/Normal"
@@ -111,20 +112,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/NurseCheckArea"
-            app:layout_constraintVertical_bias="0.19999999"
+            app:layout_constraintVertical_bias="0.100000024"
             app:layout_constraintEnd_toStartOf="@+id/WomanCheckLayout"
             >
 
         <CheckBox
                 android:id="@+id/CheckBox_Man"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
                 android:button="@null"
                 android:background="@drawable/icon_male"
                 />
 
         <TextView
-                android:layout_width="150dp"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Man"
@@ -144,19 +145,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ManCheckLayout"
-            app:layout_constraintVertical_bias="0.19999999"
+            app:layout_constraintVertical_bias="0.100000024"
             app:layout_constraintTop_toBottomOf="@+id/NormalCheckArea">
 
         <CheckBox
                 android:id="@+id/CheckBox_Woman"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
                 android:button="@null"
                 android:background="@drawable/icon_female"
                 />
 
         <TextView
-                android:layout_width="150dp"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Woman"
@@ -166,58 +167,51 @@
 
     </LinearLayout>
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Year / Month / Day"
-            android:fontFamily="@font/vtrocore"
-            android:textSize="28sp"
-            android:clickable="true"
-            android:focusable="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/WomanCheckLayout"
-            android:id="@+id/vDateEnter"
-            app:layout_constraintVertical_bias="0.3"/>
-
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:visibility="invisible"
-            android:id="@+id/DatePickLayout"
+            app:layout_constraintBottom_toTopOf="@+id/RelativeLayout_Next"
+            app:layout_constraintTop_toBottomOf="@+id/ManCheckLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:id="@+id/locationLayout"
+            app:layout_constraintVertical_bias="0.7">
 
-        <DatePicker
-                android:id="@+id/vDatePicker"
-                android:layout_width="344dp"
-                android:layout_height="253dp"
-                android:calendarViewShown="false"
-                android:datePickerMode="spinner"
+        <Spinner
+                android:id="@+id/City"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:background="@drawable/spinner_location"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/Gu"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/Dong"
+                app:layout_constraintVertical_bias="0.0"/>
+
+        <Spinner
+                android:id="@+id/Gu"
+                android:layout_width="180dp"
+                android:layout_height="40dp"
+                android:background="@drawable/spinner_location"
+                app:layout_constraintStart_toEndOf="@+id/City"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/Dong"
+                app:layout_constraintVertical_bias="0.0"/>
+
+        <Spinner
+                android:id="@+id/Dong"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:background="@drawable/spinner_location"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-        </DatePicker>
-
-        <Button
-                android:id="@+id/Enter"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:text="Enter"
-                android:fontFamily="@font/vtrocore"
-                android:textSize="18sp"
-                android:background="@drawable/btn_blue"
-                app:layout_constraintBottom_toBottomOf="@+id/vDatePicker"
-                app:layout_constraintTop_toTopOf="@+id/vDatePicker"
-                app:layout_constraintEnd_toEndOf="@+id/vDatePicker"
-                app:layout_constraintStart_toStartOf="@+id/vDatePicker"
-                app:layout_constraintVertical_bias="0.96"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Gu"
+                android:layout_marginTop="8dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
     <RelativeLayout
             android:id="@+id/RelativeLayout_Next"

@@ -1,23 +1,142 @@
 package com.fachidiot.nursehro.RegisterFragment
 
 import android.content.Intent
-import android.content.res.ColorStateList
-import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.fachidiot.nursehro.R
 import kotlinx.android.synthetic.main.activity_register_choose.*
-import kotlinx.android.synthetic.main.activity_register_choose.button_back
+
 
 class RegisterChooseActivity : AppCompatActivity() {
     private var nurse : Boolean = false
     private var sex : Boolean = true
-    private var birth : Boolean = false
+
+    private var region : String? = ""
+    private var sigungu : String? = ""
+    private var dong : String? = ""
+    private var location : Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_choose)
+
+        City.adapter = ArrayAdapter.createFromResource(this, R.array.spinner_region, android.R.layout.simple_spinner_dropdown_item)
+        Gu.adapter = ArrayAdapter.createFromResource(this, R.array.spinner_region_seoul, android.R.layout.simple_spinner_dropdown_item)
+        Dong.adapter = ArrayAdapter.createFromResource(this, R.array.spinner_region_seoul_gwanak, android.R.layout.simple_spinner_dropdown_item)
+        City.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?)
+            {
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long)
+            {
+                when (position) {
+                    //서울특별시
+                    1 -> { Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_seoul, android.R.layout.simple_spinner_dropdown_item) }
+                    //부산
+                    2 -> { Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_busan, android.R.layout.simple_spinner_dropdown_item) }
+                    //대구
+                    3 -> { Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_daegu, android.R.layout.simple_spinner_dropdown_item) }
+                    //인천
+                    4 -> { Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_incheon, android.R.layout.simple_spinner_dropdown_item) }
+                    //광주
+                    5 -> { Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_gwangju, android.R.layout.simple_spinner_dropdown_item) }
+                    //대전
+                    6 -> { Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_daejeon, android.R.layout.simple_spinner_dropdown_item) }
+                    //울산
+                    7 -> { Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_ulsan, android.R.layout.simple_spinner_dropdown_item) }
+                    //세종
+                    8 -> { Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_sejong, android.R.layout.simple_spinner_dropdown_item) }
+                    //경기도
+                    9 -> { Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_gyeonggi, android.R.layout.simple_spinner_dropdown_item) }
+                    //강원도
+                    10 -> { Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_gangwon, android.R.layout.simple_spinner_dropdown_item) }
+                    //충북
+                    11 -> { Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_chung_buk, android.R.layout.simple_spinner_dropdown_item) }
+                    //충남
+                    12 -> { Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_chung_nam, android.R.layout.simple_spinner_dropdown_item) }
+                    //전북
+                    13 -> { Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_jeon_buk, android.R.layout.simple_spinner_dropdown_item) }
+                    //전남
+                    14 -> { Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_jeon_nam, android.R.layout.simple_spinner_dropdown_item) }
+                    //경북
+                    15 -> { Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_gyeong_buk, android.R.layout.simple_spinner_dropdown_item) }
+                    //경남
+                    16 -> { Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_gyeong_nam, android.R.layout.simple_spinner_dropdown_item) }
+                    //제주
+                    17 -> { Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_jeju, android.R.layout.simple_spinner_dropdown_item) }
+                    else -> { }
+                }
+
+                region = City.selectedItem.toString()
+            }
+        }
+        Gu.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {// 서울특별시 선택시
+                // 서울특별시 선택시
+                if (City.selectedItemPosition === 1 && Gu.selectedItemPosition > -1) {
+                    when (position) {
+                        0 -> Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_seoul_gangnam, android.R.layout.simple_spinner_dropdown_item)
+                        1 -> Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_seoul_gangdong, android.R.layout.simple_spinner_dropdown_item)
+                        2 -> Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_seoul_gangbuk, android.R.layout.simple_spinner_dropdown_item)
+                        3 -> Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_seoul_gangseo, android.R.layout.simple_spinner_dropdown_item)
+                        4 -> Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_seoul_gwanak, android.R.layout.simple_spinner_dropdown_item)
+                        5 -> Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_seoul_gwangjin, android.R.layout.simple_spinner_dropdown_item)
+                        6 -> Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_seoul_guro, android.R.layout.simple_spinner_dropdown_item)
+                        7 -> Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_seoul_geumcheon, android.R.layout.simple_spinner_dropdown_item)
+                        8 -> Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_seoul_nowon, android.R.layout.simple_spinner_dropdown_item)
+                        9 -> Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_seoul_dobong, android.R.layout.simple_spinner_dropdown_item)
+                        10 -> Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_seoul_dongdaemun, android.R.layout.simple_spinner_dropdown_item)
+                        11 -> Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_seoul_dongjag, android.R.layout.simple_spinner_dropdown_item)
+                        12 -> Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_seoul_mapo, android.R.layout.simple_spinner_dropdown_item)
+                        13 -> Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_seoul_seodaemun, android.R.layout.simple_spinner_dropdown_item)
+                        14 -> Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_seoul_seocho, android.R.layout.simple_spinner_dropdown_item)
+                        15 -> Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_seoul_seongdong, android.R.layout.simple_spinner_dropdown_item)
+                        16 -> Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_seoul_seongbuk, android.R.layout.simple_spinner_dropdown_item)
+                        17 -> Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_seoul_songpa, android.R.layout.simple_spinner_dropdown_item)
+                        18 -> Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_seoul_yangcheon, android.R.layout.simple_spinner_dropdown_item)
+                        19 -> Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_seoul_yeongdeungpo, android.R.layout.simple_spinner_dropdown_item)
+                        20 -> Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_seoul_yongsan, android.R.layout.simple_spinner_dropdown_item)
+                        21 -> Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_seoul_eunpyeong, android.R.layout.simple_spinner_dropdown_item)
+                        22 -> Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_seoul_jongno, android.R.layout.simple_spinner_dropdown_item)
+                        23 -> Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_seoul_jung, android.R.layout.simple_spinner_dropdown_item)
+                        24 -> Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_seoul_jungnanggu, android.R.layout.simple_spinner_dropdown_item)
+                    }
+                } else {
+                }
+            }
+        }
+        Dong.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                when (position) {
+                    //선택안함
+                    0 -> {
+                    }
+                    else -> {
+                    }
+                }
+            }
+        }
 
         RelativeLayout_Next.setOnClickListener {
             checkChoice()
@@ -46,24 +165,15 @@ class RegisterChooseActivity : AppCompatActivity() {
             CheckBox_Man.isChecked = false
             sex = false
         }
-
-        vDateEnter.setOnClickListener {
-            DatePickLayout.visibility = View.VISIBLE
-        }
-
-        Enter.setOnClickListener {
-            DatePickLayout.visibility = View.INVISIBLE
-            vDateEnter.text = "${vDatePicker.year} / ${vDatePicker.month + 1} / ${vDatePicker.dayOfMonth}"
-            birth = true
-        }
     }
 
     private fun checkChoice() {
-        if ((CheckBox_Normal.isChecked || CheckBox_Nurse.isChecked) && (CheckBox_Man.isChecked || CheckBox_Woman.isChecked) && birth) {
+        if ((CheckBox_Normal.isChecked || CheckBox_Nurse.isChecked) && (CheckBox_Man.isChecked || CheckBox_Woman.isChecked) && location) {
             val intent = Intent(this, RegisterActivity::class.java)
             intent.putExtra("nurse", nurse)
             intent.putExtra("sex", sex)
-            intent.putExtra("birth", vDatePicker.toString())
+            //intent.putExtra("location", "${}")
+
             startActivity(intent)
         }
         else {
