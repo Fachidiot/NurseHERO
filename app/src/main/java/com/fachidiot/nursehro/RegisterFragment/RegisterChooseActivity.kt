@@ -164,16 +164,22 @@ class RegisterChooseActivity : AppCompatActivity() {
     }
 
     private fun checkChoice() {
-        if ((CheckBox_Normal.isChecked || CheckBox_Nurse.isChecked) && (CheckBox_Man.isChecked || CheckBox_Woman.isChecked) && location) {
+        if (!CheckBox_Normal.isChecked && !CheckBox_Nurse.isChecked) {
+            Toast.makeText(this, "You have to choose position", Toast.LENGTH_SHORT).show()
+        }
+        else if (!CheckBox_Man.isChecked && !CheckBox_Woman.isChecked) {
+            Toast.makeText(this, "You have to pick sex", Toast.LENGTH_SHORT).show()
+        }
+        else if (!location) {
+            Toast.makeText(this, "You have to enter your location", Toast.LENGTH_SHORT).show()
+        }
+        else {
             val intent = Intent(this, RegisterActivity::class.java)
             intent.putExtra("nurse", nurse)
             intent.putExtra("sex", sex)
-            //intent.putExtra("location", "${}")
+            intent.putExtra("location", "$region/$sigungu/$dong")
 
             startActivity(intent)
-        }
-        else {
-            Toast.makeText(this, "You have to choose position", Toast.LENGTH_SHORT).show()
         }
     }
 }
