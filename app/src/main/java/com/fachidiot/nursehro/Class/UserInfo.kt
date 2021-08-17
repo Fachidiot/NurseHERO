@@ -9,6 +9,6 @@ data class UserInfo(
     var profileImage: String? = null, // 사용자 프로필사진
     var location: String, // Tagging
     var sex: Boolean? = null, // 성별
-    //var age: Int? = null, // 나이
+    var age: Int? = null, // 나이
     val uid: String
 )

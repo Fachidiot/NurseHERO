@@ -176,9 +176,9 @@ class RegisterActivity : AppCompatActivity() {
                                 TextInputEditText_FirstName.text.toString(),
                                 TextInputEditText_LastName.text.toString(),
                                 file.lastPathSegment,
-                                //"Location",
-                                //intent.getBooleanExtra("sex", true),
-                                //12,
+                                "Location",
+                                intent.getBooleanExtra("sex", true),
+                                12,
                                 uid
                             )
 
@@ -197,9 +197,9 @@ class RegisterActivity : AppCompatActivity() {
                             TextInputEditText_FirstName.text.toString(),
                             TextInputEditText_LastName.text.toString(),
                             "null",
-                            //"Location",
-                            //true,
-                            //12,
+                            "Location",
+                            true,
+                            12,
                             uid
                         )
 

@@ -167,6 +167,10 @@
 
     </LinearLayout>
 
+    <!--  Age Scroll Selector or Wheel Picker  -->
+
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -200,6 +204,7 @@
                 app:layout_constraintVertical_bias="0.0"/>
 
         <Spinner
+                android:visibility="invisible"
                 android:id="@+id/Dong"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
