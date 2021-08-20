@@ -210,7 +210,10 @@ class FragmentMainAccount : Fragment() {
         TextView_username.text = "Nickname"
         TextView_Firstname.text = "Firstname"
         TextView_Lastname.text = "Lastname"
+        TextView_location.text = "location"
+        TextView_age.text = "age"
         TextView_Nurse.text = "Nurse"
+        iv_Sex.visibility = View.INVISIBLE
 
         Toast.makeText(context, "Logout", Toast.LENGTH_SHORT).show()
     }
@@ -224,23 +227,25 @@ class FragmentMainAccount : Fragment() {
         {
             userRef?.get()?.addOnSuccessListener { documentSnapshot ->
             val user = documentSnapshot.toObject<CustomUserInfo>()
+                if (user != null) {
+                    if (user.profileImage != "null") {
+                        val storageRef: StorageReference = mFirebaseStorage.reference
+                        storageRef.child("userprofileImages/uid/${user?.profileImage}").downloadUrl
+                            .addOnCompleteListener(OnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    activity?.let {
+                                        Glide.with(it)
+                                            .load(task.result)
+                                            .into(UserProfile_image)
+                                    }
+                                } else {
+                                    Log.e(this.toString(), "loading userprofileImage error")
+                                }
 
-            val storageRef: StorageReference = mFirebaseStorage.reference
-
-            storageRef.child("userprofileImages/uid/${user?.profileImage}").downloadUrl
-                .addOnCompleteListener(OnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        activity?.let {
-                            Glide.with(it)
-                                .load(task.result)
-                                .into(UserProfile_image)
-                        }
-                    } else {
-                        Log.e(this.toString(), "loading userprofileImage error")
+                            }).addOnFailureListener {
+                                Log.w(this.toString(), "userprofileImage Loading Failed")
+                            }
                     }
-
-                }).addOnFailureListener {
-                    Log.w(this.toString(), "userprofileImage Loading Failed")
                 }
                 TextView_username.text = user?.userNickname
                 TextView_Firstname.text = user?.userFirstname
@@ -248,11 +253,11 @@ class FragmentMainAccount : Fragment() {
                 TextView_location.text = user?.location
                 TextView_age.text = user?.age.toString()
                 TextView_Nurse.text = user?.nurse.toString()
-
+                iv_Sex.visibility = View.VISIBLE
                 if (user?.sex == true)
-                    iv_Sex.setImageResource(R.drawable.icon_male)
+                    iv_Sex.setImageResource(R.drawable.icon_male_color)
                 else
-                    iv_Sex.setImageResource(R.drawable.icon_female)
+                    iv_Sex.setImageResource(R.drawable.icon_female_color)
             }
         } catch (e : Exception) {
 

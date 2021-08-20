@@ -139,20 +139,14 @@ class FragmentMainFind : Fragment(), OnMapReadyCallback {
         googleMap.uiSettings.isZoomControlsEnabled = true
     }
 
-    // 구글맵 주소 검색 메서드
+    // 구글맵 주소 검색 메서드 근처 위치의 간호사 유저 정보를 가져와야함
     private fun search(addresses: List<Address>) {
         val address: Address = addresses[0]
         val latLng = LatLng(address.latitude, address.longitude)
-        val addressText = java.lang.String.format(
-            "%s %s",
+        val addressText = java.lang.String.format("%s %s",
             if (address.maxAddressLineIndex > 0) address
                 .getAddressLine(0) else " ", address.featureName
         )
-        //locationText.visibility = View.VISIBLE
-        //locationText.text = """
-        //        Latitude${address.latitude.toString()}Longitude${address.longitude.toString()}
-        //        $addressText
-        //        """.trimIndent()
         val markerOptions = MarkerOptions()
         markerOptions.position(latLng)
         markerOptions.title(addressText)
@@ -192,37 +186,6 @@ class FragmentMainFind : Fragment(), OnMapReadyCallback {
         mapView?.onLowMemory()
     }
 
-    //private fun getDeviceLocation() {
-    //    /*
-    //     * Get the best and most recent location of the device, which may be null in rare
-    //     * cases when a location is not available.
-    //     */
-    //    try {
-    //        if (locationPermissionGranted) {
-    //            val locationResult = fusedLocationProviderClient.lastLocation
-    //            locationResult.addOnCompleteListener(this) { task ->
-    //                if (task.isSuccessful) {
-    //                    // Set the map's camera position to the current location of the device.
-    //                    lastKnownLocation = task.result
-    //                    if (lastKnownLocation != null) {
-    //                        map?.moveCamera(CameraUpdateFactory.newLatLngZoom(
-    //                            LatLng(lastKnownLocation!!.latitude,
-    //                                lastKnownLocation!!.longitude), DEFAULT_ZOOM.toFloat()))
-    //                    }
-    //                } else {
-    //                    Log.d(this.toString(), "Current location is null. Using defaults.")
-    //                    Log.e(this.toString(), "Exception: %s", task.exception)
-    //                    mMap?.moveCamera(CameraUpdateFactory
-    //                        .newLatLngZoom(defaultLocation, DEFAULT_ZOOM.toFloat()))
-    //                    mMap?.uiSettings?.isMyLocationButtonEnabled = false
-    //                }
-    //            }
-    //        }
-    //    } catch (e: SecurityException) {
-    //        Log.e("Exception: %s", e.message, e)
-    //    }
-    //}
-
     // Permission이 없을시에 확인 해야 한다.
     private fun onPermissionCheck() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -235,8 +198,11 @@ class FragmentMainFind : Fragment(), OnMapReadyCallback {
 
     }
 
+    // 현위치의 리스트
     private fun onGetUserList() {
-        mFirebaseStoreDatabase.collection("users").whereEqualTo("location", "서울특별시/관악구/봉천동").get()
+
+
+        mFirebaseStoreDatabase.collection("users").whereEqualTo("location", "서울특별시/관악구/봉천동").whereEqualTo("nurse", true).get()
             .addOnCompleteListener{
                 if(it.isSuccessful) {
                     for (dc in it.result!!.documents) {

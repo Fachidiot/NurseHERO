@@ -121,14 +121,14 @@
                 android:layout_width="130dp"
                 android:layout_height="130dp"
                 android:button="@null"
-                android:background="@drawable/icon_male"
+                android:background="@drawable/cb_custom_man"
                 />
 
         <TextView
                 android:layout_width="130dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Man"
+                android:text="@string/man"
                 android:textSize="18sp"
                 android:fontFamily="@font/vtrocore"
                 />
@@ -153,14 +153,14 @@
                 android:layout_width="130dp"
                 android:layout_height="130dp"
                 android:button="@null"
-                android:background="@drawable/icon_female"
+                android:background="@drawable/cb_custom_women"
                 />
 
         <TextView
                 android:layout_width="130dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Woman"
+                android:text="@string/woman"
                 android:textSize="18sp"
                 android:fontFamily="@font/vtrocore"
                 />
@@ -180,7 +180,7 @@
                 android:id="@+id/tv_selected_item_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Your Age"
+                android:text="@string/your_age"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"

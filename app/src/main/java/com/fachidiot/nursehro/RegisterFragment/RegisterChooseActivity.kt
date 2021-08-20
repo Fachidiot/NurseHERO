@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.activity_register_choose.*
 class RegisterChooseActivity : AppCompatActivity() {
     private var nurse : Boolean = false
     private var sex : Boolean = true
+    private var age : Int = 0
 
     private var region : String? = ""
     private var sigungu : String? = ""
@@ -190,7 +191,7 @@ class RegisterChooseActivity : AppCompatActivity() {
             intent.putExtra("nurse", nurse)
             intent.putExtra("sex", sex)
             intent.putExtra("location", "$region/$sigungu/$dong")
-            intent.putExtra("age", tv_selected_item.toString().toInt())
+            intent.putExtra("age", age)
 
             startActivity(intent)
         }
@@ -212,6 +213,7 @@ class RegisterChooseActivity : AppCompatActivity() {
             callback = object : SliderLayoutManager.OnItemSelectedListener {
                 override fun onItemSelected(layoutPosition: Int) {
                     tvSelectedItem.text = data[layoutPosition]
+                    age = data[layoutPosition].toInt()
                 }
             }
         }

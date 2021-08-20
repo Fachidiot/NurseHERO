@@ -1,5 +1,8 @@
 package com.fachidiot.nursehro
 
+import android.app.Activity
+import android.content.Context
+import android.view.ContextMenu
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,17 +20,20 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.fragment_main_account.*
+import kotlin.coroutines.coroutineContext
 
 
 class MapList_Adapter(private val profileList : ArrayList<UserList>) : RecyclerView.Adapter<MapList_Adapter.CustomViewHolder>() {
     private lateinit var mFirebaseAuth : FirebaseAuth
     private lateinit var mFirebaseStorage: FirebaseStorage
     private lateinit var mFirebaseStoreDatabase: FirebaseFirestore
+    private lateinit var mContext : Context
 
     //뷰홀더가 처음 생성될때
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MapList_Adapter.CustomViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.maplist_recyccler, parent, false)
 
+        mContext = parent.context
         mFirebaseStoreDatabase = Firebase.firestore
         mFirebaseStorage = FirebaseStorage.getInstance()
         mFirebaseAuth = FirebaseAuth.getInstance()
@@ -45,18 +51,20 @@ class MapList_Adapter(private val profileList : ArrayList<UserList>) : RecyclerV
 
     //재활용해주는 곳 및 값을 넣어주는 곳
     override fun onBindViewHolder(holder: MapList_Adapter.CustomViewHolder, position: Int) {
-        val storageRef: StorageReference = mFirebaseStorage.reference
-
-        storageRef.child("userprofileImages/uid/${profileList[position].profileImage}").downloadUrl
-            .addOnCompleteListener{OnCompleteListener { task ->
-                if(it.isSuccessful){
-                    Glide.load(task.result).into(holder.profile)
+        if (profileList[position].profileImage != "null")
+        {
+            val storageRef: StorageReference = mFirebaseStorage.reference
+            storageRef.child("userprofileImages/uid/${profileList[position].profileImage}").downloadUrl.addOnCompleteListener{ task ->
+                if (task.isSuccessful) {
+                    this.let {
+                        Glide.with(mContext)
+                            .load(task.result)
+                            .into(holder.profile)
+                    }
                 }
             }
         }
 
-        //holder.profile.setImageResource(profileList[position].profileImage)
-        //holder.profile.setImageResource(R.drawable.icon_profile_dark)
         holder.name.text = profileList[position].userNickname
         holder.age.text = profileList[position].age.toString()
         holder.location.text = profileList[position].location.toString()

@@ -19,7 +19,8 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBZEEMjYsnPA-gZ8lv4nkyFduvzz2V7bCc" />
+            android:value="AIzaSyAjmxjG7D3CenOqJ9O5TktHfAkfX1QmiVI" />
+        <!-- Debug - AIzaSyClf_3WQCOHm_Ierk11qADunlkvzmExne4 -->
 
         <activity android:name=".UploadActivity" />
         <activity android:name=".RegisterFragment.RegisterSuccessActivity" />

@@ -42,4 +42,7 @@
     <string name="license">License</string>
     <string name="name">Name</string>
     <string name="list">List</string>
+    <string name="your_age">Your Age</string>
+    <string name="woman">Woman</string>
+    <string name="man">Man</string>
 </resources>
