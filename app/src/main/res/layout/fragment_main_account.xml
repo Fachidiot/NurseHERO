@@ -1,157 +1,192 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.fachidiot.nursehro.MainFragment.FragmentMainAccount">
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="com.fachidiot.nursehro.MainFragment.FragmentMainAccount"
+             >
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="20dp">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="20dp">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardView"
-                android:clickable="true"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                app:cardCornerRadius="100dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.051"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="MissingConstraints"
-                android:focusable="true">
+                    android:id="@+id/cardView"
+                    android:clickable="true"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    app:cardCornerRadius="100dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.051"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="MissingConstraints"
+                    android:focusable="true">
 
                 <ImageView
-                    android:id="@+id/UserProfile_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/icon_nurse" />
+                        android:id="@+id/UserProfile_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/icon_nurse"/>
             </androidx.cardview.widget.CardView>
 
             <FrameLayout
-                android:id="@+id/frameLayout"
-                android:layout_width="100dp"
-                android:layout_height="48dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.43"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.73">
+                    android:id="@+id/frameLayout"
+                    android:layout_width="100dp"
+                    android:layout_height="48dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.43"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.73">
 
                 <Button
-                    android:id="@+id/LogoutButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/btn_blue"
-                    android:fontFamily="@font/vtrocore"
-                    android:maxWidth="150dp"
-                    android:minWidth="100dp"
-                    android:text="@string/Button_Logout"
-                    android:textSize="20sp"
-                    android:visibility="visible"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.107"
-                    app:layout_constraintStart_toEndOf="@+id/imageView2"
-                    tools:layout_editor_absoluteY="40dp" />
+                        android:id="@+id/LogoutButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/btn_blue"
+                        android:fontFamily="@font/vtrocore"
+                        android:maxWidth="150dp"
+                        android:minWidth="100dp"
+                        android:text="@string/Button_Logout"
+                        android:textSize="20sp"
+                        android:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.107"
+                        app:layout_constraintStart_toEndOf="@+id/imageView2"
+                        tools:layout_editor_absoluteY="40dp"/>
 
                 <Button
-                    android:id="@+id/LoginButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/btn_blue"
-                    android:fontFamily="@font/vtrocore"
-                    android:maxWidth="150dp"
-                    android:minWidth="100dp"
-                    android:text="@string/Button_Login"
-                    android:textSize="20sp"
-                    android:visibility="invisible"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.107"
-                    app:layout_constraintStart_toEndOf="@+id/imageView2"
-                    tools:layout_editor_absoluteY="40dp" />
+                        android:id="@+id/LoginButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/btn_blue"
+                        android:fontFamily="@font/vtrocore"
+                        android:maxWidth="150dp"
+                        android:minWidth="100dp"
+                        android:text="@string/Button_Login"
+                        android:textSize="20sp"
+                        android:visibility="invisible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.107"
+                        app:layout_constraintStart_toEndOf="@+id/imageView2"
+                        tools:layout_editor_absoluteY="40dp"/>
 
             </FrameLayout>
 
             <TextView
-                android:id="@+id/TextView_username"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:fontFamily="@font/vtrocore"
-                android:text="username"
-                android:textSize="15sp"
-                app:layout_constraintBottom_toTopOf="@+id/frameLayout"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.4"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.56" />
+                    android:id="@+id/TextView_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:fontFamily="@font/vtrocore"
+                    android:text="username"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toTopOf="@+id/frameLayout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.4"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.56"/>
+
+            <ImageView
+                    android:id="@+id/iv_Sex"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/icon_female"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/frameLayout"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_bias="0.2"
+                    app:layout_constraintVertical_bias="0.20999998"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ScrollView
-            android:background="@color/gray"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                android:background="@color/gray"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
             <LinearLayout
-                android:layout_marginTop="30dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                    android:layout_marginTop="30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="700dp"
-                    android:orientation="vertical"
-                    >
+                        android:layout_width="match_parent"
+                        android:layout_height="700dp"
+                        android:orientation="vertical"
+                        >
 
 
                     <TextView
-                        android:id="@+id/TextView_Firstname"
-                        android:layout_marginTop="10dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/vtrocore"
-                        android:gravity="center"
-                        android:text="FirstName"
-                        android:textSize="25sp"
-                        android:layout_marginBottom="10dp"/>
+                            android:id="@+id/TextView_Firstname"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/vtrocore"
+                            android:gravity="center"
+                            android:text="FirstName"
+                            android:textSize="25sp"
+                            android:layout_marginBottom="10dp"/>
 
                     <TextView
-                        android:id="@+id/TextView_Lastname"
-                        android:layout_marginTop="10dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/vtrocore"
-                        android:gravity="center"
-                        android:text="Lastname"
-                        android:textSize="25sp"
-                        android:layout_marginBottom="10dp"/>
+                            android:id="@+id/TextView_Lastname"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/vtrocore"
+                            android:gravity="center"
+                            android:text="Lastname"
+                            android:textSize="25sp"
+                            android:layout_marginBottom="10dp"/>
 
                     <TextView
-                        android:id="@+id/TextView_Nurse"
-                        android:layout_marginTop="10dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/vtrocore"
-                        android:gravity="center"
-                        android:text="Nurse"
-                        android:textSize="25sp"
-                        android:layout_marginBottom="10dp"/>
+                            android:id="@+id/TextView_Nurse"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/vtrocore"
+                            android:gravity="center"
+                            android:text="Nurse"
+                            android:textSize="25sp"
+                            android:layout_marginBottom="10dp"/>
+
+                    <TextView
+                            android:id="@+id/TextView_location"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/vtrocore"
+                            android:gravity="center"
+                            android:text="Location"
+                            android:textSize="25sp"
+                            android:layout_marginBottom="10dp"/>
+
+                    <TextView
+                            android:id="@+id/TextView_age"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/vtrocore"
+                            android:gravity="center"
+                            android:text="age"
+                            android:textSize="25sp"
+                            android:layout_marginBottom="10dp"/>
 
                 </LinearLayout>
 

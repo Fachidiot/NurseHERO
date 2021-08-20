@@ -2,7 +2,6 @@ package com.fachidiot.nursehro.MainFragment
 
 import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
@@ -20,7 +19,7 @@ import com.bumptech.glide.Glide
 import com.facebook.login.LoginManager
 import com.fachidiot.nursehro.LoginActivity
 import com.fachidiot.nursehro.Class.MySharedPreferences
-import com.fachidiot.nursehro.Class.UserInfo
+import com.fachidiot.nursehro.Class.CustomUserInfo
 import com.fachidiot.nursehro.R
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
@@ -164,6 +163,8 @@ class FragmentMainAccount : Fragment() {
         // path
         val file: Uri = Uri.fromFile(File(pathUri))
 
+        //TODO : 기존 이미지를 삭제해주야해~
+
         // 스토리지에 방생성 후 선택한 이미지 넣음
         val storageReference: StorageReference = mFirebaseStorage.reference
             .child("userprofileImages")
@@ -176,7 +177,7 @@ class FragmentMainAccount : Fragment() {
                     it.uid)
             }
             userRef?.get()?.addOnSuccessListener { documentSnapshot ->
-                val user = documentSnapshot.toObject<UserInfo>()
+                val user = documentSnapshot.toObject<CustomUserInfo>()
                 val userprofileImageRef = mFirebaseStoreDatabase.collection("users").document("${user?.uid}")
 
                 userprofileImageRef
@@ -219,8 +220,10 @@ class FragmentMainAccount : Fragment() {
             mFirebaseStoreDatabase.collection("users").document(
                 it.uid)
         }
-        userRef?.get()?.addOnSuccessListener { documentSnapshot ->
-            val user = documentSnapshot.toObject<UserInfo>()
+        try
+        {
+            userRef?.get()?.addOnSuccessListener { documentSnapshot ->
+            val user = documentSnapshot.toObject<CustomUserInfo>()
 
             val storageRef: StorageReference = mFirebaseStorage.reference
 
@@ -237,18 +240,24 @@ class FragmentMainAccount : Fragment() {
                     }
 
                 }).addOnFailureListener {
-                Log.w(this.toString(), "userprofileImage Loading Failed")
-            }
+                    Log.w(this.toString(), "userprofileImage Loading Failed")
+                }
+                TextView_username.text = user?.userNickname
+                TextView_Firstname.text = user?.userFirstname
+                TextView_Lastname.text = user?.userLastname
+                TextView_location.text = user?.location
+                TextView_age.text = user?.age.toString()
+                TextView_Nurse.text = user?.nurse.toString()
 
-            UserProfile_image
-            TextView_username.text = user?.userNickname
-            TextView_Firstname.text = user?.userFirstname
-            TextView_Lastname.text = user?.userLastname
-            if (user?.nurse == true)
-                TextView_Nurse.text = "Nurse"
-            else
-                TextView_Nurse.text = "Normal"
+                if (user?.sex == true)
+                    iv_Sex.setImageResource(R.drawable.icon_male)
+                else
+                    iv_Sex.setImageResource(R.drawable.icon_female)
+            }
+        } catch (e : Exception) {
+
         }
+
     }
 
     private fun onPermissionCheck() {

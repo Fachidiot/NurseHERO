@@ -14,9 +14,12 @@
             android:textSize="20sp"
             android:fontFamily="@font/vtrocore"
             android:gravity="center"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.0" android:id="@+id/textView"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            android:id="@+id/textView"/>
 
 
     <LinearLayout
@@ -26,8 +29,10 @@
             android:paddingHorizontal="14dp"
             android:weightSum="1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintVertical_bias="0.0"
             android:id="@+id/linearLayout2">
 
         <EditText
@@ -70,9 +75,12 @@
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:fontFamily="@font/vtrocore"
-                android:id="@+id/button2" app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.05"
-                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toTopOf="parent"/>
+                android:id="@+id/button2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
         <Button
                 android:id="@+id/ListButton"
@@ -84,8 +92,10 @@
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:fontFamily="@font/vtrocore"
-                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@+id/button2"
-                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/button2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintHorizontal_bias="0.9"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -105,7 +115,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/Map_ListLayout"
-            android:visibility="visible"
+            android:visibility="invisible"
             android:background="#ffeeeeee"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

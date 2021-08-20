@@ -5,9 +5,14 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import com.fachidiot.nursehro.R
+import com.fachidiot.nursehro.ViewHolder.ScreenUtils
+import com.fachidiot.nursehro.ViewHolder.SliderAdapter
+import com.fachidiot.nursehro.ViewHolder.SliderLayoutManager
 import kotlinx.android.synthetic.main.activity_register_choose.*
 
 
@@ -20,9 +25,17 @@ class RegisterChooseActivity : AppCompatActivity() {
     private var dong : String? = ""
     private var location : Boolean = false
 
+    private lateinit var rvHorizontalPicker: RecyclerView
+    private lateinit var tvSelectedItem: TextView
+
+    private val data = (15..50).toList().map { it.toString() } as ArrayList<String>
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_choose)
+        setTvSelectedItem()
+        setHorizontalPicker()
 
         City.adapter = ArrayAdapter.createFromResource(this, R.array.spinner_region, android.R.layout.simple_spinner_dropdown_item)
         Gu.adapter = ArrayAdapter.createFromResource(this, R.array.spinner_region_seoul, android.R.layout.simple_spinner_dropdown_item)
@@ -79,12 +92,8 @@ class RegisterChooseActivity : AppCompatActivity() {
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
 
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {// 서울특별시 선택시
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long)
+            {
                 // 서울특별시 선택시
                 if (City.selectedItemPosition == 1 && Gu.selectedItemPosition > -1) {
                     Dong.visibility = View.VISIBLE
@@ -119,6 +128,8 @@ class RegisterChooseActivity : AppCompatActivity() {
                     sigungu = Gu.selectedItem.toString()
                 } else {
                     Dong.visibility = View.INVISIBLE
+                    sigungu = Gu.selectedItem.toString()
+                    location = true
                 }
             }
         }
@@ -130,6 +141,7 @@ class RegisterChooseActivity : AppCompatActivity() {
             {
                 if (City.selectedItemPosition == 1 && Gu.selectedItemPosition > -1) {
                     dong = Dong.selectedItem.toString()
+                    location = true
                 }
             }
         }
@@ -178,8 +190,40 @@ class RegisterChooseActivity : AppCompatActivity() {
             intent.putExtra("nurse", nurse)
             intent.putExtra("sex", sex)
             intent.putExtra("location", "$region/$sigungu/$dong")
+            intent.putExtra("age", tv_selected_item.toString().toInt())
 
             startActivity(intent)
+        }
+    }
+
+    private fun setTvSelectedItem() {
+        tvSelectedItem = findViewById(R.id.tv_selected_item)
+    }
+
+    private fun setHorizontalPicker() {
+        rvHorizontalPicker = findViewById(R.id.rv_horizontal_picker)
+
+        // Setting the padding such that the items will appear in the middle of the screen
+        val padding: Int = ScreenUtils.getScreenWidth(this)/2 - ScreenUtils.dpToPx(this, 40)
+        rvHorizontalPicker.setPadding(padding, 0, padding, 0)
+
+        // Setting layout manager
+        rvHorizontalPicker.layoutManager = SliderLayoutManager(this).apply {
+            callback = object : SliderLayoutManager.OnItemSelectedListener {
+                override fun onItemSelected(layoutPosition: Int) {
+                    tvSelectedItem.text = data[layoutPosition]
+                }
+            }
+        }
+
+        // Setting Adapter
+        rvHorizontalPicker.adapter = SliderAdapter().apply {
+            setData(data)
+            callback = object : SliderAdapter.Callback {
+                override fun onItemClicked(view: View) {
+                    rvHorizontalPicker.smoothScrollToPosition(rvHorizontalPicker.getChildLayoutPosition(view))
+                }
+            }
         }
     }
 }

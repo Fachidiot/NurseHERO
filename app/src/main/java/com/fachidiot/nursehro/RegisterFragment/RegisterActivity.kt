@@ -13,7 +13,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.loader.content.CursorLoader
-import com.fachidiot.nursehro.Class.UserInfo
+import com.fachidiot.nursehro.Class.CustomUserInfo
 import com.fachidiot.nursehro.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -170,15 +170,15 @@ class RegisterActivity : AppCompatActivity() {
                             //while (!imageUrl.isComplete) {
                             //}
 
-                            val userModel = UserInfo(
+                            val userModel = CustomUserInfo(
                                 intent.getBooleanExtra("nurse", false),
                                 TextInputEditText_Nickname.text.toString(),
                                 TextInputEditText_FirstName.text.toString(),
                                 TextInputEditText_LastName.text.toString(),
                                 file.lastPathSegment,
-                                "Location",
-                                intent.getBooleanExtra("sex", true),
-                                12,
+                                intent.getStringExtra("location"),
+                                intent.getBooleanExtra("sex", false),
+                                intent.getIntExtra("age", -99),
                                 uid
                             )
 
@@ -191,15 +191,15 @@ class RegisterActivity : AppCompatActivity() {
 
                         }
                     } else {
-                        val userModel = UserInfo(
+                        val userModel = CustomUserInfo(
                             intent.getBooleanExtra("nurse", false),
                             TextInputEditText_Nickname.text.toString(),
                             TextInputEditText_FirstName.text.toString(),
                             TextInputEditText_LastName.text.toString(),
                             "null",
-                            "Location",
-                            true,
-                            12,
+                            intent.getStringExtra("location"),
+                            intent.getBooleanExtra("sex", false),
+                            intent.getIntExtra("age", -99),
                             uid
                         )
 
