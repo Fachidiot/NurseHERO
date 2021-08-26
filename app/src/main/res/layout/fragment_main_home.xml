@@ -38,7 +38,38 @@
                 android:id="@+id/Title1"
                 app:layout_constraintVertical_bias="0.0"/>
 
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/UserRecyclerGrid"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:layout_marginTop="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Title1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="535dp"
+                app:layout_constraintVertical_bias="0.0">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <Button
+                android:id="@+id/botton_more3"
+                android:layout_gravity="center"
+                android:layout_height="50dp"
+                android:layout_width="370dp"
+                android:fontFamily="@font/vtrocore"
+                android:textColor="@color/gray"
+                android:text="'이달의 명예 간호사'더보기"
+                android:background="@drawable/btn_white"
+                android:layout_row="2"
+                android:layout_columnSpan="4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/UserRecyclerGrid"
+                app:layout_constraintBottom_toTopOf="@+id/Title2"/>
+
         <GridLayout
+                android:visibility="invisible"
                 android:layout_width="wrap_content"
                 android:layout_height="320dp"
                 android:layout_marginTop="15dp"

@@ -1,6 +1,6 @@
 package com.fachidiot.nursehro.Class
 
-class UserList (
+class UserList(
     // 사용자 리사이클러뷰 정보
     var userNickname: String = "nickname", // 사용자 이름(닉네임)
     var profileImage: String? = null, // 사용자 프로필사진

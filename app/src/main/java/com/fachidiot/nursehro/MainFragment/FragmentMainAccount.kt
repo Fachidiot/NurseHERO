@@ -55,19 +55,18 @@ class FragmentMainAccount : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
         mFirebaseStoreDatabase = Firebase.firestore
         mFirebaseStorage = FirebaseStorage.getInstance()
         mFirebaseAuth = FirebaseAuth.getInstance()
+
+        if(mFirebaseAuth.currentUser != null)
+            setInfo()
 
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
 
-        if(mFirebaseAuth.currentUser != null)
-            setInfo()
     }
 
     override fun onCreateView(
@@ -206,7 +205,7 @@ class FragmentMainAccount : Fragment() {
 
         val drawable : Drawable = resources.getDrawable(R.drawable.icon_nurse)
 
-        UserProfile_image.setImageDrawable(drawable)
+        UserProfile_image.setImageResource(R.drawable.icon_nurse)
         TextView_username.text = "Nickname"
         TextView_Firstname.text = "Firstname"
         TextView_Lastname.text = "Lastname"
@@ -250,7 +249,7 @@ class FragmentMainAccount : Fragment() {
                 TextView_username.text = user?.userNickname
                 TextView_Firstname.text = user?.userFirstname
                 TextView_Lastname.text = user?.userLastname
-                TextView_location.text = user?.location
+                TextView_location.text = user?.location?.last()
                 TextView_age.text = user?.age.toString()
                 TextView_Nurse.text = user?.nurse.toString()
                 iv_Sex.visibility = View.VISIBLE

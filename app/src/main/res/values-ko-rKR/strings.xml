@@ -43,4 +43,8 @@
     <string name="license">라이센스</string>
     <string name="name">이름</string>
     <string name="list">리스트</string>
+    <string name="maps_api_key">AIzaSyAjmxjG7D3CenOqJ9O5TktHfAkfX1QmiVI</string>
+    <string name="pick_place">Choose a place</string>
+    <string name="default_info_title">Default Location</string>
+    <string name="default_info_snippet">No places found, because location permission is disabled.</string>
 </resources>

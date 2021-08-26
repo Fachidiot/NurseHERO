@@ -23,15 +23,15 @@ import kotlinx.android.synthetic.main.fragment_main_account.*
 import kotlin.coroutines.coroutineContext
 
 
-class MapList_Adapter(private val profileList : ArrayList<UserList>) : RecyclerView.Adapter<MapList_Adapter.CustomViewHolder>() {
+class HomeUser_Adapter(private val profileList : ArrayList<UserList>) : RecyclerView.Adapter<HomeUser_Adapter.CustomViewHolder>() {
     private lateinit var mFirebaseAuth : FirebaseAuth
     private lateinit var mFirebaseStorage: FirebaseStorage
     private lateinit var mFirebaseStoreDatabase: FirebaseFirestore
     private lateinit var mContext : Context
 
     //뷰홀더가 처음 생성될때
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MapList_Adapter.CustomViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.maplist_recyccler, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeUser_Adapter.CustomViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.homelist_user_recycler, parent, false)
 
         mContext = parent.context
         mFirebaseStoreDatabase = Firebase.firestore
@@ -50,7 +50,7 @@ class MapList_Adapter(private val profileList : ArrayList<UserList>) : RecyclerV
 
 
     //재활용해주는 곳 및 값을 넣어주는 곳
-    override fun onBindViewHolder(holder: MapList_Adapter.CustomViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: HomeUser_Adapter.CustomViewHolder, position: Int) {
         if (profileList[position].profileImage != "null")
         {
             val storageRef: StorageReference = mFirebaseStorage.reference
@@ -69,8 +69,6 @@ class MapList_Adapter(private val profileList : ArrayList<UserList>) : RecyclerV
         }
 
         holder.name.text = profileList[position].userNickname
-        holder.age.text = profileList[position].age.toString()
-        holder.location.text = profileList[position].location.toString()
     }
 
     //리스트의 갯수를 적어준다
@@ -83,9 +81,7 @@ class MapList_Adapter(private val profileList : ArrayList<UserList>) : RecyclerV
     //뷰홀더 클래스(음료수처럼 잡아주는 홀더)
     // 이곳에서 파인드뷰아이디로 리스트 아이템에 있는 뷰들을 참조한다.
     inner class CustomViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
-        val profile = itemView.findViewById<ImageView>(R.id.imageView) //사진
-        val name = itemView.findViewById<TextView>(R.id.textView) //이름
-        val age = itemView.findViewById<TextView>(R.id.ageView) //나이
-        val location = itemView.findViewById<TextView>(R.id.locationView) //직업
+        val profile = itemView.findViewById<ImageView>(R.id.homeuserprofile) //사진
+        val name = itemView.findViewById<TextView>(R.id.homeusername) //이름
     }
 }

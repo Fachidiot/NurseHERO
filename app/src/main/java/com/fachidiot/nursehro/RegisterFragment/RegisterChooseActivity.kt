@@ -190,7 +190,15 @@ class RegisterChooseActivity : AppCompatActivity() {
             val intent = Intent(this, RegisterActivity::class.java)
             intent.putExtra("nurse", nurse)
             intent.putExtra("sex", sex)
-            intent.putExtra("location", "$region/$sigungu/$dong")
+            if (dong.isNullOrEmpty()) {
+                intent.putExtra("region", "$region")
+                intent.putExtra("sigungu", "$region/$sigungu")
+            }
+            else {
+                intent.putExtra("region", "$region")
+                intent.putExtra("sigungu", "$region/$sigungu")
+                intent.putExtra("dong", "$region/$sigungu/$dong")
+            }
             intent.putExtra("age", age)
 
             startActivity(intent)

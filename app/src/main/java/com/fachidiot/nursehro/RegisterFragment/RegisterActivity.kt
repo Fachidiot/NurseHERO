@@ -176,7 +176,11 @@ class RegisterActivity : AppCompatActivity() {
                                 TextInputEditText_FirstName.text.toString(),
                                 TextInputEditText_LastName.text.toString(),
                                 file.lastPathSegment,
-                                intent.getStringExtra("location"),
+                                if(intent.hasExtra("dong")){
+                                    listOf(intent.getStringExtra("region"), intent.getStringExtra("sigungu"), intent.getStringExtra("dong"))
+                                } else{
+                                    listOf(intent.getStringExtra("region"), intent.getStringExtra("sigungu"))
+                                },
                                 intent.getBooleanExtra("sex", false),
                                 intent.getIntExtra("age", -99),
                                 uid
@@ -197,7 +201,11 @@ class RegisterActivity : AppCompatActivity() {
                             TextInputEditText_FirstName.text.toString(),
                             TextInputEditText_LastName.text.toString(),
                             "null",
-                            intent.getStringExtra("location"),
+                            if(intent.hasExtra("dong")){
+                                listOf(intent.getStringExtra("region"), intent.getStringExtra("sigungu"), intent.getStringExtra("dong"))
+                            } else{
+                                listOf(intent.getStringExtra("region"), intent.getStringExtra("sigungu"))
+                            },
                             intent.getBooleanExtra("sex", false),
                             intent.getIntExtra("age", -99),
                             uid
