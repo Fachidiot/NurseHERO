@@ -6,11 +6,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.fachidiot.nursehro.*
 import com.fachidiot.nursehro.Class.CustomUserInfo
+import com.fachidiot.nursehro.Class.RecyclerViewDecoration
 import com.fachidiot.nursehro.Class.UserList
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -39,7 +42,7 @@ class FragmentMainHome : Fragment() {
         mFirebaseAuth = FirebaseAuth.getInstance()
 
         onGetRate()
-        Log.d("FragmentHome", userListA.count().toString())
+        onGetRecommend()
 
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
@@ -50,93 +53,15 @@ class FragmentMainHome : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        setUserList()
+        swipeRefreshLayout.setOnRefreshListener {
+            onGetRate()
+            onGetRecommend()
 
-        RateUserIcon1.setOnClickListener {
-            activity?.let {
-                val intent = Intent(context, UserProfileActivity::class.java)
-                startActivity(intent)
-            }
+            // 새로고침 중지
+            // 없으면 새로고침 애니메이션 끝나지 않음
+            swipeRefreshLayout.isRefreshing = false
+
         }
-
-        RateUserIcon2.setOnClickListener {
-            activity?.let {
-                val intent = Intent(context, UserProfileActivity::class.java)
-                startActivity(intent)
-            }
-        }
-
-        RateUserIcon3.setOnClickListener {
-            activity?.let {
-                val intent = Intent(context, UserProfileActivity::class.java)
-                startActivity(intent)
-            }
-        }
-
-        RateUserIcon4.setOnClickListener {
-            activity?.let {
-                val intent = Intent(context, UserProfileActivity::class.java)
-                startActivity(intent)
-            }
-        }
-
-        RateUserIcon5.setOnClickListener {
-            activity?.let {
-                val intent = Intent(context, UserProfileActivity::class.java)
-                startActivity(intent)
-            }
-        }
-
-        RateUserIcon6.setOnClickListener {
-            activity?.let {
-                val intent = Intent(context, UserProfileActivity::class.java)
-                startActivity(intent)
-            }
-        }
-
-        RecommendUserIcon1.setOnClickListener {
-            activity?.let {
-                val intent = Intent(context, UserProfileActivity::class.java)
-                startActivity(intent)
-            }
-        }
-
-        RecommendUserIcon2.setOnClickListener {
-            activity?.let {
-                val intent = Intent(context, UserProfileActivity::class.java)
-                startActivity(intent)
-            }
-        }
-
-        RecommendUserIcon3.setOnClickListener {
-            activity?.let {
-                val intent = Intent(context, UserProfileActivity::class.java)
-                startActivity(intent)
-            }
-        }
-
-        RecommendUserIcon4.setOnClickListener {
-            activity?.let {
-                val intent = Intent(context, UserProfileActivity::class.java)
-                startActivity(intent)
-            }
-        }
-
-        RecommendUserIcon5.setOnClickListener {
-            activity?.let {
-                val intent = Intent(context, UserProfileActivity::class.java)
-                startActivity(intent)
-            }
-        }
-
-        RecommendUserIcon6.setOnClickListener {
-            activity?.let {
-                val intent = Intent(context, UserProfileActivity::class.java)
-                startActivity(intent)
-            }
-        }
-
-
     }
 
     override fun onCreateView(
@@ -148,7 +73,7 @@ class FragmentMainHome : Fragment() {
     private fun onGetRate() {
         userListA.clear()
 
-        mFirebaseStoreDatabase.collection("users").whereEqualTo("nurse", true).get()
+        mFirebaseStoreDatabase.collection("users").whereEqualTo("nurse", true).limit(12).get()
             .addOnCompleteListener{
                 if(it.isSuccessful) {
                     for (dc in it.result!!.documents) {
@@ -157,6 +82,14 @@ class FragmentMainHome : Fragment() {
                             userListA.add(UserList(user.userNickname, user.profileImage, user.location?.last(), user.sex, user.age))
                         }
                     }
+
+                    val gridLayoutManager = GridLayoutManager(requireContext(), 2)
+                    gridLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
+
+                    UserRecyclerGrid.layoutManager = gridLayoutManager
+                    UserRecyclerGrid.setHasFixedSize(true)//어뎁터에 성능을 위한것
+                    UserRecyclerGrid.adapter = HomeUser_Adapter(userListA) //어뎁터에 리스트 자료를 넣는다.
+                    UserRecyclerGrid.addItemDecoration(RecyclerViewDecoration(10));
                 }
             }
     }
@@ -164,7 +97,7 @@ class FragmentMainHome : Fragment() {
     private fun onGetRecommend() {
         userListB.clear()
 
-        mFirebaseStoreDatabase.collection("users").whereEqualTo("nurse", true).get()
+        mFirebaseStoreDatabase.collection("users").whereEqualTo("nurse", true).limit(12).get()
             .addOnCompleteListener{
                 if(it.isSuccessful) {
                     for (dc in it.result!!.documents) {
@@ -173,20 +106,24 @@ class FragmentMainHome : Fragment() {
                             userListB.add(UserList(user.userNickname, user.profileImage, user.location?.last(), user.sex, user.age))
                         }
                     }
+
+                    val gridLayoutManager = GridLayoutManager(requireContext(), 2)
+                    gridLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
+
+                    UserRecommendRecyclerGrid.layoutManager = gridLayoutManager
+                    UserRecommendRecyclerGrid.setHasFixedSize(true)//어뎁터에 성능을 위한것
+                    UserRecommendRecyclerGrid.adapter = HomeUser_Adapter(userListB) //어뎁터에 리스트 자료를 넣는다.
+                    UserRecyclerGrid.addItemDecoration(RecyclerViewDecoration(10));
                 }
             }
     }
 
-    private fun onGetNear() {
+    private fun onGetPlace() {
 
     }
 
-    private fun setUserList() {
-        val gridLayoutManager = GridLayoutManager(context, 2)
-        gridLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
-        UserRecyclerGrid.layoutManager = gridLayoutManager
-        UserRecyclerGrid.setHasFixedSize(true)//어뎁터에 성능을 위한것
-        UserRecyclerGrid.adapter = HomeUser_Adapter(userListA) //어뎁터에 리스트 자료를 넣는다.
+    private fun setUserList(userList: ArrayList<UserList>) {
+
     }
 
     companion object {
