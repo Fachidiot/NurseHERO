@@ -41,10 +41,6 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 class FragmentMainFind : Fragment(), OnMapReadyCallback {
-    private val permission_list = arrayOf(
-        Manifest.permission.ACCESS_FINE_LOCATION,
-        Manifest.permission.ACCESS_COARSE_LOCATION
-    )
 
     private var profileList : ArrayList<UserList> = ArrayList()
 
@@ -350,13 +346,13 @@ class FragmentMainFind : Fragment(), OnMapReadyCallback {
 
             // Add a marker for the selected place, with an info window
             // showing information about that place.
-            mMap?.addMarker(MarkerOptions()
+            mMap.addMarker(MarkerOptions()
                 .title(likelyPlaceNames[which])
                 .position(markerLatLng!!)
                 .snippet(markerSnippet))
 
             // Position the map's camera at the location of the marker.
-            mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(markerLatLng,
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(markerLatLng,
                 DEFAULT_ZOOM.toFloat()))
         }
 
