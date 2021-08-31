@@ -227,13 +227,14 @@ class RegisterActivity : AppCompatActivity() {
                     intent.putExtra("password", TextInputEditText_Password.text.toString())
                     startActivity(intent)
                 } else {
-                    // 회원가입 실패시
-                    Toast.makeText(this, "Authentication Failed.", Toast.LENGTH_SHORT).show()
+                    // 회원가입 실패시 (가능성 : 중복계정이 있을시)
+                    Toast.makeText(this, "이미 존재하는 이메일입니다.", Toast.LENGTH_SHORT).show()
                 }
             }
         }
 
         catch (e : Exception) {
+            //Toast.makeText(baseContext, "이미 존재하는 이메일입니다.", Toast.LENGTH_SHORT).show()
             e.printStackTrace()
         }
 

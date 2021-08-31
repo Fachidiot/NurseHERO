@@ -1,16 +1,22 @@
 package com.fachidiot.nursehro
 
-import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.bumptech.glide.Glide
 import com.fachidiot.nursehro.Class.UserList
-import kotlinx.android.synthetic.main.activity_user_profile.*
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import kotlinx.android.synthetic.main.fragment_main_userprofileview.*
 
 class UserProfileActivity : AppCompatActivity() {
+    private lateinit var mFirebaseStorage: FirebaseStorage
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_user_profile)
+        setContentView(R.layout.fragment_main_userprofileview)
+        mFirebaseStorage = FirebaseStorage.getInstance()
 
+        setInfo()
 
         button_back.setOnClickListener {
             finish()
@@ -21,12 +27,30 @@ class UserProfileActivity : AppCompatActivity() {
     private fun setInfo() {
         // TODO : get user Info and set data
         val userInfo = intent.getParcelableExtra<UserList>("userinfo")
+        if (userInfo != null) {
+            if (userInfo.profileImage != "null")
+            {
+                val storageRef: StorageReference = mFirebaseStorage.reference
+                storageRef.child("userprofileImages/uid/${userInfo.profileImage}").downloadUrl.addOnCompleteListener{ task ->
+                    if (task.isSuccessful) {
+                        this.let {
+                            Glide.with(baseContext)
+                                .load(task.result)
+                                .into(UserProfile_image)
+                        }
+                    }
+                }
 
-        val drawable : Drawable = resources.getDrawable(R.drawable.icon_nurse)
-        UserProfile_image.setImageDrawable(drawable)
+            }
+            else{
+                UserProfile_image.setImageResource(R.drawable.icon_nurse)
+            }
+        }
         UserName.text = userInfo?.userNickname
         Ranked.text = userInfo?.age.toString()
-        Whished.text = userInfo?.location
-        Likes.text = userInfo?.profileImage
+        Whished.text = userInfo?.age.toString()
+        Likes.text = userInfo?.age.toString()
+
+
     }
 }

@@ -36,11 +36,13 @@ class HomeUser_Adapter(private val profileList : ArrayList<UserList>) : Recycler
         mFirebaseStorage = FirebaseStorage.getInstance()
         mFirebaseAuth = FirebaseAuth.getInstance()
 
+        // TODO 뭐가 문제야 샹... 클릭이 아예 안먹힘;;
         return CustomViewHolder(view).apply { //클릭시 액션
             itemView.setOnClickListener { //여기서 itemview는 뷰홀더의 아이템들을 의미한다.
+                Log.d("Tlqkf", "Tlqkf click")
                 val curPos : Int = adapterPosition //누른 뷰의 순서값
                 val profile : UserList = profileList[curPos] //객체형태로 번호에 맞게 가져오기
-                Toast.makeText(parent.context, "이름 : ${profile.userNickname} 성별 : ${profile.sex} 위치 : ${profile.location?.last()}", Toast.LENGTH_LONG).show()
+                Toast.makeText(parent.context, "이름 : ${profile.userNickname} 성별 : ${profile.sex} 위치 : ${profile.location} ", Toast.LENGTH_LONG).show()
 
                 val intent = Intent(parent.context, UserProfileActivity::class.java)
                 intent.putExtra("userinfo", UserList(profile.userNickname, profile.profileImage, profile.location, profile.sex, profile.age));
@@ -72,13 +74,6 @@ class HomeUser_Adapter(private val profileList : ArrayList<UserList>) : Recycler
         }
 
         holder.name.text = profileList[position].userNickname
-
-        //holder.itemView.setOnClickListener {
-        //    val profile : UserList = profileList[position]
-        //    val intent = Intent(mContext, UserProfileActivity::class.java)
-        //    intent.putExtra("userinfo", UserList(profile.userNickname, profile.profileImage, profile.location, profile.sex, profile.age));
-        //    ContextCompat.startActivity(mContext, intent, null)
-        //}
     }
 
     //리스트의 갯수를 적어준다
@@ -93,11 +88,5 @@ class HomeUser_Adapter(private val profileList : ArrayList<UserList>) : Recycler
     inner class CustomViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         val profile = itemView.findViewById<ImageView>(R.id.homeuserprofile) //사진
         val name = itemView.findViewById<TextView>(R.id.homeusername) //이름
-
-        init {
-            itemView.setOnClickListener {
-                Log.d("CustomViewHolder", "onClicked")
-            }
-        }
     }
 }

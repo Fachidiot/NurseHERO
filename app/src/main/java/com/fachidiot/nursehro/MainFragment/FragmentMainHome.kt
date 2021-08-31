@@ -41,9 +41,6 @@ class FragmentMainHome : Fragment() {
         mFirebaseStoreDatabase = Firebase.firestore
         mFirebaseAuth = FirebaseAuth.getInstance()
 
-        onGetRate()
-        onGetRecommend()
-
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -52,6 +49,12 @@ class FragmentMainHome : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        onGetRate()
+        onGetRecommend()
+
+        UserRecyclerGrid.addItemDecoration(RecyclerViewDecoration(10));
+        UserRecommendRecyclerGrid.addItemDecoration(RecyclerViewDecoration(10));
 
         swipeRefreshLayout.setOnRefreshListener {
             onGetRate()
@@ -89,7 +92,6 @@ class FragmentMainHome : Fragment() {
                     UserRecyclerGrid.layoutManager = gridLayoutManager
                     UserRecyclerGrid.setHasFixedSize(true)//어뎁터에 성능을 위한것
                     UserRecyclerGrid.adapter = HomeUser_Adapter(userListA) //어뎁터에 리스트 자료를 넣는다.
-                    UserRecyclerGrid.addItemDecoration(RecyclerViewDecoration(10));
                 }
             }
     }
@@ -97,7 +99,7 @@ class FragmentMainHome : Fragment() {
     private fun onGetRecommend() {
         userListB.clear()
 
-        mFirebaseStoreDatabase.collection("users").whereEqualTo("nurse", true).limit(12).get()
+        mFirebaseStoreDatabase.collection("users").whereEqualTo("nurse", true).orderBy("age").limit(12).get()
             .addOnCompleteListener{
                 if(it.isSuccessful) {
                     for (dc in it.result!!.documents) {
@@ -110,11 +112,14 @@ class FragmentMainHome : Fragment() {
                     val gridLayoutManager = GridLayoutManager(requireContext(), 2)
                     gridLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
 
+                    Toast.makeText(context, "${userListB.size} / ${userListB.last()}", Toast.LENGTH_SHORT).show()
                     UserRecommendRecyclerGrid.layoutManager = gridLayoutManager
                     UserRecommendRecyclerGrid.setHasFixedSize(true)//어뎁터에 성능을 위한것
                     UserRecommendRecyclerGrid.adapter = HomeUser_Adapter(userListB) //어뎁터에 리스트 자료를 넣는다.
-                    UserRecyclerGrid.addItemDecoration(RecyclerViewDecoration(10));
                 }
+            }
+            .addOnFailureListener {
+                Toast.makeText(context, "Failed to load recommend userlist", Toast.LENGTH_SHORT).show()
             }
     }
 
