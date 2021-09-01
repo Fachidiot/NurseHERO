@@ -259,7 +259,7 @@ class RegisterActivity : AppCompatActivity() {
             TextInputEditText_Password.error = "Your password is not correct"
             TextInputEditText_Comfirm_Password.error = "Your password is not correct"
         } else if (!CheckBox_Policy.isChecked)
-            CheckBox_Policy.error = "Please check the checkbox"
+            CheckBox_Policy.error = "Please ``check the checkbox"
         else
             createEmail()
     }
