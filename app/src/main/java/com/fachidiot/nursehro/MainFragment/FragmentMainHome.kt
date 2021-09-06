@@ -82,7 +82,7 @@ class FragmentMainHome : Fragment() {
                     for (dc in it.result!!.documents) {
                         val user = dc.toObject(CustomUserInfo::class.java)
                         if (user != null) {
-                            userListA.add(UserList(user.userNickname, user.profileImage, user.location?.last(), user.sex, user.age))
+                            userListA.add(UserList(user.userNickname, user.profileImage, user.location, user.sex, user.age))
                         }
                     }
 
@@ -105,7 +105,7 @@ class FragmentMainHome : Fragment() {
                     for (dc in it.result!!.documents) {
                         val user = dc.toObject(CustomUserInfo::class.java)
                         if (user != null) {
-                            userListB.add(UserList(user.userNickname, user.profileImage, user.location?.last(), user.sex, user.age))
+                            userListB.add(UserList(user.userNickname, user.profileImage, user.location, user.sex, user.age))
                         }
                     }
 

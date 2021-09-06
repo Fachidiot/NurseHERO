@@ -3,7 +3,9 @@ package com.fachidiot.nursehro
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.bumptech.glide.Glide
+import com.fachidiot.nursehro.Adapter.TagAdapter
 import com.fachidiot.nursehro.Class.UserList
+import com.google.android.flexbox.*
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.fragment_main_userprofileview.*
@@ -21,7 +23,6 @@ class UserProfileActivity : AppCompatActivity() {
         button_back.setOnClickListener {
             finish()
         }
-
     }
 
     private fun setInfo() {
@@ -51,6 +52,23 @@ class UserProfileActivity : AppCompatActivity() {
         Whished.text = userInfo?.age.toString()
         Likes.text = userInfo?.age.toString()
 
+        val taglist : ArrayList<String> = ArrayList()
+        if (userInfo != null) {
+            taglist.add(userInfo.location.toString())
+            taglist.add("${userInfo.age.toString()}세")
+            if (userInfo.sex == true)
+                taglist.add("남자")
+            else
+                taglist.add("여자")
+        }
 
+        FlexboxLayoutManager(this).apply {
+            flexWrap = FlexWrap.WRAP
+            flexDirection = FlexDirection.ROW
+            justifyContent = JustifyContent.FLEX_START
+        }.let {
+            tagLayout.layoutManager = it
+            tagLayout.adapter = TagAdapter(taglist)
+        }
     }
 }

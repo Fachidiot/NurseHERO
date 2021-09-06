@@ -170,17 +170,20 @@ class RegisterActivity : AppCompatActivity() {
                             //while (!imageUrl.isComplete) {
                             //}
 
+                            var location : String = ""
+                            if(intent.hasExtra("dong")){
+                                location = "${intent.getStringExtra(" region ")}/${intent.getStringExtra("sigungu")}/${intent.getStringExtra("dong")}"
+                            } else{
+                                location = "${intent.getStringExtra(" region ")}/${intent.getStringExtra(" sigungu ")}"
+                            }
+
                             val userModel = CustomUserInfo(
                                 intent.getBooleanExtra("nurse", false),
                                 TextInputEditText_Nickname.text.toString(),
                                 TextInputEditText_FirstName.text.toString(),
                                 TextInputEditText_LastName.text.toString(),
                                 file.lastPathSegment,
-                                if(intent.hasExtra("dong")){
-                                    listOf(intent.getStringExtra("region"), intent.getStringExtra("sigungu"), intent.getStringExtra("dong"))
-                                } else{
-                                    listOf(intent.getStringExtra("region"), intent.getStringExtra("sigungu"))
-                                },
+                                location,
                                 intent.getBooleanExtra("sex", false),
                                 intent.getIntExtra("age", -99),
                                 uid
@@ -195,17 +198,21 @@ class RegisterActivity : AppCompatActivity() {
 
                         }
                     } else {
+
+                        var location : String = ""
+                        if(intent.hasExtra("dong")){
+                            location = "${intent.getStringExtra(" region ")}/${intent.getStringExtra("sigungu")}/${intent.getStringExtra("dong")}"
+                        } else{
+                            location = "${intent.getStringExtra(" region ")}/${intent.getStringExtra(" sigungu ")}"
+                        }
+
                         val userModel = CustomUserInfo(
                             intent.getBooleanExtra("nurse", false),
                             TextInputEditText_Nickname.text.toString(),
                             TextInputEditText_FirstName.text.toString(),
                             TextInputEditText_LastName.text.toString(),
                             "null",
-                            if(intent.hasExtra("dong")){
-                                listOf(intent.getStringExtra("region"), intent.getStringExtra("sigungu"), intent.getStringExtra("dong"))
-                            } else{
-                                listOf(intent.getStringExtra("region"), intent.getStringExtra("sigungu"))
-                            },
+                            location,
                             intent.getBooleanExtra("sex", false),
                             intent.getIntExtra("age", -99),
                             uid
@@ -259,7 +266,7 @@ class RegisterActivity : AppCompatActivity() {
             TextInputEditText_Password.error = "Your password is not correct"
             TextInputEditText_Comfirm_Password.error = "Your password is not correct"
         } else if (!CheckBox_Policy.isChecked)
-            CheckBox_Policy.error = "Please check the checkbox"
+            CheckBox_Policy.error = "Please ``check the checkbox"
         else
             createEmail()
     }

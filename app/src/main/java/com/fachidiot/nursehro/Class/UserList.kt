@@ -2,6 +2,8 @@ package com.fachidiot.nursehro.Class
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.google.android.gms.maps.model.LatLng
+import com.google.maps.android.clustering.ClusterItem
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
