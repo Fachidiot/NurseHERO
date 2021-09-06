@@ -229,7 +229,7 @@ class FragmentMainAccount : Fragment() {
                 if (user != null) {
                     if (user.profileImage != "null") {
                         val storageRef: StorageReference = mFirebaseStorage.reference
-                        storageRef.child("userprofileImages/uid/${user?.profileImage}").downloadUrl
+                        storageRef.child("userprofileImages/uid/${user.profileImage}").downloadUrl
                             .addOnCompleteListener(OnCompleteListener { task ->
                                 if (task.isSuccessful) {
                                     activity?.let {
@@ -249,7 +249,7 @@ class FragmentMainAccount : Fragment() {
                 TextView_username.text = user?.userNickname
                 TextView_Firstname.text = user?.userFirstname
                 TextView_Lastname.text = user?.userLastname
-                TextView_location.text = user?.location?.last()
+                TextView_location.text = user?.location
                 TextView_age.text = user?.age.toString()
                 TextView_Nurse.text = user?.nurse.toString()
                 iv_Sex.visibility = View.VISIBLE
