@@ -3,7 +3,6 @@ package com.fachidiot.nursehro.MainFragment
 import android.Manifest
 import android.app.Activity
 import android.content.Context
-import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -16,7 +15,6 @@ import android.util.Log
 import android.view.*
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -270,7 +268,7 @@ class FragmentMainFind : Fragment(), OnMapReadyCallback {
     private fun setUpClusterer() {
         // Initialize the manager with the context and the map.
         // (Activity extends context, so we can pass 'this' in the constructor.)
-        clusterManager = ClusterManager(context, map)
+        clusterManager = ClusterManager(context, mMap)
 
         // Point the map's listeners at the listeners implemented by the cluster
         // manager.
@@ -293,7 +291,7 @@ class FragmentMainFind : Fragment(), OnMapReadyCallback {
             lat += offset
             lng += offset
             val offsetItem =
-                MyItem(lat, lng, "Title $i", "Snippet $i")
+                    LatLngUser(lat, lng, "Title $i", "Snippet $i")
             clusterManager.addItem(offsetItem)
         }
     }
