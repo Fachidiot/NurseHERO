@@ -44,6 +44,7 @@ class RegisterChooseActivity : AppCompatActivity() {
         City.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?)
             {
+                location = false
             }
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long)
@@ -90,7 +91,9 @@ class RegisterChooseActivity : AppCompatActivity() {
             }
         }
         Gu.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {
+            override fun onNothingSelected(parent: AdapterView<*>?)
+            {
+                location = false
             }
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long)
@@ -135,7 +138,9 @@ class RegisterChooseActivity : AppCompatActivity() {
             }
         }
         Dong.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {
+            override fun onNothingSelected(parent: AdapterView<*>?)
+            {
+                location = false
             }
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long)
