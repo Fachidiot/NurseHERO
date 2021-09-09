@@ -15,7 +15,7 @@ class RegisterSuccessActivity : AppCompatActivity() {
         TextView_ShowEmail.text = intent.getStringExtra("email")
         TextView_ShowPassword.text = (intent.getStringExtra("password"))
 
-        RelativeLayout_Login.setOnClickListener{
+        login_nbtn.setOnClickListener{
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
         }

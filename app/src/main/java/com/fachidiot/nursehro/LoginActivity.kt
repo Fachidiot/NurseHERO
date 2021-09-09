@@ -1,17 +1,12 @@
 package com.fachidiot.nursehro
 
 import android.Manifest
-import android.content.ContentValues.TAG
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
@@ -57,7 +52,7 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        RelativeLayout_Login.setOnClickListener(View.OnClickListener {
+        login_nbtn.setOnClickListener(View.OnClickListener {
             loginEmail()
         })
 

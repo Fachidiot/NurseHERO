@@ -7,227 +7,98 @@
     tools:context="com.fachidiot.nursehro.RegisterFragment.RegisterChooseActivity">
 
     <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            android:id="@+id/TopBar">
+        android:id="@+id/TopBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
-                android:id="@+id/TextView_Register"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/vtrocore"
-                android:gravity="center"
-                android:text="@string/Choose_Position"
-                android:textColor="@color/blue"
-                android:textSize="20sp"
-                android:layout_marginTop="10dp"/>
-
-        <Button
-                android:id="@+id/button_back"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/icon_back"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck"/>
-    </RelativeLayout>
-
-    <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="10dp"
-            android:id="@+id/NurseCheckArea"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/NormalCheckArea"
-            app:layout_constraintTop_toBottomOf="@+id/TopBar"
-            app:layout_constraintVertical_bias="0.029999971">
-
-        <CheckBox
-                android:id="@+id/CheckBox_Nurse"
-                android:layout_width="130dp"
-                android:layout_height="130dp"
-                android:button="@null"
-                android:background="@drawable/cb_custom_checkbox"
-                />
-
-        <TextView
-                android:layout_width="130dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/Nurse"
-                android:textSize="18sp"
-                android:fontFamily="@font/vtrocore"
-                />
-
-    </LinearLayout>
-
-    <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="10dp"
-            android:id="@+id/NormalCheckArea"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/NurseCheckArea"
-            app:layout_constraintVertical_bias="0.029999971"
-            app:layout_constraintTop_toBottomOf="@+id/TopBar">
-
-        <CheckBox
-                android:id="@+id/CheckBox_Normal"
-                android:layout_width="130dp"
-                android:layout_height="130dp"
-                android:button="@null"
-                android:background="@drawable/cb_custom_checkbox2"
-                />
-
-        <TextView
-                android:layout_width="130dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/Normal"
-                android:textSize="18sp"
-                android:fontFamily="@font/vtrocore"
-                />
-
-    </LinearLayout>
-
-
-    <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="10dp"
-            android:id="@+id/ManCheckLayout"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/NurseCheckArea"
-            app:layout_constraintVertical_bias="0.050000012"
-            app:layout_constraintEnd_toStartOf="@+id/WomanCheckLayout"
-            >
-
-        <CheckBox
-                android:id="@+id/CheckBox_Man"
-                android:layout_width="130dp"
-                android:layout_height="130dp"
-                android:button="@null"
-                android:background="@drawable/cb_custom_man"
-                />
-
-        <TextView
-                android:layout_width="130dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/man"
-                android:textSize="18sp"
-                android:fontFamily="@font/vtrocore"
-                />
-
-    </LinearLayout>
-
-    <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="10dp"
-            android:id="@+id/WomanCheckLayout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/ManCheckLayout"
-            app:layout_constraintVertical_bias="0.050000012"
-            app:layout_constraintTop_toBottomOf="@+id/NormalCheckArea">
-
-        <CheckBox
-                android:id="@+id/CheckBox_Woman"
-                android:layout_width="130dp"
-                android:layout_height="130dp"
-                android:button="@null"
-                android:background="@drawable/cb_custom_women"
-                />
-
-        <TextView
-                android:layout_width="130dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/woman"
-                android:textSize="18sp"
-                android:fontFamily="@font/vtrocore"
-                />
-
-    </LinearLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/TextView_Register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ManCheckLayout"
-            android:id="@+id/ageselectorLayout"
-            app:layout_constraintBottom_toTopOf="@+id/locationLayout">
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/vtrocore"
+            android:gravity="center"
+            android:text="@string/Choose_Position"
+            android:textColor="@color/blue"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/button_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/icon_back"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+    </RelativeLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ageselectorLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/locationLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nurselayout">
 
         <TextView
-                android:id="@+id/tv_selected_item_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/your_age"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                android:fontFamily="@font/vtrocore"
-                android:textSize="20dp"
-                android:textColor="@color/blue"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_bias="0.0"/>
+            android:id="@+id/tv_selected_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/vtrocore"
+            android:text="@string/your_age"
+            android:textColor="@color/blue"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-                android:visibility="invisible"
-                android:id="@+id/tv_selected_item"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="5"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                android:fontFamily="@font/vtrocore"
-                android:textSize="50dp"
-                android:textColor="@color/blue"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tv_selected_item_title"/>
+            android:id="@+id/tv_selected_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/vtrocore"
+            android:textColor="@color/blue"
+            android:textSize="50dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_selected_item_title"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="5" />
 
         <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_horizontal_picker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/imageView5"
-                android:clipToPadding="false"
-                android:layout_marginTop="2dp"/>
+            android:id="@+id/rv_horizontal_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView5" />
 
         <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                android:background="@color/blue"
-                android:alpha="0.2"
-                app:layout_constraintTop_toBottomOf="@+id/tv_selected_item_title"
-                android:id="@+id/imageView5"/>
+            android:id="@+id/imageView5"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:alpha="0.2"
+            android:background="@color/blue"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_selected_item_title" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -243,9 +114,10 @@
             >
 
         <Spinner
+                android:contentDescription="지역"
                 android:id="@+id/City"
                 android:layout_width="200dp"
-                android:layout_height="40dp"
+                android:layout_height="48dp"
                 android:background="@drawable/spinner_location"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/Gu"
@@ -254,21 +126,24 @@
                 app:layout_constraintVertical_bias="0.0"/>
 
         <Spinner
-                android:id="@+id/Gu"
-                android:layout_width="180dp"
-                android:layout_height="40dp"
-                android:background="@drawable/spinner_location"
-                app:layout_constraintStart_toEndOf="@+id/City"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/Dong"
-                app:layout_constraintVertical_bias="0.0"/>
+            android:contentDescription="구"
+            android:id="@+id/Gu"
+            android:layout_width="180dp"
+            android:layout_height="48dp"
+            android:background="@drawable/spinner_location"
+            app:layout_constraintBottom_toTopOf="@+id/Dong"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/City"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <Spinner
+                android:contentDescription="동"
                 android:visibility="invisible"
                 android:id="@+id/Dong"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
+                android:layout_height="48dp"
                 android:background="@drawable/spinner_location"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -310,5 +185,142 @@
                 android:textColor="#ffffff"
                 android:fontFamily="@font/vtrocore"/>
     </RelativeLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/nurselayout"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sexlayout">
+
+        <LinearLayout
+            android:id="@+id/NormalCheckArea"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="10dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/NurseCheckArea"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <CheckBox
+                android:id="@+id/CheckBox_Normal"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:background="@drawable/cb_custom_checkbox2"
+                android:button="@null" />
+
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/vtrocore"
+                android:gravity="center"
+                android:text="@string/Normal"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/NurseCheckArea"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="10dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/NormalCheckArea"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <CheckBox
+                android:id="@+id/CheckBox_Nurse"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:background="@drawable/cb_custom_checkbox"
+                android:button="@null" />
+
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/vtrocore"
+                android:gravity="center"
+                android:text="@string/Nurse"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sexlayout"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TopBar">
+
+        <LinearLayout
+            android:id="@+id/WomanCheckLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="10dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ManCheckLayout"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <CheckBox
+                android:id="@+id/CheckBox_Woman"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:background="@drawable/cb_custom_women"
+                android:button="@null" />
+
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/vtrocore"
+                android:gravity="center"
+                android:text="@string/woman"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ManCheckLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="10dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/WomanCheckLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <CheckBox
+                android:id="@+id/CheckBox_Man"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:background="@drawable/cb_custom_man"
+                android:button="@null" />
+
+            <TextView
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/vtrocore"
+                android:gravity="center"
+                android:text="@string/man"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

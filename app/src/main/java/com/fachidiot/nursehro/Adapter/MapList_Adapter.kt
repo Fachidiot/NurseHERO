@@ -1,10 +1,7 @@
 package com.fachidiot.nursehro
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.util.Log
-import android.view.ContextMenu
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +12,6 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.fachidiot.nursehro.Class.UserList
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
@@ -23,7 +19,6 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.fragment_main_account.*
-import kotlin.coroutines.coroutineContext
 
 
 class MapList_Adapter(private val profileList : ArrayList<UserList>) : RecyclerView.Adapter<MapList_Adapter.CustomViewHolder>() {
@@ -90,7 +85,7 @@ class MapList_Adapter(private val profileList : ArrayList<UserList>) : RecyclerV
     //뷰홀더 클래스(음료수처럼 잡아주는 홀더)
     // 이곳에서 파인드뷰아이디로 리스트 아이템에 있는 뷰들을 참조한다.
     inner class CustomViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
-        val profile = itemView.findViewById<ImageView>(R.id.imageView) //사진
+        val profile = itemView.findViewById<ImageView>(R.id.image_success) //사진
         val name = itemView.findViewById<TextView>(R.id.textView) //이름
         val age = itemView.findViewById<TextView>(R.id.ageView) //나이
         val location = itemView.findViewById<TextView>(R.id.locationView) //직업

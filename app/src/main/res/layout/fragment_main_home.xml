@@ -18,45 +18,36 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                    android:id="@+id/TutorialAds"
-                    android:layout_width="wrap_content"
-                    android:layout_height="250dp"
-                    android:src="@drawable/ads_popup"
-                    android:scaleType="fitXY"
-                    android:contentDescription="InAppAdvertisement"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintVertical_bias="0.0"/>
+                android:id="@+id/TutorialAds"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:contentDescription="InAppAdvertisement"
+                android:scaleType="fitXY"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                    android:id="@+id/Title1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="20dp"
-                    android:text="이달의 명예 간호사"
-                    android:textSize="25sp"
-                    android:fontFamily="@font/vtrocore"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/TutorialAds"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintVertical_bias="0.0"/>
+                android:id="@+id/Title1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/vtrocore"
+                android:text="이달의 명예 간호사"
+                android:textSize="25sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/TutorialAds" />
 
             <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/UserRecyclerGrid"
-                    android:layout_width="400dp"
-                    android:layout_height="240dp"
-                    android:layout_marginTop="15dp"
-                    app:layout_constraintTop_toBottomOf="@+id/Title1"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginBottom="535dp"
-                    app:layout_constraintVertical_bias="0.0"
-                    />
+                android:id="@+id/UserRecyclerGrid"
+                android:layout_width="390dp"
+                android:layout_height="240dp"
+                android:layout_marginTop="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Title1" />
 
             <Button
                     android:id="@+id/botton_more1"
@@ -77,32 +68,26 @@
 
 
             <TextView
-                    android:id="@+id/Title2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="20dp"
-                    android:text="어디까지 모셔다 드릴까요?"
-                    android:textSize="25sp"
-                    android:fontFamily="@font/vtrocore"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/botton_more1"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintVertical_bias="0.0"/>
+                android:id="@+id/Title2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/vtrocore"
+                android:text="어디까지 모셔다 드릴까요?"
+                android:textSize="25sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/botton_more1" />
 
             <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/PlaceRecyclerGrid"
-                    android:layout_width="400dp"
-                    android:layout_height="240dp"
-                    android:layout_marginTop="15dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/Title2"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginBottom="20dp"
-                    app:layout_constraintVertical_bias="0.0"
-                    />
+                android:id="@+id/PlaceRecyclerGrid"
+                android:layout_width="390dp"
+                android:layout_height="240dp"
+                android:layout_marginTop="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Title2" />
 
             <Button
                     android:id="@+id/botton_more2"
@@ -122,33 +107,27 @@
                     />
 
             <TextView
-                    android:id="@+id/Title3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="20dp"
-                    android:text="추천 간호사"
-                    android:textSize="25sp"
-                    android:fontFamily="@font/vtrocore"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/botton_more2"
-                    app:layout_constraintVertical_bias="0.0"/>
+                android:id="@+id/Title3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/vtrocore"
+                android:text="추천 간호사"
+                android:textSize="25sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/botton_more2" />
 
 
             <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/UserRecommendRecyclerGrid"
-                    android:layout_width="400dp"
-                    android:layout_height="240dp"
-                    android:layout_marginTop="15dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginBottom="20dp"
-                    app:layout_constraintTop_toBottomOf="@+id/Title3"
-                    app:layout_constraintVertical_bias="0.0"
-                    />
+                android:id="@+id/UserRecommendRecyclerGrid"
+                android:layout_width="380dp"
+                android:layout_height="240dp"
+                android:layout_marginTop="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Title3" />
 
             <Button
                     android:id="@+id/botton_more3"
@@ -180,14 +159,14 @@
                     app:layout_constraintVertical_bias="0.0">
 
                 <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="400dp"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
                     <ImageView
-                            android:layout_width="400dp"
-                            android:layout_height="140dp"
-                            android:src="@drawable/ads_banner"/>
+                        android:layout_width="400dp"
+                        android:layout_height="140dp"
+                        android:src="@drawable/ads_banner" />
 
                     <ImageView
                             android:layout_width="400dp"
@@ -204,16 +183,13 @@
             </HorizontalScrollView>
 
             <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="도움말 구역"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginBottom="1dp"
-                    app:layout_constraintTop_toBottomOf="@+id/horizontalScrollViewAD"
-                    app:layout_constraintVertical_bias="0.0"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="도움말 구역"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/horizontalScrollViewAD" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

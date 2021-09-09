@@ -31,7 +31,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView android:id="@+id/imageView"
+            <ImageView android:id="@+id/image_success"
                        android:layout_width="60dp"
                        android:layout_height="60dp"
                        tools:srcCompat="@tools:sample/avatars" />

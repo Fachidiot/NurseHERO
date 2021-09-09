@@ -21,6 +21,11 @@
         <item>제주특별자치도</item>
     </string-array>
 
+    <string-array name="spinner_sigungu">
+        <item>지역을 먼저 선택해주세요</item>
+    </string-array>
+
+
     <string-array name="spinner_region_seoul">
         <item>구</item>
         <item>강남구</item>

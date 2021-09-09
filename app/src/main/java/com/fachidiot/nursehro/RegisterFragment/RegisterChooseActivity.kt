@@ -50,6 +50,7 @@ class RegisterChooseActivity : AppCompatActivity() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long)
             {
                 when (position) {
+                    0 -> { Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_sigungu, android.R.layout.simple_spinner_dropdown_item) }
                     //서울특별시
                     1 -> { Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_seoul, android.R.layout.simple_spinner_dropdown_item) }
                     //부산
@@ -84,7 +85,7 @@ class RegisterChooseActivity : AppCompatActivity() {
                     16 -> { Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_gyeong_nam, android.R.layout.simple_spinner_dropdown_item) }
                     //제주
                     17 -> { Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_jeju, android.R.layout.simple_spinner_dropdown_item) }
-                    else -> { }
+                    else -> { location = false }
                 }
 
                 region = City.selectedItem.toString()
@@ -99,7 +100,7 @@ class RegisterChooseActivity : AppCompatActivity() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long)
             {
                 // 서울특별시 선택시
-                if (City.selectedItemPosition == 1 && Gu.selectedItemPosition > -1) {
+                if (City.selectedItemPosition >= 1 && Gu.selectedItemPosition > 0) {
                     Dong.visibility = View.VISIBLE
                     when (position) {
                         1 -> Dong.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_seoul_gangnam, android.R.layout.simple_spinner_dropdown_item)
@@ -127,13 +128,16 @@ class RegisterChooseActivity : AppCompatActivity() {
                         23 -> Dong.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_seoul_jongno, android.R.layout.simple_spinner_dropdown_item)
                         24 -> Dong.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_seoul_jung, android.R.layout.simple_spinner_dropdown_item)
                         25 -> Dong.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_seoul_jungnanggu, android.R.layout.simple_spinner_dropdown_item)
+                        else -> {
+                            Dong.visibility = View.INVISIBLE
+                            location = false
+                        }
                     }
 
+                    location = true
                     sigungu = Gu.selectedItem.toString()
                 } else {
                     Dong.visibility = View.INVISIBLE
-                    sigungu = Gu.selectedItem.toString()
-                    location = true
                 }
             }
         }
@@ -145,9 +149,11 @@ class RegisterChooseActivity : AppCompatActivity() {
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long)
             {
-                if (City.selectedItemPosition == 1 && Gu.selectedItemPosition > -1) {
+                if (City.selectedItemPosition >= 1 && Gu.selectedItemPosition > 0 && Dong.selectedItemPosition > 0) {
                     dong = Dong.selectedItem.toString()
                     location = true
+                } else {
+                    location = false
                 }
             }
         }

@@ -7,155 +7,159 @@
     android:outlineProvider="bounds"
     tools:context=".RegisterFragment.RegisterSuccessActivity">
 
-    <LinearLayout
+
+    <TextView
+        android:id="@+id/success_tv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="8">
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fontFamily="@font/vtrocore"
+        android:gravity="center"
+        android:text="@string/TextView_Succsess"
+        android:textColor="@color/blue"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/image_success"
+        android:layout_width="wrap_content"
+        android:layout_height="256dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:src="@drawable/icon_success"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/success_tv" />
+
+    <TextView
+        android:id="@+id/thx..._tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fontFamily="@font/vtrocore"
+        android:gravity="center"
+        android:text="@string/TextView_SuccsessMent"
+        android:textColor="@color/blue"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_success" />
+
+    <LinearLayout
+        android:id="@+id/emaillayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="50dp"
+        android:orientation="horizontal"
+        android:weightSum="20"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/thx..._tv">
 
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/vtrocore"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_weight="5"
+            android:background="@drawable/bg_custom_outline"
+            android:fontFamily="@font/vtrolight"
             android:gravity="center"
-            android:text="@string/TextView_Succsess"
+            android:text="Email"
             android:textColor="@color/blue"
-            android:textSize="20sp"
-            android:layout_weight="1"
-            />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="256dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/icon_success"
-            android:layout_weight="1"
-            />
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/vtrocore"
+            android:id="@+id/TextView_ShowEmail"
+            android:layout_width="240dp"
+            android:layout_height="40dp"
+            android:layout_weight="15"
+            android:background="@drawable/bg_custom_outline_light"
+            android:fontFamily="@font/vtrolight"
             android:gravity="center"
-            android:text="@string/TextView_SuccsessMent"
-            android:textColor="@color/blue"
-            android:textSize="20sp"
-            android:layout_weight="1"
-            />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginHorizontal="50dp"
-            android:layout_marginTop="30dp"
-            android:weightSum="20"
-            >
-
-
-            <TextView
-                android:layout_width="80dp"
-                android:layout_height="40dp"
-                android:background="@drawable/bg_custom_outline"
-                android:text="Email"
-                android:textSize="14sp"
-                android:textColor="@color/blue"
-                android:textStyle="bold"
-                android:fontFamily="@font/vtrolight"
-                android:gravity="center"
-                android:layout_weight="5"
-                />
-
-            <TextView
-                android:id="@+id/TextView_ShowEmail"
-                android:layout_width="240dp"
-                android:layout_height="40dp"
-                android:background="@drawable/bg_custom_outline_light"
-                android:text="Test@test.com"
-                android:textSize="14sp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:fontFamily="@font/vtrolight"
-                android:gravity="center"
-                android:layout_weight="15"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginHorizontal="50dp"
-            android:weightSum="20"
-            >
-
-
-            <TextView
-                android:layout_width="80dp"
-                android:layout_height="40dp"
-                android:background="@drawable/bg_custom_outline"
-                android:text="Password"
-                android:textSize="14sp"
-                android:textColor="@color/blue"
-                android:textStyle="bold"
-                android:fontFamily="@font/vtrolight"
-                android:gravity="center"
-                android:layout_weight="5"
-                />
-
-            <TextView
-                android:id="@+id/TextView_ShowPassword"
-                android:layout_width="240dp"
-                android:layout_height="40dp"
-                android:background="@drawable/bg_custom_outline_light"
-                android:text="admin"
-                android:textSize="14sp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:fontFamily="@font/vtrolight"
-                android:gravity="center"
-                android:layout_weight="15"
-                />
-
-        </LinearLayout>
-
-
-        <RelativeLayout
-            android:id="@+id/RelativeLayout_Login"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:gravity="center"
-            android:background="@drawable/btn_blue"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="50dp"
-            android:clickable="true"
-
-            >
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:background="@null"
-                android:src="@drawable/icon_profile"
-                android:gravity="center"
-                android:layout_marginLeft="50dp"
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:textColor="#ffffff"
-                android:stateListAnimator="@null"
-                android:gravity="center"
-                android:text="@string/Button_Login"
-                android:fontFamily="@font/vtrocore"
-                />
-        </RelativeLayout>
+            android:text="Test@test.com"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/password_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="50dp"
+        android:orientation="horizontal"
+        android:weightSum="20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emaillayout">
+
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_weight="5"
+            android:background="@drawable/bg_custom_outline"
+            android:fontFamily="@font/vtrolight"
+            android:gravity="center"
+            android:text="Password"
+            android:textColor="@color/blue"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/TextView_ShowPassword"
+            android:layout_width="240dp"
+            android:layout_height="40dp"
+            android:layout_weight="15"
+            android:background="@drawable/bg_custom_outline_light"
+            android:fontFamily="@font/vtrolight"
+            android:gravity="center"
+            android:text="admin"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/login_nbtn"
+        android:layout_width="380dp"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btn_blue"
+        android:clickable="true"
+
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password_layout">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="50dp"
+            android:background="@null"
+            android:gravity="center"
+            android:src="@drawable/icon_profile" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:fontFamily="@font/vtrocore"
+            android:gravity="center"
+            android:stateListAnimator="@null"
+            android:text="@string/Button_Login"
+            android:textColor="#ffffff" />
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
