@@ -47,11 +47,15 @@ class FragmentMainHome : Fragment() {
         }
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         onGetRate()
         onGetRecommend()
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
 
         UserRecyclerGrid.addItemDecoration(RecyclerViewDecoration(10));
         UserRecommendRecyclerGrid.addItemDecoration(RecyclerViewDecoration(10));
@@ -85,6 +89,7 @@ class FragmentMainHome : Fragment() {
                             userListA.add(UserList(user.userNickname, user.profileImage, user.location, user.sex, user.age))
                         }
                     }
+                    Log.d("firestore loading", "is Finished")
 
                     val gridLayoutManager = GridLayoutManager(requireContext(), 2)
                     gridLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
@@ -108,6 +113,7 @@ class FragmentMainHome : Fragment() {
                             userListB.add(UserList(user.userNickname, user.profileImage, user.location, user.sex, user.age))
                         }
                     }
+                    Log.d("firestore loading", "is Finished")
 
                     val gridLayoutManager = GridLayoutManager(requireContext(), 2)
                     gridLayoutManager.orientation = LinearLayoutManager.HORIZONTAL

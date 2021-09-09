@@ -4,8 +4,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.clustering.ClusterItem
 
 class LatLngUser (
-    val index : Int,
-    val uid : Int,
+    val uid : String,
     val latlng: LatLng,
     val location: String
 ) : ClusterItem {
