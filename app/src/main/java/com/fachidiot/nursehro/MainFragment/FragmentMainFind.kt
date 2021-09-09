@@ -48,7 +48,6 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 class FragmentMainFind : Fragment(), OnMapReadyCallback {
-
     private var profileList : ArrayList<UserList> = ArrayList()
 
     private lateinit var mFirebaseAuth : FirebaseAuth
