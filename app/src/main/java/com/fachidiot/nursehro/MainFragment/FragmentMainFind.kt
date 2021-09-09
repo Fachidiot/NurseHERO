@@ -94,6 +94,7 @@ class FragmentMainFind : Fragment(), OnMapReadyCallback {
         }
     }
 
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
