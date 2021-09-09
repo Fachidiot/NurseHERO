@@ -21,10 +21,6 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_main_home.*
 
-
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 class FragmentMainHome : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
@@ -40,11 +36,6 @@ class FragmentMainHome : Fragment() {
 
         mFirebaseStoreDatabase = Firebase.firestore
         mFirebaseAuth = FirebaseAuth.getInstance()
-
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -135,16 +126,5 @@ class FragmentMainHome : Fragment() {
 
     private fun setUserList(userList: ArrayList<UserList>) {
 
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FragmentMainHome().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
 }
