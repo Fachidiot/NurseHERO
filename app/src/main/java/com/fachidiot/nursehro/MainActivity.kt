@@ -1,12 +1,12 @@
 package com.fachidiot.nursehro
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.fachidiot.nursehro.Adapter.AdaptermainFragment
+import androidx.core.content.ContextCompat
+import com.fachidiot.nursehro.Adapter.NavigationViewPagerAdapter
+import com.fxn.ariana.ArianaBackgroundListener
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -22,8 +22,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        configureBottomNavigation()
-
+        configureBottomChipNavigation()
     }
 
     override fun onBackPressed() {
@@ -50,16 +49,42 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun configureBottomNavigation() {
-        ViewPager_main_xml.adapter = AdaptermainFragment(supportFragmentManager, 3)
-        TabLayout_main_xml.setupWithViewPager(ViewPager_main_xml)
+    @SuppressLint("ClickableViewAccessibility")
+    private fun configureBottomChipNavigation() {
+        chip_navigation.setOnItemSelectedListener { id ->
+            when(id) {
+                R.id.home -> ViewPager_main.currentItem = 0
+                R.id.like -> ViewPager_main.currentItem = 1
+                R.id.search -> ViewPager_main.currentItem = 2
+                R.id.profile -> ViewPager_main.currentItem = 3
+            }
+        }
 
-        val viewBtmNaviMain : View = this.layoutInflater.inflate(R.layout.btm_navigation_main, null, false)
+        ViewPager_main.setOnTouchListener { _, _ -> true }
+        ViewPager_main.adapter = NavigationViewPagerAdapter(supportFragmentManager).apply {
+            list = ArrayList<String>().apply {
+                add("Home")
+                add("Like")
+                add("Search")
+                add("Profile")
+            }
+        }
 
-        TabLayout_main_xml.getTabAt(0)!!.customView = viewBtmNaviMain.findViewById(R.id.xml_btmnv_btn_home) as RelativeLayout
-        TabLayout_main_xml.getTabAt(1)!!.customView = viewBtmNaviMain.findViewById(R.id.xml_btmnv_btn_find) as RelativeLayout
-        TabLayout_main_xml.getTabAt(2)!!.customView = viewBtmNaviMain.findViewById(R.id.xml_btmnv_btn_account) as RelativeLayout
-
+        ViewPager_main.addOnPageChangeListener(
+            ArianaBackgroundListener(
+                getColors(),
+                imageview,
+                ViewPager_main
+            )
+        )
     }
 
+    private fun getColors() :IntArray {
+        return intArrayOf(
+            ContextCompat.getColor(this, R.color.home),
+            ContextCompat.getColor(this, R.color.like),
+            ContextCompat.getColor(this, R.color.search),
+            ContextCompat.getColor(this, R.color.profile)
+        )
+    }
 }

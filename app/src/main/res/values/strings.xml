@@ -49,9 +49,17 @@
     <string name="pick_place">Choose a place</string>
     <string name="default_info_title">Default Location</string>
     <string name="default_info_snippet">No places found, because location permission is disabled.</string>
-    <string name="in_this_resion">In this Area...</string>
-    <string name="find_hero">히어로 찾기</string>
-    <string name="enter_location">위치를 입력하세요</string>
-    <string name="search">검색</string>
-    <string name="filter">필터</string>
+    <string name="in_this_resion">In this Area</string>
+    <string name="find_hero">Find Hero</string>
+    <string name="enter_location">Enter location</string>
+    <string name="search">Search</string>
+    <string name="filter">Filter</string>
+    <string name="inappAdvertisement">InAppAdvertisement</string>
+    <string name="rating_Nurse">이달의 명예 간호사</string>
+    <string name="more_rating_nurse">\'이달의 명예 간호사\'더보기</string>
+    <string name="find_by_location">어디까지 모셔다 드릴까요?</string>
+    <string name="more_find_location">장소 더보기</string>
+    <string name="recommend_nurse">추천 간호사</string>
+    <string name="more_recommend_nurse">\'추천 간호사\'더보기</string>
+    <string name="info">도움말 구역</string>
 </resources>
