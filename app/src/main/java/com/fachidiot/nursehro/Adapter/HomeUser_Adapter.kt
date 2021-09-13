@@ -42,7 +42,7 @@ class HomeUser_Adapter(private val profileList : ArrayList<UserList>) : Recycler
                 val profile : UserList = profileList[curPos] //객체형태로 번호에 맞게 가져오기
 
                 val intent = Intent(parent.context, UserProfileActivity::class.java)
-                intent.putExtra("userinfo", UserList(profile.userNickname, profile.profileImage, profile.location, profile.sex, profile.age));
+                intent.putExtra("userinfo", UserList(profile.userNickname, profile.profileImage, profile.location, profile.sex, profile.age))
                 ContextCompat.startActivity(parent.context, intent, null)
             }
         }

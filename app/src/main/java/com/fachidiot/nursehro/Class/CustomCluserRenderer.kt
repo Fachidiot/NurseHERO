@@ -18,7 +18,7 @@ import com.google.maps.android.clustering.ClusterManager
 import com.google.maps.android.clustering.view.DefaultClusterRenderer
 
 
-class CustomCluserRenderer(context: Context?, map: GoogleMap?, clusterManager: ClusterManager<LatLngUser>?,
+class CustomCluserRenderer(context: Context, map: GoogleMap?, clusterManager: ClusterManager<LatLngUser>?,
                            marker_view: View) : DefaultClusterRenderer<LatLngUser>(context, map, clusterManager) {
     private val context = context
     private var marker_view = marker_view
@@ -30,7 +30,7 @@ class CustomCluserRenderer(context: Context?, map: GoogleMap?, clusterManager: C
         //marker_body.text = user.location
         //marker_num.text = profileList.count().toString()
         val markerOptions = MarkerOptions()
-        markerOptions.icon( BitmapDescriptorFactory.fromBitmap(context?.let { createDrawableFromView(it, marker_view) }) )
+        markerOptions.icon( BitmapDescriptorFactory.fromBitmap(createDrawableFromView(context, marker_view)) )
     }
 
     override fun onClustersChanged(clusters: MutableSet<out Cluster<LatLngUser>>?) {
@@ -42,9 +42,14 @@ class CustomCluserRenderer(context: Context?, map: GoogleMap?, clusterManager: C
         //}
     }
 
+    override fun setOnClusterItemClickListener(listener: ClusterManager.OnClusterItemClickListener<LatLngUser>?) {
+        super.setOnClusterItemClickListener(listener)
+
+    }
+
     companion object {
 
-        private fun createDrawableFromView(context: Context, view: View): Bitmap? {
+        private fun createDrawableFromView(context: Context, view: View): Bitmap {
             val displayMetrics = DisplayMetrics()
             (context as Activity).windowManager.defaultDisplay.getMetrics(displayMetrics)
             view.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)

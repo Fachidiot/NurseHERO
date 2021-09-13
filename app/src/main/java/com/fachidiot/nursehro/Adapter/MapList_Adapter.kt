@@ -43,7 +43,7 @@ class MapList_Adapter(private val profileList : ArrayList<UserList>) : RecyclerV
                 Toast.makeText(parent.context, "이름 : ${profile.userNickname} 성별 : ${profile.sex} 위치 : ${profile.location} ", Toast.LENGTH_LONG).show()
 
                 val intent = Intent(parent.context, UserProfileActivity::class.java)
-                intent.putExtra("userinfo", UserList(profile.userNickname, profile.profileImage, profile.location, profile.sex, profile.age));
+                intent.putExtra("userinfo", UserList(profile.userNickname, profile.profileImage, profile.location, profile.sex, profile.age))
                 ContextCompat.startActivity(parent.context, intent, null)
             }
         }

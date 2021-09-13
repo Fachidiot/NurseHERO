@@ -20,19 +20,12 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.fachidiot.nursehro.Class.CustomCluserRenderer
-import com.fachidiot.nursehro.Class.CustomUserInfo
-import com.fachidiot.nursehro.Class.LatLngUser
-import com.fachidiot.nursehro.Class.UserList
+import com.fachidiot.nursehro.Class.*
 import com.fachidiot.nursehro.MapList_Adapter
 import com.fachidiot.nursehro.R
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.MapView
-import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.Places
@@ -47,7 +40,7 @@ import com.google.maps.android.clustering.view.ClusterRenderer
 import kotlinx.android.synthetic.main.fragment_main_find.*
 import java.util.*
 
-class FragmentMainFind : Fragment(), OnMapReadyCallback {
+class FragmentMainFind : Fragment(), OnMapReadyCallback, BottomSheetDialog.BottomSheetListClickListener {
 
     private var profileList : ArrayList<UserList> = ArrayList()
 
@@ -61,8 +54,9 @@ class FragmentMainFind : Fragment(), OnMapReadyCallback {
     private val defaultLocation = LatLng(37.557667, 126.926546)
     private var lastKnownLocation: Location? = null
 
-    private var clusterManager: ClusterManager<LatLngUser>? = null
-    private var clusterRenderer: ClusterRenderer<LatLngUser>? = null
+    private lateinit var clusterManager: ClusterManager<LatLngUser>
+    private lateinit var clusterRenderer: ClusterRenderer<LatLngUser>
+    private lateinit var bottomSheetDialog: BottomSheetDialog
 
     private var likelyPlaceNames: Array<String?> = arrayOfNulls(0)
     private var likelyPlaceAddresses: Array<String?> = arrayOfNulls(0)
@@ -76,8 +70,7 @@ class FragmentMainFind : Fragment(), OnMapReadyCallback {
     private lateinit var placesClient : PlacesClient
     private lateinit var fusedLocationProviderClient : FusedLocationProviderClient
 
-    private var param1: String? = null
-    private var param2: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -90,6 +83,18 @@ class FragmentMainFind : Fragment(), OnMapReadyCallback {
         mFirebaseAuth = FirebaseAuth.getInstance()
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        val rootView = inflater.inflate(R.layout.fragment_main_find, container, false)
+        mapView = rootView.findViewById(R.id.map) as MapView
+        mapView!!.onCreate(savedInstanceState)
+        mapView!!.getMapAsync(this)
+        return rootView
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -97,12 +102,9 @@ class FragmentMainFind : Fragment(), OnMapReadyCallback {
         setUserList()
 
         ListButton.setOnClickListener {
-            Map_ListLayout.visibility = View.VISIBLE
-        }
-
-        button_back.setOnClickListener {
-            Map_ListLayout.visibility = View.INVISIBLE
-            // Delete UserList
+            val adapter = MapList_Adapter(profileList)
+            bottomSheetDialog = BottomSheetDialog(adapter)
+            fragmentManager?.let { it1 -> bottomSheetDialog.show(it1, "maplistBottomSheet") }
         }
 
         searchButton.setOnClickListener {
@@ -123,38 +125,27 @@ class FragmentMainFind : Fragment(), OnMapReadyCallback {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val rootView = inflater.inflate(R.layout.fragment_main_find, container, false)
-        mapView = rootView.findViewById(R.id.map) as MapView
-        mapView!!.onCreate(savedInstanceState)
-        mapView!!.getMapAsync(this)
-        return rootView
-    }
-
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        setCustomMarkerView()
-
-        clusterManager = ClusterManager<LatLngUser>(context, mMap)
-        clusterRenderer = CustomCluserRenderer(context, mMap, clusterManager, markerRootView)
-        clusterManager!!.setRenderer(clusterRenderer)
-
         mMap.setOnMapLoadedCallback {
             val seoul = LatLng(37.557667, 126.926546)
             mMap.moveCamera(CameraUpdateFactory.newLatLng(seoul))
             mMap.animateCamera(CameraUpdateFactory.zoomTo(13f))
         }
 
+        setCustomMarkerView()
+
+        clusterManager = ClusterManager<LatLngUser>(context, mMap)
+        clusterRenderer = CustomCluserRenderer(requireContext(), mMap, clusterManager, markerRootView)
+        clusterManager.setRenderer(clusterRenderer)
+        //clusterManager.setOnClusterItemClickListener()
+
         val mPreviousCameraPosition = arrayOf<CameraPosition?>(null)
         mMap.setOnCameraIdleListener {
             val position = mMap.cameraPosition
             if (mPreviousCameraPosition[0] == null || mPreviousCameraPosition[0]!!.zoom != position.zoom) {
                 mPreviousCameraPosition[0] = mMap.cameraPosition
-                clusterManager!!.cluster()
+                clusterManager.cluster()
             }
         }
         mMap.setOnMarkerClickListener(clusterManager)
@@ -238,12 +229,9 @@ class FragmentMainFind : Fragment(), OnMapReadyCallback {
                             val address : Address = addresses[0]
                             val latLng = LatLng(address.latitude, address.longitude)
                             val offsetItem = LatLngUser(user.uid, LatLng(latLng.latitude, latLng.longitude), user.location.toString())
-                            clusterManager?.addItem(offsetItem)
+                            clusterManager.addItem(offsetItem)
                         }
                     }
-                    MapRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false) //레이아웃매니저를 이용해 어뎁터의 방향을 결정
-                    MapRecyclerView.setHasFixedSize(true)//어뎁터에 성능을 위한것
-                    MapRecyclerView.adapter = MapList_Adapter(profileList) //어뎁터에 리스트 자료를 넣는다.
                 }
             }
             .addOnFailureListener {
@@ -281,6 +269,21 @@ class FragmentMainFind : Fragment(), OnMapReadyCallback {
         mapView?.onLowMemory()
     }
 
+    override fun onButtonClick() {
+
+    }
+
+    private fun clusterItemClick(mMap: GoogleMap) {
+        clusterManager.setOnClusterItemClickListener { p0 ->
+            // // 클러스터 아이템 클릭 리스너
+            val center: CameraUpdate = CameraUpdateFactory.newLatLng(p0?.position)
+            mMap.animateCamera(center)
+
+            //changeRenderer(p0)
+
+            true
+        }
+    }
 
     private fun getDeviceLocation() {
         try {

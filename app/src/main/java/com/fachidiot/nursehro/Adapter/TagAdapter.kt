@@ -9,9 +9,7 @@ import com.fachidiot.nursehro.R
 
 class TagAdapter(private val tags : ArrayList<String>) : RecyclerView.Adapter<TagAdapter.TagViewHolder>() {
 
-    companion object {
-
-    }
+    companion object;
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TagViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.taglist_recycler, parent, false)

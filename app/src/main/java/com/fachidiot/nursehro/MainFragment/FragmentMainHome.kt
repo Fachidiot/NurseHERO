@@ -48,8 +48,8 @@ class FragmentMainHome : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        UserRecyclerGrid.addItemDecoration(RecyclerViewDecoration(10));
-        UserRecommendRecyclerGrid.addItemDecoration(RecyclerViewDecoration(10));
+        UserRecyclerGrid.addItemDecoration(RecyclerViewDecoration(10))
+        UserRecommendRecyclerGrid.addItemDecoration(RecyclerViewDecoration(10))
 
         swipeRefreshLayout.setOnRefreshListener {
             onGetRate()
