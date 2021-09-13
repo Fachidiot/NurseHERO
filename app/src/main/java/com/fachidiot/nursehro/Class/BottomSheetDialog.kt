@@ -56,9 +56,10 @@ class BottomSheetDialog(var adapter: MapList_Adapter): BottomSheetDialogFragment
 
         try {
             val mapListAdapter = view.findViewById<RecyclerView>(R.id.MapRecyclerView)
-            mapListAdapter.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false) //레이아웃매니저를 이용해 어뎁터의 방향을 결정
+            mapListAdapter.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false) //레이아웃매니저를 이용해 어뎁터의 방향을 결정
             mapListAdapter.setHasFixedSize(true)//어뎁터에 성능을 위한것
             mapListAdapter.adapter = adapter
+            Log.d("BottomSheetDialog", adapter.itemCount.toString())
         } catch (e : Exception) {
             Log.e("BottomSheetDialog", e.toString())
         }
@@ -68,14 +69,14 @@ class BottomSheetDialog(var adapter: MapList_Adapter): BottomSheetDialogFragment
         val behavior = BottomSheetBehavior.from<View>(bottomSheet!!)
 
         // 드래그해도 팝업이 종료되지 않도록
-        behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-            override fun onStateChanged(bottomSheet: View, newState: Int) {
-                if (newState == BottomSheetBehavior.STATE_DRAGGING) {
-                    behavior.state = BottomSheetBehavior.STATE_EXPANDED
-                }
-            }
-            override fun onSlide(bottomSheet: View, slideOffset: Float) {}
-        })
+        //behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+        //    override fun onStateChanged(bottomSheet: View, newState: Int) {
+        //        if (newState == BottomSheetBehavior.STATE_DRAGGING) {
+        //            behavior.state = BottomSheetBehavior.STATE_EXPANDED
+        //        }
+        //    }
+        //    override fun onSlide(bottomSheet: View, slideOffset: Float) {}
+        //})
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -109,11 +110,11 @@ class BottomSheetDialog(var adapter: MapList_Adapter): BottomSheetDialogFragment
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        //try{
-        //    bottomSheetListClickListener = context as BottomSheetListClickListener
-        //} catch (e : ClassCastException) {
-        //    Log.e("BottomSheetDialog", e.toString())
-        //}
+        try{
+            bottomSheetListClickListener = context as BottomSheetListClickListener
+        } catch (e : ClassCastException) {
+            Log.e("BottomSheetDialog", e.toString())
+        }
     }
 
     companion object {

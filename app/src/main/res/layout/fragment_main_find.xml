@@ -10,7 +10,7 @@
     <TextView
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:text="히어로 찾기"
+            android:text="@string/find_hero"
             android:textColor="@color/blue"
             android:textSize="20sp"
             android:fontFamily="@font/vtrocore"
@@ -37,22 +37,23 @@
             android:id="@+id/linearLayout2">
 
         <EditText
-                android:id="@+id/searchEditText"
-                android:singleLine="true"
-                android:paddingLeft="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:hint="위치를 입력하세요"
-                android:fontFamily="@font/vtrocore"
-                android:layout_weight="1"
-        />
+            android:id="@+id/searchEditText"
+            android:singleLine="true"
+            android:paddingStart="20dp"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:hint="@string/enter_location"
+            android:fontFamily="@font/vtrocore"
+            android:layout_weight="1"
+            android:autofillHints="@string/enter_location"
+            android:inputType="textAutoComplete"/>
 
         <Button
                 android:id="@+id/searchButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn_blue"
-                android:text="검색"
+                android:text="@string/search"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:fontFamily="@font/vtrocore"
@@ -73,7 +74,7 @@
                 android:layout_width="70dp"
                 android:layout_height="35dp"
                 android:background="@drawable/btn_blue"
-                android:text="필터"
+                android:text="@string/filter"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:fontFamily="@font/vtrocore"
@@ -101,7 +102,6 @@
                 app:layout_constraintHorizontal_bias="0.9"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
     <com.google.android.gms.maps.MapView
             android:id="@+id/map"

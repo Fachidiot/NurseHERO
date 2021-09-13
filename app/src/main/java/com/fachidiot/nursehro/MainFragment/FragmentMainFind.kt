@@ -58,11 +58,6 @@ class FragmentMainFind : Fragment(), OnMapReadyCallback, BottomSheetDialog.Botto
     private lateinit var clusterRenderer: ClusterRenderer<LatLngUser>
     private lateinit var bottomSheetDialog: BottomSheetDialog
 
-    private var likelyPlaceNames: Array<String?> = arrayOfNulls(0)
-    private var likelyPlaceAddresses: Array<String?> = arrayOfNulls(0)
-    private var likelyPlaceAttributions: Array<List<*>?> = arrayOfNulls(0)
-    private var likelyPlaceLatLngs: Array<LatLng?> = arrayOfNulls(0)
-
     private lateinit var markerRootView : View
     private lateinit var marker_body : TextView
     private lateinit var marker_num : TextView
@@ -232,10 +227,12 @@ class FragmentMainFind : Fragment(), OnMapReadyCallback, BottomSheetDialog.Botto
                             clusterManager.addItem(offsetItem)
                         }
                     }
+
+                    Toast.makeText(context, "Success to load userList", Toast.LENGTH_LONG).show()
                 }
             }
             .addOnFailureListener {
-                Toast.makeText(context, "Failed to load recommend userlist", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Failed to load userList", Toast.LENGTH_SHORT).show()
             }
     }
 
