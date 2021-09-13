@@ -62,4 +62,8 @@
     <string name="recommend_nurse">추천 간호사</string>
     <string name="more_recommend_nurse">\'추천 간호사\'더보기</string>
     <string name="info">도움말 구역</string>
+    <string name="home">Home</string>
+    <string name="chat">Chat</string>
+    <string name="Search">serach</string>
+    <string name="profile">Profile</string>
 </resources>

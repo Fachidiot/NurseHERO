@@ -7,13 +7,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.fachidiot.nursehro"
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -33,8 +33,11 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    // Exception.e DSL element 'android.dataBinding.enabled' is obsolete and has been replaced with 'android.buildFeatures.dataBinding'.
+    // viewBinding 사용 선언
     buildFeatures {
-        viewBinding true
+        viewBinding = true
     }
     dataBinding {
         enabled = true
@@ -54,7 +57,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:17.0.1'
     implementation 'com.google.android.gms:play-services-maps:17.0.1'
     implementation 'com.google.android.gms:play-services-location:18.0.0'
-    implementation 'com.google.maps.android:android-maps-utils:0.4'
+    implementation 'com.google.maps.android:android-maps-utils:2.2.5'
     //places
     implementation 'com.google.android.libraries.places:places:2.4.0'
 
@@ -86,7 +89,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.0-alpha06'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.google.android.material:material:1.5.0-alpha02'
+    implementation 'com.google.android.material:material:1.5.0-alpha03'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'

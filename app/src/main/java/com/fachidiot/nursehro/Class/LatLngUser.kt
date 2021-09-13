@@ -11,4 +11,12 @@ class LatLngUser (
     override fun getPosition(): LatLng {
         return latlng
     }
+
+    override fun getTitle(): String? {
+        TODO("Not yet implemented")
+    }
+
+    override fun getSnippet(): String? {
+        TODO("Not yet implemented")
+    }
 }

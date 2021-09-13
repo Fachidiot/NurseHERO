@@ -6,23 +6,23 @@
     <item
         android:id="@+id/home"
         android:icon="@drawable/home_outline"
-        android:title="Home"
+        android:title="@string/home"
         app:cnb_iconColor="@color/home" />
 
     <item
         android:id="@+id/like"
         android:icon="@drawable/like_outline"
-        android:title="Chat"
+        android:title="@string/chat"
         app:cnb_iconColor="@color/like" />
     <item
         android:id="@+id/search"
         android:icon="@drawable/search_outline"
-        android:title="Search"
+        android:title="@string/Search"
         app:cnb_iconColor="@color/search" />
     <item
         android:id="@+id/profile"
         android:icon="@drawable/account_circle_outline"
-        android:title="Profile"
+        android:title="@string/profile"
         app:cnb_iconColor="@color/profile" />
 
 </menu>
