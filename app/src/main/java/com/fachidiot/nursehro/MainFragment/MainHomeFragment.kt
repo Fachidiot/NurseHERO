@@ -46,7 +46,6 @@ class MainHomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //MasterCode_SetLatLng()
         //onGetRate()
         //onGetRecommend()
 
@@ -85,7 +84,8 @@ class MainHomeFragment : Fragment() {
                             val geocoder = Geocoder(context)
                             val addresses: List<Address> = geocoder.getFromLocationName(user.location, 3)
                             val address : Address = addresses[0]
-                            val latLng : LatLng = LatLng(address.latitude, address.longitude)
+                            var latLng: LatLng? = null
+                            latLng = LatLng(address.latitude, address.longitude)
 
                             mFirebaseStoreDatabase.collection("users").document(user.uid).update("latLng", latLng)
                         }
