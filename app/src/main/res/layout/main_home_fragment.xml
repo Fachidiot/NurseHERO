@@ -21,13 +21,14 @@
                 android:id="@+id/vp2_TutorialAds"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:contentDescription="@string/inappAdvertisement"
+                android:layout_marginTop="10dp"
                 android:clipChildren="false"
+                android:clipToPadding="false"
+                android:contentDescription="@string/inappAdvertisement"
                 android:nestedScrollingEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
             <TextView
                 android:id="@+id/Title1"
                 android:layout_width="wrap_content"

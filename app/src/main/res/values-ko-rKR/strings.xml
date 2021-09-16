@@ -50,7 +50,6 @@
     <string name="in_this_resion">이 지역 히어로 목록</string>
     <string name="find_hero">히어로 찾기</string>
     <string name="enter_location">위치를 입력하세요</string>
-    <string name="search">검색</string>
     <string name="filter">필터</string>
     <string name="inappAdvertisement">InAppAdvertisement</string>
     <string name="rating_Nurse">이달의 명예 간호사</string>
@@ -62,6 +61,6 @@
     <string name="info">도움말 구역</string>
     <string name="home">홈</string>
     <string name="chat">채팅</string>
-    <string name="Search">검색</string>
+    <string name="search">검색</string>
     <string name="profile">내 정보</string>
 </resources>

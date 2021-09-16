@@ -13,10 +13,10 @@ class LatLngUser (
     }
 
     override fun getTitle(): String? {
-        TODO("Not yet implemented")
+        return null
     }
 
     override fun getSnippet(): String? {
-        TODO("Not yet implemented")
+        return null
     }
 }

@@ -52,7 +52,6 @@
     <string name="in_this_resion">In this Area</string>
     <string name="find_hero">Find Hero</string>
     <string name="enter_location">Enter location</string>
-    <string name="search">Search</string>
     <string name="filter">Filter</string>
     <string name="inappAdvertisement">InAppAdvertisement</string>
     <string name="rating_Nurse">이달의 명예 간호사</string>
@@ -64,6 +63,6 @@
     <string name="info">도움말 구역</string>
     <string name="home">Home</string>
     <string name="chat">Chat</string>
-    <string name="Search">serach</string>
+    <string name="search">Search</string>
     <string name="profile">Profile</string>
 </resources>

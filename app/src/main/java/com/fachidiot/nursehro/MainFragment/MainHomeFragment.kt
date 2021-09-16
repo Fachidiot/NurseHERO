@@ -22,8 +22,10 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.main_home_fragment.*
 
 class MainHomeFragment : Fragment() {
-    private var param1: String? = null
-    private var param2: String? = null
+    companion object {
+        private const val MIN_SCALE = 0.85f // 뷰가 몇퍼센트로 줄어들 것인지
+        private const val MIN_ALPHA = 0.5f // 어두워지는 정도를 나타낸 듯 하다.
+    }
 
     private var userListA : ArrayList<UserList> = ArrayList()
     private var userListB : ArrayList<UserList> = ArrayList()
@@ -44,13 +46,20 @@ class MainHomeFragment : Fragment() {
         onGetRate()
         onGetRecommend()
 
+        /* 여백, 너비에 대한 정의 */
+        val pageMarginPx = resources.getDimensionPixelOffset(R.dimen.pageMargin) // dimen 파일 안에 크기를 정의해두었다.
+        val pagerWidth = resources.getDimensionPixelOffset(R.dimen.pageWidth) // dimen 파일이 없으면 생성해야함
+        val screenWidth = resources.displayMetrics.widthPixels // 스마트폰의 너비 길이를 가져옴
+        val offsetPx = screenWidth - pageMarginPx - pagerWidth
+
+        vp2_TutorialAds.setPageTransformer { page, position ->
+            page.translationX = position * -offsetPx
+        }
+
+        vp2_TutorialAds.offscreenPageLimit = 1
         vp2_TutorialAds.adapter = VP2ADSAdapter(getAdsList()) // 어댑터 생성
         vp2_TutorialAds.orientation = ViewPager2.ORIENTATION_HORIZONTAL // 방향을 가로로
-    }
-
-    // 뷰 페이저에 들어갈 아이템
-    private fun getAdsList(): ArrayList<Int> {
-        return arrayListOf<Int>(R.drawable.my_post1, R.drawable.my_post2, R.drawable.my_post3)
+        //vp2_TutorialAds.setPageTransformer(ZoomOutPageTransformer())
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -79,6 +88,7 @@ class MainHomeFragment : Fragment() {
     private fun onGetRate() {
         userListA.clear()
 
+        ((MainActivity)getActivity()).mFirebaseStoreDatabase
         mFirebaseStoreDatabase.collection("users").whereEqualTo("nurse", true).limit(12).get()
             .addOnCompleteListener{
                 if(it.isSuccessful) {
@@ -121,6 +131,8 @@ class MainHomeFragment : Fragment() {
                     UserRecommendRecyclerGrid.layoutManager = gridLayoutManager
                     UserRecommendRecyclerGrid.setHasFixedSize(true)//어뎁터에 성능을 위한것
                     UserRecommendRecyclerGrid.adapter = HomeUser_Adapter(userListB) //어뎁터에 리스트 자료를 넣는다.
+
+                    context?.setTheme(R.style.Theme_NurseHRO)
                 }
             }
             .addOnFailureListener {
@@ -134,5 +146,50 @@ class MainHomeFragment : Fragment() {
 
     private fun setUserList(userList: ArrayList<UserList>) {
 
+    }
+
+    // 뷰 페이저에 들어갈 아이템
+    private fun getAdsList(): ArrayList<Int> {
+        return arrayListOf<Int>(R.drawable.my_post1, R.drawable.my_post2, R.drawable.my_post3)
+    }
+
+    // page.translationX = position * -offsetPx
+    // Android Developer Api
+    inner class ZoomOutPageTransformer : ViewPager2.PageTransformer {
+        override fun transformPage(view: View, position: Float) {
+            view.apply {
+                val pageWidth = width
+                val pageHeight = height
+                when {
+                    position < -1 -> { // [-Infinity,-1)
+                        // This page is way off-screen to the left.
+                        alpha = 0f
+                    }
+                    position <= 1 -> { // [-1,1]
+                        // Modify the default slide transition to shrink the page as well
+                        val scaleFactor = Math.max(MIN_SCALE, 1 - Math.abs(position))
+                        val vertMargin = pageHeight * (1 - scaleFactor) / 2
+                        val horzMargin = pageWidth * (1 - scaleFactor) / 2
+                        translationX = if (position < 0) {
+                            horzMargin - vertMargin / 2
+                        } else {
+                            horzMargin + vertMargin / 2
+                        }
+
+                        // Scale the page down (between MIN_SCALE and 1)
+                        scaleX = scaleFactor
+                        scaleY = scaleFactor
+
+                        // Fade the page relative to its size.
+                        alpha = (MIN_ALPHA +
+                                (((scaleFactor - MIN_SCALE) / (1 - MIN_SCALE)) * (1 - MIN_ALPHA)))
+                    }
+                    else -> { // (1,+Infinity]
+                        // This page is way off-screen to the right.
+                        alpha = 0f
+                    }
+                }
+            }
+        }
     }
 }

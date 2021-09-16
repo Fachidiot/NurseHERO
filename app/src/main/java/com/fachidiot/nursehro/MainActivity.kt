@@ -6,15 +6,21 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.fachidiot.nursehro.Adapter.NavigationViewPagerAdapter
-import com.fxn.ariana.ArianaBackgroundListener
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var mFirebaseAuth : FirebaseAuth
+    private lateinit var mFirebaseStorage: FirebaseStorage
+    private lateinit var mFirebaseStoreDatabase: FirebaseFirestore
 
     // 마지막으로 뒤로가기 버튼을 눌렀던 시간 저장
     private var backKeyPressedTime: Long = 0
-
     // 첫 번째 뒤로가기 버튼을 누를때 표시
     private var toast: Toast? = null
 
@@ -22,7 +28,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        mFirebaseStoreDatabase = Firebase.firestore
+        mFirebaseStorage = FirebaseStorage.getInstance()
+        mFirebaseAuth = FirebaseAuth.getInstance()
+
         configureBottomChipNavigation()
+        chip_navigation.setItemSelected(R.id.home, false)
+
+        //Badges Test
+        chip_navigation.showBadge(R.id.chat, 249)
     }
 
     override fun onBackPressed() {
@@ -51,18 +65,30 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("ClickableViewAccessibility")
     private fun configureBottomChipNavigation() {
+
+        //val options = NavOptions.Builder()
+        //    .setLaunchSingleTop(true)
+        //    .setEnterAnim(R.anim.slide_to_bottom)
+        //    .setExitAnim(R.anim.slide_out_top)
+        //    .setPopEnterAnim(R.anim.slide_to_top)
+        //    .setPopExitAnim(R.anim.slide_out_bottom)
+        //    .setPopUpTo(findNavController().graph.startDestinationId, false)
+        //    .build()
+
         chip_navigation.setOnItemSelectedListener { id ->
             when(id) {
                 R.id.home -> ViewPager_main.currentItem = 0
-                R.id.like -> ViewPager_main.currentItem = 1
+                R.id.chat -> ViewPager_main.currentItem = 1
                 R.id.search -> ViewPager_main.currentItem = 2
                 R.id.profile -> ViewPager_main.currentItem = 3
+                //R.id.profile -> findNavController().navigate(R.id.profile,null,options)
             }
         }
 
+        ViewPager_main.isUserInputEnabled = false
         ViewPager_main.setOnTouchListener { _, _ -> true }
-        ViewPager_main.adapter = NavigationViewPagerAdapter(supportFragmentManager).apply {
-            list = ArrayList<String>().apply {
+        ViewPager_main.adapter = NavigationViewPagerAdapter(this).apply {
+            var list = ArrayList<String>().apply {
                 add("Home")
                 add("Like")
                 add("Search")
@@ -70,13 +96,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        ViewPager_main.addOnPageChangeListener(
-            ArianaBackgroundListener(
-                getColors(),
-                imageview,
-                ViewPager_main
-            )
-        )
+        //ViewPager_main.addOnPageChangeListener(
+        //    ArianaBackgroundListener(
+        //        getColors(),
+        //        imageview,
+        //        ViewPager_main
+        //    )
+        //)
     }
 
     private fun getColors() :IntArray {
@@ -86,5 +112,9 @@ class MainActivity : AppCompatActivity() {
             ContextCompat.getColor(this, R.color.search),
             ContextCompat.getColor(this, R.color.profile)
         )
+    }
+
+    companion object {
+
     }
 }

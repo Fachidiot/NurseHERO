@@ -37,7 +37,6 @@
             tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
     </RelativeLayout>
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ageselectorLayout"
         android:layout_width="match_parent"

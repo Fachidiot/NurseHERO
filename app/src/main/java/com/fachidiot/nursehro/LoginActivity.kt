@@ -120,7 +120,7 @@ class LoginActivity : AppCompatActivity() {
 
                 loginSuccess(CheckBox_AutoLogin.isChecked)
             } else {
-                Toast.makeText(this, "signInWithEmail Failed", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Email or Password Incorrect", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -161,6 +161,8 @@ class LoginActivity : AppCompatActivity() {
 
             val intent = Intent(this, MainActivity::class.java)
             intent.putExtra("email", MySharedPreferences.getUserId(this))
+
+            application.setTheme(R.style.Splash)
             startActivity(intent)
         } else {
             val intent = Intent(this, MainActivity::class.java)

@@ -38,9 +38,6 @@ class MainAccountFragment : Fragment() {
         Manifest.permission.WRITE_EXTERNAL_STORAGE
     )
 
-    private var param1: String? = null
-    private var param2: String? = null
-
     private var imageUri: Uri? = null
     private var pathUri: String? = null
     private var tempFile: File? = null

@@ -3,5 +3,5 @@
     <item android:state_checked="false"
         android:drawable="@drawable/icon_nurse"/>
     <item android:state_checked="true"
-        android:drawable="@drawable/icon_nurse_white"/>
+        android:drawable="@drawable/icon_nurse_margenta"/>
 </selector>
