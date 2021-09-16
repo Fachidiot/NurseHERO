@@ -1,5 +1,7 @@
 package com.fachidiot.nursehro.MainFragment
 
+import android.location.Address
+import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,6 +17,7 @@ import com.fachidiot.nursehro.Adapter.VP2ADSAdapter
 import com.fachidiot.nursehro.Class.CustomUserInfo
 import com.fachidiot.nursehro.Class.RecyclerViewDecoration
 import com.fachidiot.nursehro.Class.UserList
+import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
@@ -43,8 +46,18 @@ class MainHomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        onGetRate()
-        onGetRecommend()
+        //MasterCode_SetLatLng()
+        //onGetRate()
+        //onGetRecommend()
+
+        mFirebaseStoreDatabase.collection("users").get()
+            .addOnCompleteListener{
+                if(it.isSuccessful) {
+                    for (dc in it.result!!.documents) {
+                        val user = dc.toObject(CustomUserInfo::class.java)
+                    }
+                }
+            }
 
         /* 여백, 너비에 대한 정의 */
         val pageMarginPx = resources.getDimensionPixelOffset(R.dimen.pageMargin) // dimen 파일 안에 크기를 정의해두었다.
@@ -60,6 +73,25 @@ class MainHomeFragment : Fragment() {
         vp2_TutorialAds.adapter = VP2ADSAdapter(getAdsList()) // 어댑터 생성
         vp2_TutorialAds.orientation = ViewPager2.ORIENTATION_HORIZONTAL // 방향을 가로로
         //vp2_TutorialAds.setPageTransformer(ZoomOutPageTransformer())
+    }
+
+    fun MasterCode_SetLatLng() {
+        mFirebaseStoreDatabase.collection("users").get()
+            .addOnCompleteListener{
+                if(it.isSuccessful) {
+                    for (dc in it.result!!.documents) {
+                        val user = dc.toObject(CustomUserInfo::class.java)
+                        if (user != null) {
+                            val geocoder = Geocoder(context)
+                            val addresses: List<Address> = geocoder.getFromLocationName(user.location, 3)
+                            val address : Address = addresses[0]
+                            val latLng : LatLng = LatLng(address.latitude, address.longitude)
+
+                            mFirebaseStoreDatabase.collection("users").document(user.uid).update("latLng", latLng)
+                        }
+                    }
+                }
+            }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -88,7 +120,6 @@ class MainHomeFragment : Fragment() {
     private fun onGetRate() {
         userListA.clear()
 
-        ((MainActivity)getActivity()).mFirebaseStoreDatabase
         mFirebaseStoreDatabase.collection("users").whereEqualTo("nurse", true).limit(12).get()
             .addOnCompleteListener{
                 if(it.isSuccessful) {
@@ -127,7 +158,7 @@ class MainHomeFragment : Fragment() {
                     val gridLayoutManager = GridLayoutManager(requireContext(), 2)
                     gridLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
 
-                    Toast.makeText(context, "${userListB.size} / ${userListB.last()}", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(context, "${userListB.size} / ${userListB.last()}", Toast.LENGTH_SHORT).show()
                     UserRecommendRecyclerGrid.layoutManager = gridLayoutManager
                     UserRecommendRecyclerGrid.setHasFixedSize(true)//어뎁터에 성능을 위한것
                     UserRecommendRecyclerGrid.adapter = HomeUser_Adapter(userListB) //어뎁터에 리스트 자료를 넣는다.
@@ -140,20 +171,11 @@ class MainHomeFragment : Fragment() {
             }
     }
 
-    private fun onGetPlace() {
-
-    }
-
-    private fun setUserList(userList: ArrayList<UserList>) {
-
-    }
-
     // 뷰 페이저에 들어갈 아이템
     private fun getAdsList(): ArrayList<Int> {
         return arrayListOf<Int>(R.drawable.my_post1, R.drawable.my_post2, R.drawable.my_post3)
     }
 
-    // page.translationX = position * -offsetPx
     // Android Developer Api
     inner class ZoomOutPageTransformer : ViewPager2.PageTransformer {
         override fun transformPage(view: View, position: Float) {

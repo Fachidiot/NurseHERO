@@ -3,6 +3,8 @@ package com.fachidiot.nursehro.RegisterFragment
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.Address
+import android.location.Geocoder
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -15,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.loader.content.CursorLoader
 import com.fachidiot.nursehro.Class.CustomUserInfo
 import com.fachidiot.nursehro.R
+import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -176,6 +179,10 @@ class RegisterActivity : AppCompatActivity() {
                             } else{
                                 location = "${intent.getStringExtra(" region ")}/${intent.getStringExtra(" sigungu ")}"
                             }
+                            val geocoder = Geocoder(baseContext)
+                            val addresses: List<Address> = geocoder.getFromLocationName(location, 3)
+                            val address : Address = addresses[0]
+                            val latLng = LatLng(address.latitude, address.longitude)
 
                             val userModel = CustomUserInfo(
                                 intent.getBooleanExtra("nurse", false),
@@ -184,6 +191,7 @@ class RegisterActivity : AppCompatActivity() {
                                 TextInputEditText_LastName.text.toString(),
                                 file.lastPathSegment,
                                 location,
+                                latLng,
                                 intent.getBooleanExtra("sex", false),
                                 intent.getIntExtra("age", -99),
                                 uid
@@ -205,6 +213,10 @@ class RegisterActivity : AppCompatActivity() {
                         } else{
                             location = "${intent.getStringExtra(" region ")}/${intent.getStringExtra(" sigungu ")}"
                         }
+                        val geocoder = Geocoder(baseContext)
+                        val addresses: List<Address> = geocoder.getFromLocationName(location, 3)
+                        val address : Address = addresses[0]
+                        val latLng = LatLng(address.latitude, address.longitude)
 
                         val userModel = CustomUserInfo(
                             intent.getBooleanExtra("nurse", false),
@@ -213,6 +225,7 @@ class RegisterActivity : AppCompatActivity() {
                             TextInputEditText_LastName.text.toString(),
                             "null",
                             location,
+                            latLng,
                             intent.getBooleanExtra("sex", false),
                             intent.getIntExtra("age", -99),
                             uid

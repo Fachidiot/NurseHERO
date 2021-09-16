@@ -5,11 +5,11 @@ import com.google.maps.android.clustering.ClusterItem
 
 class LatLngUser (
     val uid : String,
-    val latlng: LatLng,
+    val latLng: LatLng,
     val location: String
 ) : ClusterItem {
     override fun getPosition(): LatLng {
-        return latlng
+        return latLng
     }
 
     override fun getTitle(): String? {

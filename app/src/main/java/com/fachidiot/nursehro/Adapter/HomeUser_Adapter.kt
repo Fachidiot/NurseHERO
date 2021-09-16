@@ -49,7 +49,6 @@ class HomeUser_Adapter(private val profileList : ArrayList<UserList>) : Recycler
         //뷰홀더에 뷰를 넘겨주고 이 것을 반환한다.
     }
 
-
     //재활용해주는 곳 및 값을 넣어주는 곳
     override fun onBindViewHolder(holder: HomeUser_Adapter.CustomViewHolder, position: Int) {
         if (profileList[position].profileImage != "null")
@@ -78,8 +77,6 @@ class HomeUser_Adapter(private val profileList : ArrayList<UserList>) : Recycler
     override fun getItemCount(): Int {
         return profileList.size
     }
-
-
 
     //뷰홀더 클래스(음료수처럼 잡아주는 홀더)
     // 이곳에서 파인드뷰아이디로 리스트 아이템에 있는 뷰들을 참조한다.

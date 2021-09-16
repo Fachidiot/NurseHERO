@@ -2,10 +2,14 @@ package com.fachidiot.nursehro
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import com.fachidiot.nursehro.Adapter.NavigationViewPagerAdapter
+import androidx.fragment.app.Fragment
+import com.fachidiot.nursehro.MainFragment.MainAccountFragment
+import com.fachidiot.nursehro.MainFragment.MainChatFragment
+import com.fachidiot.nursehro.MainFragment.MainFindFragment
+import com.fachidiot.nursehro.MainFragment.MainHomeFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
@@ -15,10 +19,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var mFirebaseAuth : FirebaseAuth
-    private lateinit var mFirebaseStorage: FirebaseStorage
-    private lateinit var mFirebaseStoreDatabase: FirebaseFirestore
-
     // 마지막으로 뒤로가기 버튼을 눌렀던 시간 저장
     private var backKeyPressedTime: Long = 0
     // 첫 번째 뒤로가기 버튼을 누를때 표시
@@ -32,11 +32,14 @@ class MainActivity : AppCompatActivity() {
         mFirebaseStorage = FirebaseStorage.getInstance()
         mFirebaseAuth = FirebaseAuth.getInstance()
 
-        configureBottomChipNavigation()
-        chip_navigation.setItemSelected(R.id.home, false)
+        chipNavigationBar_Bottom.setItemSelected(R.id.home, true)
+        val homeFragment = MainHomeFragment()
+        supportFragmentManager.beginTransaction().replace(R.id.frameLayout_MainFragment_Container, homeFragment).commit()
 
         //Badges Test
-        chip_navigation.showBadge(R.id.chat, 249)
+        chipNavigationBar_Bottom.showBadge(R.id.chat, 249)
+
+        configureBottomChipNavigation()
     }
 
     override fun onBackPressed() {
@@ -65,56 +68,25 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("ClickableViewAccessibility")
     private fun configureBottomChipNavigation() {
-
-        //val options = NavOptions.Builder()
-        //    .setLaunchSingleTop(true)
-        //    .setEnterAnim(R.anim.slide_to_bottom)
-        //    .setExitAnim(R.anim.slide_out_top)
-        //    .setPopEnterAnim(R.anim.slide_to_top)
-        //    .setPopExitAnim(R.anim.slide_out_bottom)
-        //    .setPopUpTo(findNavController().graph.startDestinationId, false)
-        //    .build()
-
-        chip_navigation.setOnItemSelectedListener { id ->
+        chipNavigationBar_Bottom.setOnItemSelectedListener { id ->
+            var fragment : Fragment? = null
             when(id) {
-                R.id.home -> ViewPager_main.currentItem = 0
-                R.id.chat -> ViewPager_main.currentItem = 1
-                R.id.search -> ViewPager_main.currentItem = 2
-                R.id.profile -> ViewPager_main.currentItem = 3
-                //R.id.profile -> findNavController().navigate(R.id.profile,null,options)
+                R.id.home -> fragment = MainHomeFragment()
+                R.id.chat -> fragment = MainChatFragment()
+                R.id.search -> fragment = MainFindFragment()
+                R.id.profile -> fragment = MainAccountFragment()
             }
+
+            if (fragment != null)
+                supportFragmentManager.beginTransaction().replace(R.id.frameLayout_MainFragment_Container, fragment).commit()
+            else
+                Log.e("MainActivity", "Error in creating fragment")
         }
-
-        ViewPager_main.isUserInputEnabled = false
-        ViewPager_main.setOnTouchListener { _, _ -> true }
-        ViewPager_main.adapter = NavigationViewPagerAdapter(this).apply {
-            var list = ArrayList<String>().apply {
-                add("Home")
-                add("Like")
-                add("Search")
-                add("Profile")
-            }
-        }
-
-        //ViewPager_main.addOnPageChangeListener(
-        //    ArianaBackgroundListener(
-        //        getColors(),
-        //        imageview,
-        //        ViewPager_main
-        //    )
-        //)
-    }
-
-    private fun getColors() :IntArray {
-        return intArrayOf(
-            ContextCompat.getColor(this, R.color.home),
-            ContextCompat.getColor(this, R.color.like),
-            ContextCompat.getColor(this, R.color.search),
-            ContextCompat.getColor(this, R.color.profile)
-        )
     }
 
     companion object {
-
+        private lateinit var mFirebaseAuth : FirebaseAuth
+        private lateinit var mFirebaseStorage: FirebaseStorage
+        private lateinit var mFirebaseStoreDatabase: FirebaseFirestore
     }
 }

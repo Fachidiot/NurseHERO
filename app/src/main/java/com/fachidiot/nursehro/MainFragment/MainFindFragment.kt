@@ -210,25 +210,22 @@ class MainFindFragment : Fragment(), OnMapReadyCallback, BottomSheetDialog.Botto
 
     private fun setUserList() {
         profileList.clear()
-
         mFirebaseStoreDatabase.collection("users").whereEqualTo("nurse", true).get()
             .addOnCompleteListener{
                 if(it.isSuccessful) {
-                    val geocoder = Geocoder(context)
                     for (dc in it.result!!.documents) {
                         val user = dc.toObject(CustomUserInfo::class.java)
                         if (user != null) {
                             profileList.add(UserList(user.userNickname, user.profileImage, user.location, user.sex, user.age))
 
-                            val addresses: List<Address> = geocoder.getFromLocationName(user.location.toString(), 3)
-                            val address : Address = addresses[0]
-                            val latLng = LatLng(address.latitude, address.longitude)
-                            val offsetItem = LatLngUser(user.uid, LatLng(latLng.latitude, latLng.longitude), user.location.toString())
+                            val offsetItem =
+                                user.latLng?.let { it1 ->
+                                    LatLngUser(user.uid, it1, user.location.toString())
+                                }
                             clusterManager.addItem(offsetItem)
                         }
                     }
-
-                    Toast.makeText(context, "Success to load userList", Toast.LENGTH_LONG).show()
+                    //Toast.makeText(context, "Success to load userList", Toast.LENGTH_LONG).show()
                 }
             }
             .addOnFailureListener {
