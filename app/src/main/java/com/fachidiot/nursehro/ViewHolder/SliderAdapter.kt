@@ -19,10 +19,12 @@ class SliderAdapter : RecyclerView.Adapter<SliderItemViewHolder>() {
         return SliderItemViewHolder(itemView)
     }
 
-    override fun getItemCount(): Int = Int.MAX_VALUE
+    override fun getItemCount(): Int {
+        return data.size
+    }
 
     override fun onBindViewHolder(holder: SliderItemViewHolder, position: Int) {
-        holder.tvItem?.text = data[position%3]
+        holder.tvItem?.text = data[position]
     }
 
     fun setData(data: ArrayList<String>) {

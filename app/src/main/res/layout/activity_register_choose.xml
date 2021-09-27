@@ -127,7 +127,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/Gu"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/Dong"
                 app:layout_constraintVertical_bias="0.0"/>
 
             <Spinner
@@ -139,30 +138,30 @@
                 android:theme="@style/SpinnerTheme"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/City"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="SpeakableTextPresentCheck"/>
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <Spinner
                 android:contentDescription="동"
+                android:visibility="gone"
                 android:id="@+id/Dong"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/spinner_location"
                 android:theme="@style/SpinnerTheme"
-                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@+id/Gu"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Gu"/>
+                app:layout_constraintStart_toStartOf="parent"/>
 
             <com.google.android.material.textfield.TextInputEditText
                 android:contentDescription="상세 주소"
                 android:id="@+id/Detail"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
-                android:paddingLeft="5dp"
+                android:paddingLeft="10dp"
                 android:background="@drawable/spinner_location"
                 android:fontFamily="@font/vtrocore"
+                android:textSize="18sp"
                 android:textColor="@color/blue"
                 android:hint="@string/detail_location"
                 app:layout_constraintEnd_toEndOf="parent"

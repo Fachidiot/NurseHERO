@@ -28,8 +28,8 @@
     <style name="Splash" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:icon">@mipmap/ic_launcher</item>
         <item name="android:background">@color/ic_launcher_background</item>
-        <item name="colorPrimary">@color/blue</item>
-        <item name="colorPrimaryDark">@color/darkblue</item>
+        <item name="colorPrimary">@color/ic_launcher_background</item>
+        <item name="colorPrimaryDark">@color/ic_launcher_background</item>
         <item name="colorAccent">@color/accentblue</item>
     </style>
 </resources>
