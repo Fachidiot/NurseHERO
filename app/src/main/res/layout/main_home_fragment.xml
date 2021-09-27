@@ -21,11 +21,11 @@
                 android:id="@+id/vp2_TutorialAds"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:clipChildren="false"
                 android:clipToPadding="false"
                 android:contentDescription="@string/inappAdvertisement"
-                android:nestedScrollingEnabled="true"
+                android:nestedScrollingEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"/>
@@ -148,41 +148,19 @@
                     app:layout_constraintTop_toBottomOf="@+id/UserRecommendRecyclerGrid"
                     />
 
-            <HorizontalScrollView
-                    android:id="@+id/horizontalScrollViewAD"
-                    android:layout_width="400dp"
-                    android:layout_height="120dp"
-                    android:layout_marginVertical="10dp"
-                    android:scrollbars="none"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/botton_more3"
-                    app:layout_constraintVertical_bias="0.0">
-
-                <LinearLayout
-                        android:layout_width="400dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="400dp"
-                        android:layout_height="140dp"
-                        android:src="@drawable/ads_banner" />
-
-                    <ImageView
-                            android:layout_width="400dp"
-                            android:layout_height="140dp"
-                            android:src="@drawable/ads_banner"/>
-
-                    <ImageView
-                            android:layout_width="400dp"
-                            android:layout_height="140dp"
-                            android:src="@drawable/ads_banner"/>
-
-                </LinearLayout>
-
-            </HorizontalScrollView>
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vp2_TutorialAds_Banner"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginTop="10dp"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:contentDescription="@string/inappAdvertisement"
+                android:nestedScrollingEnabled="true"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/botton_more3"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -191,7 +169,7 @@
                 android:text="@string/info"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/horizontalScrollViewAD" />
+                app:layout_constraintTop_toBottomOf="@+id/vp2_TutorialAds_Banner" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

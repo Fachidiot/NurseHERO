@@ -19,6 +19,12 @@
         <item name="android:background">@drawable/bg_white_top_radius_16dp</item>
     </style>
 
+    <style name="SpinnerTheme">
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:fontFamily">@font/vtrocore</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="Splash" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:icon">@mipmap/ic_launcher</item>
         <item name="android:background">@color/ic_launcher_background</item>

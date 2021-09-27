@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
-    // 마지막으로 뒤로가기 버튼을 눌렀던 시간 저장
+    // 마지막으로 뒤로가기  버튼을 눌렀던 시간 저장
     private var backKeyPressedTime: Long = 0
     // 첫 번째 뒤로가기 버튼을 누를때 표시
     private var toast: Toast? = null

@@ -16,17 +16,13 @@ class SliderAdapter : RecyclerView.Adapter<SliderItemViewHolder>() {
         val itemView: View = LayoutInflater.from(parent.context).inflate(R.layout.layout_slider_item, parent, false)
 
         itemView.setOnClickListener(clickListener)
-
-        val horizontalViewHolder = SliderItemViewHolder(itemView)
-        return horizontalViewHolder
+        return SliderItemViewHolder(itemView)
     }
 
-    override fun getItemCount(): Int {
-        return data.size
-    }
+    override fun getItemCount(): Int = Int.MAX_VALUE
 
     override fun onBindViewHolder(holder: SliderItemViewHolder, position: Int) {
-        holder.tvItem?.text = data[position]
+        holder.tvItem?.text = data[position%3]
     }
 
     fun setData(data: ArrayList<String>) {

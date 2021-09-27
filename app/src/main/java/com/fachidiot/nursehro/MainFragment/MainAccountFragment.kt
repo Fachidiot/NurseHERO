@@ -182,10 +182,10 @@ class MainAccountFragment : Fragment() {
         LoginManager.getInstance().logOut()
         context?.let { MySharedPreferences.setAuto(it, false) }
 
-        //activity?.let {
-        //    val intent = Intent(context, LoginActivity::class.java)
-        //    startActivity(intent)
-        //}
+        activity?.let {
+            val intent = Intent(context, LoginActivity::class.java)
+            startActivity(intent)
+        }
 
         LogoutButton.visibility = View.INVISIBLE
 

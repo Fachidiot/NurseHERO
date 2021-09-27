@@ -1,8 +1,11 @@
 package com.fachidiot.nursehro.MainFragment
 
+import android.annotation.SuppressLint
 import android.location.Address
 import android.location.Geocoder
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.fachidiot.nursehro.*
+import com.fachidiot.nursehro.Adapter.BannerAdapter
 import com.fachidiot.nursehro.Adapter.VP2ADSAdapter
 import com.fachidiot.nursehro.Class.CustomUserInfo
 import com.fachidiot.nursehro.Class.RecyclerViewDecoration
@@ -28,7 +32,12 @@ class MainHomeFragment : Fragment() {
     companion object {
         private const val MIN_SCALE = 0.85f // 뷰가 몇퍼센트로 줄어들 것인지
         private const val MIN_ALPHA = 0.5f // 어두워지는 정도를 나타낸 듯 하다.
+
+        private const val intervalTime = 4500.toLong() // 몇초 간격으로 페이지를 넘길것인지 (1500 = 1.5초)
     }
+
+    private var currentPosition = Int.MAX_VALUE / 2
+    private var myHandler = MyHandler()
 
     private var userListA : ArrayList<UserList> = ArrayList()
     private var userListB : ArrayList<UserList> = ArrayList()
@@ -46,8 +55,8 @@ class MainHomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //onGetRate()
-        //onGetRecommend()
+        onGetRate()
+        onGetRecommend()
 
         mFirebaseStoreDatabase.collection("users").get()
             .addOnCompleteListener{
@@ -67,11 +76,32 @@ class MainHomeFragment : Fragment() {
         vp2_TutorialAds.setPageTransformer { page, position ->
             page.translationX = position * -offsetPx
         }
+        vp2_TutorialAds_Banner.setPageTransformer { page, position ->
+            page.translationX = position * -offsetPx
+        }
 
         vp2_TutorialAds.offscreenPageLimit = 1
-        vp2_TutorialAds.adapter = VP2ADSAdapter(getAdsList()) // 어댑터 생성
+        vp2_TutorialAds.adapter = BannerAdapter(getAdsList()) // 어댑터 생성
         vp2_TutorialAds.orientation = ViewPager2.ORIENTATION_HORIZONTAL // 방향을 가로로
-        //vp2_TutorialAds.setPageTransformer(ZoomOutPageTransformer())
+        vp2_TutorialAds.setCurrentItem(currentPosition, false)
+
+        vp2_TutorialAds_Banner.offscreenPageLimit = 1
+        vp2_TutorialAds_Banner.adapter = BannerAdapter(getAdsList2()) // 어댑터 생성
+        vp2_TutorialAds_Banner.orientation = ViewPager2.ORIENTATION_HORIZONTAL // 방향을 가로로
+        vp2_TutorialAds_Banner.setCurrentItem(currentPosition, false)
+        vp2_TutorialAds_Banner.apply {
+            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageScrollStateChanged(state: Int) {
+                    super.onPageScrollStateChanged(state)
+                    when (state) {
+                        // 뷰페이저에서 손 떼었을때 / 뷰페이저 멈춰있을 때
+                        ViewPager2.SCROLL_STATE_IDLE -> autoScrollStart(intervalTime)
+                        // 뷰페이저 움직이는 중
+                        ViewPager2.SCROLL_STATE_DRAGGING -> autoScrollStop()
+                    }
+                }
+            })
+        }
     }
 
     fun MasterCode_SetLatLng() {
@@ -176,42 +206,40 @@ class MainHomeFragment : Fragment() {
         return arrayListOf<Int>(R.drawable.my_post1, R.drawable.my_post2, R.drawable.my_post3)
     }
 
-    // Android Developer Api
-    inner class ZoomOutPageTransformer : ViewPager2.PageTransformer {
-        override fun transformPage(view: View, position: Float) {
-            view.apply {
-                val pageWidth = width
-                val pageHeight = height
-                when {
-                    position < -1 -> { // [-Infinity,-1)
-                        // This page is way off-screen to the left.
-                        alpha = 0f
-                    }
-                    position <= 1 -> { // [-1,1]
-                        // Modify the default slide transition to shrink the page as well
-                        val scaleFactor = Math.max(MIN_SCALE, 1 - Math.abs(position))
-                        val vertMargin = pageHeight * (1 - scaleFactor) / 2
-                        val horzMargin = pageWidth * (1 - scaleFactor) / 2
-                        translationX = if (position < 0) {
-                            horzMargin - vertMargin / 2
-                        } else {
-                            horzMargin + vertMargin / 2
-                        }
+    private fun getAdsList2(): ArrayList<Int> {
+        return arrayListOf<Int>(R.drawable.ads_banner, R.drawable.ads_banner, R.drawable.ads_banner)
+    }
 
-                        // Scale the page down (between MIN_SCALE and 1)
-                        scaleX = scaleFactor
-                        scaleY = scaleFactor
+    private fun autoScrollStart(intervalTime: Long) {
+        myHandler.removeMessages(0) // 이거 안하면 핸들러가 1개, 2개, 3개 ... n개 만큼 계속 늘어남
+        myHandler.sendEmptyMessageDelayed(0, intervalTime) // intervalTime 만큼 반복해서 핸들러를 실행하게 함
+    }
 
-                        // Fade the page relative to its size.
-                        alpha = (MIN_ALPHA +
-                                (((scaleFactor - MIN_SCALE) / (1 - MIN_SCALE)) * (1 - MIN_ALPHA)))
-                    }
-                    else -> { // (1,+Infinity]
-                        // This page is way off-screen to the right.
-                        alpha = 0f
-                    }
-                }
+    private fun autoScrollStop(){
+        myHandler.removeMessages(0) // 핸들러를 중지시킴
+    }
+
+    @SuppressLint("HandlerLeak")
+    private inner class MyHandler : Handler() {
+        override fun handleMessage(msg: Message) {
+            super.handleMessage(msg)
+
+            if(msg.what == 0) {
+                vp2_TutorialAds_Banner.setCurrentItem(++currentPosition, true) // 다음 페이지로 이동
+                autoScrollStart(intervalTime) // 스크롤을 계속 이어서 한다.
             }
         }
+    }
+
+    // 다른 페이지 갔다가 돌아오면 다시 스크롤 시작
+    override fun onResume() {
+        super.onResume()
+        autoScrollStart(intervalTime)
+    }
+
+    // 다른 페이지로 떠나있는 동안 스크롤이 동작할 필요는 없음. 정지
+    override fun onPause() {
+        super.onPause()
+        autoScrollStop()
     }
 }

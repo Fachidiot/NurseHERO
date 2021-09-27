@@ -137,7 +137,7 @@ class RegisterChooseActivity : AppCompatActivity() {
                     location = true
                     sigungu = Gu.selectedItem.toString()
                 } else {
-                    Dong.visibility = View.INVISIBLE
+                    Dong.visibility = View.GONE
                 }
             }
         }
