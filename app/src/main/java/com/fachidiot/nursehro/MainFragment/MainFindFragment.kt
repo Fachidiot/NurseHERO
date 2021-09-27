@@ -131,8 +131,8 @@ class MainFindFragment : Fragment(), OnMapReadyCallback, BottomSheetDialog.Botto
         setCustomMarkerView()
 
         clusterManager = ClusterManager<LatLngUser>(context, mMap)
-        clusterRenderer = CustomCluserRenderer(requireContext(), mMap, clusterManager, markerRootView)
-        clusterManager.setRenderer(clusterRenderer)
+        //clusterRenderer = CustomCluserRenderer(requireContext(), mMap, clusterManager, markerRootView)
+        //clusterManager.renderer = clusterRenderer
         //clusterManager.setOnClusterItemClickListener()
 
         val mPreviousCameraPosition = arrayOf<CameraPosition?>(null)

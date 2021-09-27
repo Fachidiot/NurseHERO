@@ -10,11 +10,6 @@ import com.fachidiot.nursehro.MainFragment.MainAccountFragment
 import com.fachidiot.nursehro.MainFragment.MainChatFragment
 import com.fachidiot.nursehro.MainFragment.MainFindFragment
 import com.fachidiot.nursehro.MainFragment.MainHomeFragment
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -27,10 +22,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        mFirebaseStoreDatabase = Firebase.firestore
-        mFirebaseStorage = FirebaseStorage.getInstance()
-        mFirebaseAuth = FirebaseAuth.getInstance()
 
         chipNavigationBar_Bottom.setItemSelected(R.id.home, true)
         val homeFragment = MainHomeFragment()
@@ -82,11 +73,5 @@ class MainActivity : AppCompatActivity() {
             else
                 Log.e("MainActivity", "Error in creating fragment")
         }
-    }
-
-    companion object {
-        private lateinit var mFirebaseAuth : FirebaseAuth
-        private lateinit var mFirebaseStorage: FirebaseStorage
-        private lateinit var mFirebaseStoreDatabase: FirebaseFirestore
     }
 }

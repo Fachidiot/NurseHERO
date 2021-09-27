@@ -241,5 +241,6 @@ class MainHomeFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         autoScrollStop()
+
     }
 }
