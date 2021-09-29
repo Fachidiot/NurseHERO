@@ -2,50 +2,73 @@ package com.fachidiot.nursehro.Class
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.util.DisplayMetrics
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.fachidiot.nursehro.R
+import com.fachidiot.nursehro.UserProfileActivity
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import com.google.maps.android.clustering.Cluster
 import com.google.maps.android.clustering.ClusterManager
 import com.google.maps.android.clustering.view.DefaultClusterRenderer
-
 
 class CustomCluserRenderer(context: Context, map: GoogleMap?, clusterManager: ClusterManager<LatLngUser>?,
                            marker_view: View) : DefaultClusterRenderer<LatLngUser>(context, map, clusterManager) {
     private val context = context
     private var marker_view = marker_view
 
-    override fun onBeforeClusterItemRendered(item: LatLngUser, markerOptions: MarkerOptions) { // 5
-        val markerOptions = MarkerOptions()
-        val marker_body = marker_view.findViewById(R.id.tv_marker_body) as TextView
-        val marker_num = marker_view.findViewById(R.id.tv_marker_num) as TextView
-        markerOptions.position(LatLng(item.latLng.latitude, item.latLng.longitude))
-        marker_body.text = item.location
-        marker_num.text = "1"
+    override fun onBeforeClusterItemRendered(item: LatLngUser, markerOptions: MarkerOptions) {
+        markerOptions.position(item.latLng)
+        val markerbody = marker_view.findViewById(R.id.tv_marker_body) as TextView
+        val markernum = marker_view.findViewById(R.id.tv_marker_num) as TextView
+        markerbody.text = item.userNickname
+        markernum.text = "1"
         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(context, marker_view)))
     }
 
-    override fun onClustersChanged(clusters: MutableSet<out Cluster<LatLngUser>>?) {
-        super.onClustersChanged(clusters)
+    override fun onBeforeClusterRendered(
+        cluster: Cluster<LatLngUser?>,
+        markerOptions: MarkerOptions
+    ) {
+        // Draw multiple people.
+        // Note: this method runs on the UI thread. Don't spend too much time in here (like in this example).
+        val markerbody = marker_view.findViewById(R.id.tv_marker_body) as TextView
+        val markernum = marker_view.findViewById(R.id.tv_marker_num) as TextView
 
-        //if(selectedMarker != null) {
-        //    selectedMarker!!.setIcon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(context, marker_view)))
-        //    selectedMarker = null
-        //}
+        var location = ""
+        for (p in cluster.items) {
+            location = p!!.location
+
+        }
+        markerbody.text = location
+        markernum.text = cluster.size.toString()
+        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(context, marker_view)))
     }
 
-    override fun setOnClusterItemClickListener(listener: ClusterManager.OnClusterItemClickListener<LatLngUser>?) {
-        super.setOnClusterItemClickListener(listener)
+    override fun onClusterUpdated(cluster: Cluster<LatLngUser?>, marker: Marker) {
+        val markerbody = marker_view.findViewById(R.id.tv_marker_body) as TextView
+        val markernum = marker_view.findViewById(R.id.tv_marker_num) as TextView
 
+        var location = ""
+        for (p in cluster.items) {
+            //if (location == )
+            //location = p!!.location
+            location = p!!.location
+        }
+        markerbody.text = location
+        markernum.text = cluster.size.toString()
+        marker.setIcon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(context, marker_view)))
+    }
+
+    override fun shouldRenderAsCluster(cluster: Cluster<LatLngUser?>): Boolean {
+        // Always render clusters.
+        return cluster.size > 1
     }
 
     companion object {

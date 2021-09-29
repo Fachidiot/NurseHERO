@@ -3,6 +3,7 @@ package com.fachidiot.nursehro.MainFragment
 import android.Manifest
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -25,27 +26,31 @@ import androidx.fragment.app.Fragment
 import com.fachidiot.nursehro.Class.*
 import com.fachidiot.nursehro.MapList_Adapter
 import com.fachidiot.nursehro.R
+import com.fachidiot.nursehro.UserProfileActivity
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.*
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.CameraPosition
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.auth.User
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.google.maps.android.clustering.Cluster
 import com.google.maps.android.clustering.ClusterManager
 import com.google.maps.android.clustering.view.ClusterRenderer
 import kotlinx.android.synthetic.main.main_find_fragment.*
 import kotlinx.android.synthetic.main.modal_bottom_sheet_layout.*
 import java.util.*
 
-class MainFindFragment : Fragment(), OnMapReadyCallback, BottomSheetDialog.BottomSheetListClickListener {
+class MainFindFragment : Fragment(), OnMapReadyCallback, BottomSheetDialog.BottomSheetListClickListener,
+    ClusterManager.OnClusterClickListener<LatLngUser?>,
+    ClusterManager.OnClusterInfoWindowClickListener<LatLngUser?>,
+    ClusterManager.OnClusterItemClickListener<LatLngUser?>,
+    ClusterManager.OnClusterItemInfoWindowClickListener<LatLngUser?>{
 
     private var profileList : ArrayList<UserList> = ArrayList()
     private var customProgressDialog: ProgressDialog? = null
@@ -149,6 +154,14 @@ class MainFindFragment : Fragment(), OnMapReadyCallback, BottomSheetDialog.Botto
         clusterManager.renderer = clusterRenderer
         clusterManager.setOnClusterItemClickListener { false }
 
+        mMap.setOnCameraIdleListener(clusterManager)
+        mMap.setOnMarkerClickListener(clusterManager)
+        mMap.setOnInfoWindowClickListener(clusterManager)
+        clusterManager.setOnClusterClickListener(this)
+        clusterManager.setOnClusterInfoWindowClickListener(this)
+        clusterManager.setOnClusterItemClickListener(this)
+        clusterManager.setOnClusterItemInfoWindowClickListener(this)
+
         val mPreviousCameraPosition = arrayOf<CameraPosition?>(null)
         mMap.setOnCameraIdleListener {
             val position = mMap.cameraPosition
@@ -157,7 +170,6 @@ class MainFindFragment : Fragment(), OnMapReadyCallback, BottomSheetDialog.Botto
                 clusterManager.cluster()
             }
         }
-        mMap.setOnMarkerClickListener(clusterManager)
 
         if (context?.let {
                 ActivityCompat.checkSelfPermission(
@@ -232,7 +244,7 @@ class MainFindFragment : Fragment(), OnMapReadyCallback, BottomSheetDialog.Botto
                         if (user != null) {
                             profileList.add(UserList(user.userNickname, user.profileImage, user.location, user.sex, user.age))
 
-                            val offsetItem = LatLngUser(user.uid, LatLng(user.latLng.latitude, user.latLng.longitude), user.location.toString())
+                            val offsetItem = LatLngUser(user.userNickname, LatLng(user.latLng.latitude, user.latLng.longitude), user.location.toString(), user.uid)
                             clusterManager.addItem(offsetItem)
                         }
                     }
@@ -399,5 +411,47 @@ class MainFindFragment : Fragment(), OnMapReadyCallback, BottomSheetDialog.Botto
         private const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
         private const val DEFAULT_ZOOM = 15
         private const val M_MAX_ENTRIES = 5
+    }
+
+    override fun onClusterClick(cluster: Cluster<LatLngUser?>?): Boolean {
+        // Create the builder to collect all essential cluster items for the bounds.
+        val builder = LatLngBounds.builder()
+        for (item in cluster!!.items) {
+            builder.include(item!!.latLng)
+        }
+        // Get the LatLngBounds
+        val bounds = builder.build()
+
+        // Animate camera to the bounds
+        try {
+            mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100))
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return true
+    }
+
+    override fun onClusterInfoWindowClick(cluster: Cluster<LatLngUser?>?) {
+    }
+
+    override fun onClusterItemClick(item: LatLngUser?): Boolean {
+        val intent = Intent(requireContext(), UserProfileActivity::class.java)
+        var userList : UserList? = null
+        mFirebaseStoreDatabase.collection("users").whereEqualTo("uid",  item!!.uid).get().addOnSuccessListener {
+            for (dc in it.documents) {
+                val user = dc.toObject(CustomUserInfo::class.java)
+                if (user != null) {
+                    userList = UserList(user.userNickname, user.profileImage, user.location, user.sex, user.age)
+                    intent.putExtra("userinfo", userList)
+                    ContextCompat.startActivity(requireContext(), intent, null)
+                }
+            }
+        }.addOnFailureListener{
+            Log.e("MapFragment", "Error Cant find user")
+        }
+        return true
+    }
+
+    override fun onClusterItemInfoWindowClick(item: LatLngUser?) {
     }
 }
