@@ -41,7 +41,7 @@
             </androidx.cardview.widget.CardView>
 
             <FrameLayout
-                    android:id="@+id/frameLayout"
+                    android:id="@+id/LoginSector"
                     android:layout_width="100dp"
                     android:layout_height="48dp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -94,7 +94,7 @@
                     android:fontFamily="@font/vtrocore"
                     android:text="username"
                     android:textSize="15sp"
-                    app:layout_constraintBottom_toTopOf="@+id/frameLayout"
+                    app:layout_constraintBottom_toTopOf="@+id/LoginSector"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.4"
                     app:layout_constraintStart_toStartOf="parent"
@@ -107,7 +107,7 @@
                     android:layout_height="50dp"
                     android:src="@drawable/icon_female"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/frameLayout"
+                    app:layout_constraintStart_toEndOf="@+id/LoginSector"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintHorizontal_bias="0.2"

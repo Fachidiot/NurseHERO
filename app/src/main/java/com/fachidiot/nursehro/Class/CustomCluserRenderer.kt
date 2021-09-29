@@ -12,6 +12,7 @@ import android.widget.TextView
 import com.fachidiot.nursehro.R
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.maps.android.clustering.Cluster
 import com.google.maps.android.clustering.ClusterManager
@@ -22,15 +23,15 @@ class CustomCluserRenderer(context: Context, map: GoogleMap?, clusterManager: Cl
                            marker_view: View) : DefaultClusterRenderer<LatLngUser>(context, map, clusterManager) {
     private val context = context
     private var marker_view = marker_view
-    private lateinit var tag_marker: TextView
 
     override fun onBeforeClusterItemRendered(item: LatLngUser, markerOptions: MarkerOptions) { // 5
-        tag_marker = marker_view.findViewById(R.id.tv_marker_body) as TextView
-        //tag_marker.text = MediaStore_Dao.getNameById(context!!, item.id)
-        //marker_body.text = user.location
-        //marker_num.text = profileList.count().toString()
         val markerOptions = MarkerOptions()
-        markerOptions.icon( BitmapDescriptorFactory.fromBitmap(createDrawableFromView(context, marker_view)) )
+        val marker_body = marker_view.findViewById(R.id.tv_marker_body) as TextView
+        val marker_num = marker_view.findViewById(R.id.tv_marker_num) as TextView
+        markerOptions.position(LatLng(item.latLng.latitude, item.latLng.longitude))
+        marker_body.text = item.location
+        marker_num.text = "1"
+        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(context, marker_view)))
     }
 
     override fun onClustersChanged(clusters: MutableSet<out Cluster<LatLngUser>>?) {

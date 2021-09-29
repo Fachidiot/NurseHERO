@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -175,9 +176,9 @@ class RegisterActivity : AppCompatActivity() {
 
                             var location : String = ""
                             if(intent.hasExtra("dong")){
-                                location = "${intent.getStringExtra(" region ")}/${intent.getStringExtra("sigungu")}/${intent.getStringExtra("dong")}"
+                                location = "${intent.getStringExtra(" region ")}/${intent.getStringExtra("sigungu")}/${intent.getStringExtra("dong")}/${intent.getStringExtra("detail")}"
                             } else{
-                                location = "${intent.getStringExtra(" region ")}/${intent.getStringExtra(" sigungu ")}"
+                                location = "${intent.getStringExtra(" region ")}/${intent.getStringExtra(" sigungu ")}/${intent.getStringExtra("detail")}"
                             }
                             val geocoder = Geocoder(baseContext)
                             val addresses: List<Address> = geocoder.getFromLocationName(location, 3)
@@ -189,9 +190,9 @@ class RegisterActivity : AppCompatActivity() {
                                 TextInputEditText_Nickname.text.toString(),
                                 TextInputEditText_FirstName.text.toString(),
                                 TextInputEditText_LastName.text.toString(),
-                                file.lastPathSegment,
+                                file.lastPathSegment!!,
                                 location,
-                                latLng,
+                                GeoPoint(latLng.latitude, latLng.longitude),
                                 intent.getBooleanExtra("sex", false),
                                 intent.getIntExtra("age", -99),
                                 uid
@@ -225,7 +226,7 @@ class RegisterActivity : AppCompatActivity() {
                             TextInputEditText_LastName.text.toString(),
                             "null",
                             location,
-                            latLng,
+                            GeoPoint(latLng.latitude, latLng.longitude),
                             intent.getBooleanExtra("sex", false),
                             intent.getIntExtra("age", -99),
                             uid

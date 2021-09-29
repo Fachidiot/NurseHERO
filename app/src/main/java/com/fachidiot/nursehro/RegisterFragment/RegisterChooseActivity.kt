@@ -1,7 +1,12 @@
 package com.fachidiot.nursehro.RegisterFragment
 
 import android.content.Intent
+import android.location.Address
+import android.location.Geocoder
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -14,6 +19,7 @@ import com.fachidiot.nursehro.ViewHolder.ScreenUtils
 import com.fachidiot.nursehro.ViewHolder.SliderAdapter
 import com.fachidiot.nursehro.ViewHolder.SliderLayoutManager
 import kotlinx.android.synthetic.main.activity_register_choose.*
+import kotlinx.android.synthetic.main.activity_register_choose.button_back
 
 
 class RegisterChooseActivity : AppCompatActivity() {
@@ -24,6 +30,9 @@ class RegisterChooseActivity : AppCompatActivity() {
     private var region : String? = ""
     private var sigungu : String? = ""
     private var dong : String? = ""
+    private var detail : String? = ""
+    private var lat : Double? = 0.0
+    private var lng : Double? = 0.0
     private var location : Boolean = false
 
     private lateinit var rvHorizontalPicker: RecyclerView
@@ -38,9 +47,9 @@ class RegisterChooseActivity : AppCompatActivity() {
         setTvSelectedItem()
         setHorizontalPicker()
 
-        City.adapter = ArrayAdapter.createFromResource(this, R.array.spinner_region, R.layout.spinner_textview)
-        Gu.adapter = ArrayAdapter.createFromResource(this, R.array.spinner_region_seoul, R.layout.spinner_textview)
-        Dong.adapter = ArrayAdapter.createFromResource(this, R.array.spinner_region_seoul_gwanak, R.layout.spinner_textview)
+        City.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region, R.layout.spinner_textview)
+        Gu.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_seoul, R.layout.spinner_textview)
+        Dong.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_seoul_gwanak, R.layout.spinner_textview)
         City.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?)
             {
@@ -89,6 +98,7 @@ class RegisterChooseActivity : AppCompatActivity() {
                 }
 
                 region = City.selectedItem.toString()
+                Log.d("Choose", region!!)
             }
         }
         Gu.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -100,8 +110,9 @@ class RegisterChooseActivity : AppCompatActivity() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long)
             {
                 // 서울특별시 선택시
-                if (City.selectedItemPosition >= 1) {
+                if (City.selectedItemPosition == 1 && Gu.selectedItemPosition > 0) {
                     when (position) {
+                        1 -> Dong.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_seoul_gangnam, android.R.layout.simple_spinner_dropdown_item)
                         2 -> Dong.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_seoul_gangdong, android.R.layout.simple_spinner_dropdown_item)
                         3 -> Dong.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_seoul_gangbuk, android.R.layout.simple_spinner_dropdown_item)
                         4 -> Dong.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_seoul_gangseo, android.R.layout.simple_spinner_dropdown_item)
@@ -127,16 +138,18 @@ class RegisterChooseActivity : AppCompatActivity() {
                         24 -> Dong.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_seoul_jung, android.R.layout.simple_spinner_dropdown_item)
                         25 -> Dong.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_seoul_jungnanggu, android.R.layout.simple_spinner_dropdown_item)
                     }
-                    location = true
+                    location = false
                     sigungu = Gu.selectedItem.toString()
-
-                    if (position == 1) {
-                        Dong.adapter = ArrayAdapter.createFromResource(baseContext, R.array.spinner_region_seoul_gangnam, android.R.layout.simple_spinner_dropdown_item)
-                        location = false
-                        sigungu = Gu.selectedItem.toString()
-                        Dong.visibility = View.VISIBLE
-                    }
+                    Log.d("Choose", sigungu!!)
+                    Dong.visibility = View.VISIBLE
                 }
+                else if (City.selectedItemPosition >= 1 && Gu.selectedItemPosition > 0) {
+                    sigungu = Gu.selectedItem.toString()
+                    Log.d("Choose", sigungu!!)
+                    Dong.visibility = View.GONE
+                    location = true
+                }
+
             }
         }
         Dong.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -147,14 +160,26 @@ class RegisterChooseActivity : AppCompatActivity() {
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long)
             {
-                if (City.selectedItemPosition >= 1 && Gu.selectedItemPosition > 0 && Dong.selectedItemPosition > 0) {
-                    dong = Dong.selectedItem.toString()
-                    location = true
+                if (City.selectedItemPosition >= 1 && Gu.selectedItemPosition > 0) {
+                    if (Dong.selectedItemPosition > 0) {
+                        dong = Dong.selectedItem.toString()
+                        Log.d("Choose", dong!!)
+                        location = true
+                    } else {
+                        location = false
+                    }
                 } else {
                     location = false
                 }
             }
         }
+        Detail.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) { }
+            override fun afterTextChanged(s: Editable) {
+                detail = Detail.text.toString()
+            }
+        })
 
         RelativeLayout_Next.setOnClickListener {
             checkChoice()
@@ -187,31 +212,63 @@ class RegisterChooseActivity : AppCompatActivity() {
 
     private fun checkChoice() {
         if (!CheckBox_Normal.isChecked && !CheckBox_Nurse.isChecked) {
-            Toast.makeText(this, "You have to choose position", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "사용하실 유형을 선택해주세요", Toast.LENGTH_SHORT).show()
         }
         else if (!CheckBox_Man.isChecked && !CheckBox_Woman.isChecked) {
-            Toast.makeText(this, "You have to pick sex", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "성별을 선택해주세요", Toast.LENGTH_SHORT).show()
         }
         else if (!location) {
-            Toast.makeText(this, "You have to enter your location", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "주소를 선택해주세요", Toast.LENGTH_SHORT).show()
+        }
+        else if (!checkDetail()) {
+            Toast.makeText(baseContext, "잘못된 주소입니다.\n상세주소를 확인해주세요", Toast.LENGTH_SHORT).show()
         }
         else {
             val intent = Intent(this, RegisterActivity::class.java)
             intent.putExtra("nurse", nurse)
             intent.putExtra("sex", sex)
-            if (dong.isNullOrEmpty()) {
-                intent.putExtra("region", "$region")
-                intent.putExtra("sigungu", "$region/$sigungu")
-            }
-            else {
-                intent.putExtra("region", "$region")
-                intent.putExtra("sigungu", "$region/$sigungu")
-                intent.putExtra("dong", "$region/$sigungu/$dong")
-            }
+            if (!dong.isNullOrEmpty())
+                intent.putExtra("dong", "$dong")
+            intent.putExtra("region", "$region")
+            Log.d("Region", region!!)
+            intent.putExtra("sigungu", "$sigungu")
+            intent.putExtra("detail", "$detail")
+            intent.putExtra("latitude", lat)
+            intent.putExtra("longtitude", lng)
             intent.putExtra("age", age)
 
             startActivity(intent)
         }
+    }
+
+    private fun checkDetail() : Boolean {
+        val geocoder = Geocoder(baseContext)
+
+        if (!region.isNullOrEmpty() && !sigungu.isNullOrEmpty() && !dong.isNullOrEmpty())
+        {
+            val addresses: List<Address> = geocoder.getFromLocationName(region+sigungu+dong+detail, 3)
+            if (addresses[0].postalCode == null)
+                return false
+            else {
+                val address: Address = addresses[0]
+                lat = address.latitude
+                lng = address.longitude
+                return true
+            }
+        }
+        else if (!region.isNullOrEmpty() && !sigungu.isNullOrEmpty() && region != "서울특별시")
+        {
+            val addresses: List<Address> = geocoder.getFromLocationName(region+sigungu+detail, 3)
+            if (addresses[0].postalCode == null)
+                return false
+            else {
+                val address: Address = addresses[0]
+                lat = address.latitude
+                lng = address.longitude
+                return true
+            }
+        }
+        return false
     }
 
     private fun setTvSelectedItem() {

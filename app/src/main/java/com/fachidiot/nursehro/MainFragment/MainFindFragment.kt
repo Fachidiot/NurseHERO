@@ -26,8 +26,10 @@ import com.fachidiot.nursehro.R
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.*
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.firebase.auth.FirebaseAuth
@@ -99,7 +101,7 @@ class MainFindFragment : Fragment(), OnMapReadyCallback, BottomSheetDialog.Botto
         ListButton.setOnClickListener {
             val adapter = MapList_Adapter(profileList)
             bottomSheetDialog = BottomSheetDialog(adapter)
-            fragmentManager?.let { it1 -> bottomSheetDialog.show(it1, "maplistBottomSheet") }
+            bottomSheetDialog.show(requireFragmentManager(), "maplistBottomSheet")
         }
 
         searchButton.setOnClickListener {
@@ -131,14 +133,14 @@ class MainFindFragment : Fragment(), OnMapReadyCallback, BottomSheetDialog.Botto
         setCustomMarkerView()
 
         clusterManager = ClusterManager<LatLngUser>(context, mMap)
-        //clusterRenderer = CustomCluserRenderer(requireContext(), mMap, clusterManager, markerRootView)
-        //clusterManager.renderer = clusterRenderer
+        clusterRenderer = CustomCluserRenderer(requireContext(), mMap, clusterManager, markerRootView)
+        clusterManager.renderer = clusterRenderer
         //clusterManager.setOnClusterItemClickListener()
 
         val mPreviousCameraPosition = arrayOf<CameraPosition?>(null)
         mMap.setOnCameraIdleListener {
             val position = mMap.cameraPosition
-            if (mPreviousCameraPosition[0] == null || mPreviousCameraPosition[0]!!.zoom != position.zoom) {
+            if ((mPreviousCameraPosition[0] == null) || (mPreviousCameraPosition[0]!!.zoom != position.zoom)) {
                 mPreviousCameraPosition[0] = mMap.cameraPosition
                 clusterManager.cluster()
             }
@@ -218,10 +220,7 @@ class MainFindFragment : Fragment(), OnMapReadyCallback, BottomSheetDialog.Botto
                         if (user != null) {
                             profileList.add(UserList(user.userNickname, user.profileImage, user.location, user.sex, user.age))
 
-                            val offsetItem =
-                                user.latLng?.let { it1 ->
-                                    LatLngUser(user.uid, it1, user.location.toString())
-                                }
+                            val offsetItem = LatLngUser(user.uid, LatLng(user.latLng.latitude, user.latLng.longitude), user.location.toString())
                             clusterManager.addItem(offsetItem)
                         }
                     }
@@ -354,6 +353,31 @@ class MainFindFragment : Fragment(), OnMapReadyCallback, BottomSheetDialog.Botto
             }
         } catch (e: SecurityException) {
             Log.e("Exception: %s", e.message, e)
+        }
+    }
+
+
+
+
+    private fun setAddressMarker() {
+        mFirebaseStoreDatabase.collection("users").whereEqualTo("nurse",  true).orderBy("location").get().addOnSuccessListener {
+            for (dc in it.documents) {
+                val user = dc.toObject(CustomUserInfo::class.java)
+                if (user != null) {
+                    val geocoder: Geocoder = Geocoder(requireContext(), Locale.getDefault())
+
+                    val location = geocoder.getFromLocationName(user.location, 3)
+                    val latLng = LatLng(location[0].latitude, location[0].longitude)
+
+                    Log.d("setAddressMarker", user.location.toString())
+                    val markerOptions = MarkerOptions()
+                    markerOptions.position(latLng)
+                    marker_body.text = user.location
+                    marker_num.text = profileList.count().toString()
+                    markerOptions.icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(requireContext(), markerRootView)))
+                    mMap.addMarker(markerOptions)
+                }
+            }
         }
     }
 

@@ -24,6 +24,7 @@ import com.fachidiot.nursehro.Class.UserList
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.main_home_fragment.*
@@ -114,8 +115,8 @@ class MainHomeFragment : Fragment() {
                             val geocoder = Geocoder(context)
                             val addresses: List<Address> = geocoder.getFromLocationName(user.location, 3)
                             val address : Address = addresses[0]
-                            var latLng: LatLng? = null
-                            latLng = LatLng(address.latitude, address.longitude)
+                            var latLng: GeoPoint? = null
+                            latLng = GeoPoint(address.latitude, address.longitude)
 
                             mFirebaseStoreDatabase.collection("users").document(user.uid).update("latLng", latLng)
                         }
