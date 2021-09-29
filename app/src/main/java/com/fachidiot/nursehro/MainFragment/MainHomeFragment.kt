@@ -1,6 +1,8 @@
 package com.fachidiot.nursehro.MainFragment
 
 import android.annotation.SuppressLint
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.location.Address
 import android.location.Geocoder
 import android.os.Bundle
@@ -19,6 +21,7 @@ import com.fachidiot.nursehro.*
 import com.fachidiot.nursehro.Adapter.BannerAdapter
 import com.fachidiot.nursehro.Adapter.VP2ADSAdapter
 import com.fachidiot.nursehro.Class.CustomUserInfo
+import com.fachidiot.nursehro.Class.ProgressDialog
 import com.fachidiot.nursehro.Class.RecyclerViewDecoration
 import com.fachidiot.nursehro.Class.UserList
 import com.google.android.gms.maps.model.LatLng
@@ -37,6 +40,7 @@ class MainHomeFragment : Fragment() {
         private const val intervalTime = 4500.toLong() // 몇초 간격으로 페이지를 넘길것인지 (1500 = 1.5초)
     }
 
+    private var customProgressDialog: ProgressDialog? = null
     private var currentPosition = Int.MAX_VALUE / 2
     private var myHandler = MyHandler()
 
@@ -56,17 +60,15 @@ class MainHomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //로딩창 객체 생성
+        customProgressDialog = ProgressDialog(context)
+        //로딩창을 투명하게
+        customProgressDialog!!.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        customProgressDialog!!.setCancelable(false)
+        customProgressDialog!!.show()
+
         onGetRate()
         onGetRecommend()
-
-        mFirebaseStoreDatabase.collection("users").get()
-            .addOnCompleteListener{
-                if(it.isSuccessful) {
-                    for (dc in it.result!!.documents) {
-                        val user = dc.toObject(CustomUserInfo::class.java)
-                    }
-                }
-            }
 
         /* 여백, 너비에 대한 정의 */
         val pageMarginPx = resources.getDimensionPixelOffset(R.dimen.pageMargin) // dimen 파일 안에 크기를 정의해두었다.
@@ -195,6 +197,7 @@ class MainHomeFragment : Fragment() {
                     UserRecommendRecyclerGrid.adapter = HomeUser_Adapter(userListB) //어뎁터에 리스트 자료를 넣는다.
 
                     context?.setTheme(R.style.Theme_NurseHRO)
+                    customProgressDialog!!.dismiss()
                 }
             }
             .addOnFailureListener {

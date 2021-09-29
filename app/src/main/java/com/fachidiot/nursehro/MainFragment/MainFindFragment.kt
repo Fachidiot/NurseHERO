@@ -6,6 +6,8 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
@@ -40,11 +42,13 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.maps.android.clustering.ClusterManager
 import com.google.maps.android.clustering.view.ClusterRenderer
 import kotlinx.android.synthetic.main.main_find_fragment.*
+import kotlinx.android.synthetic.main.modal_bottom_sheet_layout.*
 import java.util.*
 
 class MainFindFragment : Fragment(), OnMapReadyCallback, BottomSheetDialog.BottomSheetListClickListener {
 
     private var profileList : ArrayList<UserList> = ArrayList()
+    private var customProgressDialog: ProgressDialog? = null
 
     private lateinit var mFirebaseAuth : FirebaseAuth
     private lateinit var mFirebaseStorage: FirebaseStorage
@@ -95,6 +99,13 @@ class MainFindFragment : Fragment(), OnMapReadyCallback, BottomSheetDialog.Botto
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        //로딩창 객체 생성
+        customProgressDialog = ProgressDialog(context)
+        //로딩창을 투명하게
+        customProgressDialog!!.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        customProgressDialog!!.setCancelable(false)
+        customProgressDialog!!.show()
+
         //setAddressMarker()
         setUserList()
 
@@ -128,6 +139,7 @@ class MainFindFragment : Fragment(), OnMapReadyCallback, BottomSheetDialog.Botto
             val seoul = LatLng(37.557667, 126.926546)
             mMap.moveCamera(CameraUpdateFactory.newLatLng(seoul))
             mMap.animateCamera(CameraUpdateFactory.zoomTo(13f))
+            customProgressDialog!!.dismiss()
         }
 
         setCustomMarkerView()
@@ -135,7 +147,7 @@ class MainFindFragment : Fragment(), OnMapReadyCallback, BottomSheetDialog.Botto
         clusterManager = ClusterManager<LatLngUser>(context, mMap)
         clusterRenderer = CustomCluserRenderer(requireContext(), mMap, clusterManager, markerRootView)
         clusterManager.renderer = clusterRenderer
-        //clusterManager.setOnClusterItemClickListener()
+        clusterManager.setOnClusterItemClickListener { false }
 
         val mPreviousCameraPosition = arrayOf<CameraPosition?>(null)
         mMap.setOnCameraIdleListener {

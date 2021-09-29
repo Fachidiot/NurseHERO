@@ -2,6 +2,8 @@ package com.fachidiot.nursehro.MainFragment
 
 import android.Manifest
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
@@ -20,6 +22,7 @@ import com.facebook.login.LoginManager
 import com.fachidiot.nursehro.LoginActivity
 import com.fachidiot.nursehro.Class.MySharedPreferences
 import com.fachidiot.nursehro.Class.CustomUserInfo
+import com.fachidiot.nursehro.Class.ProgressDialog
 import com.fachidiot.nursehro.R
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
@@ -37,6 +40,7 @@ class MainAccountFragment : Fragment() {
         Manifest.permission.READ_EXTERNAL_STORAGE,
         Manifest.permission.WRITE_EXTERNAL_STORAGE
     )
+    private var customProgressDialog: ProgressDialog? = null
 
     private var imageUri: Uri? = null
     private var pathUri: String? = null
@@ -49,6 +53,14 @@ class MainAccountFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //로딩창 객체 생성
+        customProgressDialog = ProgressDialog(context)
+        //로딩창을 투명하게
+        customProgressDialog!!.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        customProgressDialog!!.setCancelable(false)
+        customProgressDialog!!.show()
+
         mFirebaseStoreDatabase = Firebase.firestore
         mFirebaseStorage = FirebaseStorage.getInstance()
         mFirebaseAuth = FirebaseAuth.getInstance()
@@ -251,6 +263,7 @@ class MainAccountFragment : Fragment() {
 
         }
 
+        customProgressDialog!!.dismiss()
     }
 
     private fun onPermissionCheck() {
