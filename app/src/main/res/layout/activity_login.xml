@@ -1,61 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="1"
-    android:paddingHorizontal="16dp"
-    >
+    android:weightSum="1">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_vertical_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_vertical_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95"/>
 
     <TextView
         android:id="@+id/Login"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.1"
-        android:fontFamily="@font/vtrocore"
         android:gravity="center"
+        android:fontFamily="@font/vtrocore"
         android:text="@string/TextView_Login"
-        android:textColor="@android:color/holo_blue_dark"
-        android:textSize="20dp"
+        android:textColor="@color/darkblue"
+        android:textSize="20sp"
         android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guideline_vertical_end"
+        app:layout_constraintStart_toStartOf="@id/guideline_vertical_start"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/Nurse_icon"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="100dp"
-        android:layout_weight="0.15"
-        android:background="@null"
         android:src="@drawable/icon_nurse"
         android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideline_vertical_start"
+        app:layout_constraintEnd_toEndOf="@id/guideline_vertical_end"
         app:layout_constraintTop_toBottomOf="@id/Login"
         app:tint="@color/purple_500" />
 
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/Email_textinput"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="70dp"
         android:layout_gravity="center"
         android:background="@drawable/txtinput_btn_white"
         app:endIconMode="clear_text"
         android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideline_vertical_start"
+        app:layout_constraintEnd_toEndOf="@id/guideline_vertical_end"
         app:layout_constraintTop_toBottomOf="@id/Nurse_icon">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/TextInputEditText_LoginEmail"
-            android:layout_width="370dp"
+            android:layout_width="360dp"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:layout_marginVertical="10dp"
-            android:layout_weight="0.1"
             android:fontFamily="@font/vtrocore"
             android:hint="@string/TextInputLayout_Email"
             android:inputType="textEmailAddress" />
@@ -63,22 +73,22 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/Password_textinput"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="70dp"
         android:layout_gravity="center"
         android:background="@drawable/txtinput_btn_white"
         app:endIconMode="password_toggle"
         android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideline_vertical_start"
+        app:layout_constraintEnd_toEndOf="@id/guideline_vertical_end"
         app:layout_constraintTop_toBottomOf="@id/Email_textinput">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/TextInputEditText_LoginPassword"
-            android:layout_width="370dp"
+            android:layout_width="360dp"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
-            android:layout_weight="0.1"
+            android:layout_gravity="center"
             android:fontFamily="@font/vtrocore"
             android:hint="@string/TextInputLayout_Password"
             android:inputType="textPassword" />
@@ -87,15 +97,15 @@
 
     <CheckBox
         android:id="@+id/CheckBox_AutoLogin"
-        android:layout_width="370dp"
+        android:layout_width="0dp"
         android:layout_height="48dp"
         android:fontFamily="@font/vtrocore"
         android:text="@string/Auto_Login"
         android:textColor="@color/gray"
         android:textSize="18sp"
         android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideline_vertical_start"
+        app:layout_constraintEnd_toEndOf="@id/guideline_vertical_end"
         app:layout_constraintTop_toBottomOf="@+id/Password_textinput"
         tools:ignore="TouchTargetSizeCheck" />
 
@@ -116,7 +126,7 @@
         <ImageView
             android:layout_width="30dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="50dp"
+            android:layout_marginStart="50dp"
             android:background="@null"
             android:gravity="center"
             android:src="@drawable/icon_profile" />
@@ -133,7 +143,7 @@
 
     <TextView
         android:id="@+id/textView_or"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
         android:layout_weight="0.1"
@@ -141,8 +151,8 @@
         android:gravity="center"
         android:text="@string/TextView_OR"
         android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideline_vertical_start"
+        app:layout_constraintEnd_toEndOf="@id/guideline_vertical_end"
         app:layout_constraintTop_toBottomOf="@id/login_nbtn" />
 
     <RelativeLayout
@@ -178,41 +188,31 @@
     </RelativeLayout>
 
 
-    <LinearLayout
-        android:id="@+id/linearLayout4"
-        android:layout_width="380dp"
+    <TextView
+        android:id="@+id/Button_FindPW"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0.4"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:weightSum="10"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/RelativeLayout_LoginwithFacebook">
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/vtrocore"
+        android:text="@string/Button_FindPassword"
+        android:textSize="24sp"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="@id/guideline_vertical_start"
+        app:layout_constraintEnd_toStartOf="@id/Button_Register"
+        app:layout_constraintTop_toBottomOf="@+id/RelativeLayout_LoginwithFacebook"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="5"
-            android:fontFamily="@font/vtrocore"
-            android:gravity="center"
-            android:text="@string/Button_FindPassword"
-            android:textSize="24dp" />
-
-        <TextView
-            android:id="@+id/Button_Register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="5"
-            android:clickable="true"
-            android:fontFamily="@font/vtrocore"
-            android:gravity="center"
-            android:text="@string/Button_Register"
-            android:textColor="@android:color/holo_blue_dark"
-            android:textSize="24dp"
-            tools:ignore="TouchTargetSizeCheck" />
-
-    </LinearLayout>
+    <TextView
+        android:id="@+id/Button_Register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:fontFamily="@font/vtrocore"
+        android:text="@string/Button_Register"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@id/Button_FindPW"
+        app:layout_constraintEnd_toEndOf="@id/guideline_vertical_end"
+        app:layout_constraintTop_toTopOf="@+id/Button_FindPW"
+        android:focusable="true"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

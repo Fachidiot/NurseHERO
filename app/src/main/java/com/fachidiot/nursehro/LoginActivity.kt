@@ -16,10 +16,10 @@ import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.fachidiot.nursehro.Class.MySharedPreferences
 import com.fachidiot.nursehro.RegisterFragment.RegisterChooseActivity
+import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_register.*
 import java.util.*
 
 
@@ -28,7 +28,6 @@ class LoginActivity : AppCompatActivity() {
     Manifest.permission.ACCESS_FINE_LOCATION,
     Manifest.permission.ACCESS_COARSE_LOCATION
 )
-
     lateinit var mFirebaseAuth : FirebaseAuth
     lateinit var mCallbackManager: CallbackManager
     private var backKeyPressedTime: Long = 0
